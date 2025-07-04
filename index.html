@@ -1,0 +1,2697 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarot del Día - Tu Carta Diaria</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=MedievalSharp&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6a1b9a;
+            --secondary-color: #9c27b0;
+            --accent-color: #e1bee7;
+            --text-color: #333;
+            --light-text: #f5f5f5;
+            --background: #f9f9f9;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            --dark-primary: #4a148c;
+            --dark-secondary: #7b1fa2;
+            --dark-bg: #121212;
+            --dark-card: #1e1e1e;
+            --dark-text: #e0e0e0;
+            --gold: #d4af37;
+            --purple: #4b0082;
+            --deep-purple: #2e0854;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Merriweather', serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+            background-image: url('https://www.transparenttextures.com/patterns/black-thread-light.png');
+        }
+
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+            background-image: url('https://www.transparenttextures.com/patterns/black-thread.png');
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--deep-purple), var(--primary-color));
+            color: var(--light-text);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            position: relative;
+            border-bottom: 3px solid var(--gold);
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--gold), var(--accent-color), var(--gold));
+        }
+
+        .dark-mode header {
+            background: linear-gradient(135deg, var(--dark-primary), var(--dark-secondary));
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cinzel Decorative', cursive;
+            letter-spacing: 1px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            color: var(--gold);
+        }
+
+        header p {
+            font-style: italic;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: var(--deep-purple);
+            padding: 0.8rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid var(--gold);
+        }
+
+        .dark-mode nav {
+            background-color: var(--dark-primary);
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            color: var(--light-text);
+            padding: 0.7rem 1.2rem;
+            margin: 0 0.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+            position: relative;
+            font-family: 'MedievalSharp', cursive;
+            letter-spacing: 1px;
+        }
+
+        nav button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            text-shadow: 0 0 5px var(--accent-color);
+        }
+
+        nav button.active {
+            background-color: rgba(255, 255, 255, 0.3);
+            font-weight: bold;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--card-bg);
+            min-width: 180px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 4px;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: fadeIn 0.3s ease-out;
+            border: 1px solid var(--gold);
+        }
+
+        .dark-mode .dropdown-content {
+            background-color: var(--dark-card);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content button {
+            color: var(--text-color);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            text-align: left;
+            border: none;
+            background: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Merriweather', serif;
+        }
+
+        .dark-mode .dropdown-content button {
+            color: var(--dark-text);
+        }
+
+        .dropdown-content button:hover {
+            background-color: var(--accent-color);
+            padding-left: 20px;
+        }
+
+        .dark-mode .dropdown-content button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Sección unificada de Lecturas */
+        .readings-section {
+            background: linear-gradient(135deg, rgba(106, 27, 154, 0.1), rgba(225, 190, 231, 0.1));
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            margin-bottom: 2rem;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .readings-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://www.transparenttextures.com/patterns/cardboard.png');
+            opacity: 0.05;
+            pointer-events: none;
+        }
+
+        .dark-mode .readings-section {
+            background: linear-gradient(135deg, rgba(74, 20, 140, 0.2), rgba(123, 31, 162, 0.2));
+            border-color: rgba(212, 175, 55, 0.2);
+        }
+
+        .reading-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .reading-tab {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(to bottom, var(--card-bg), #f0f0f0);
+            border: 1px solid var(--primary-color);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            color: var(--primary-color);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            font-family: 'MedievalSharp', cursive;
+        }
+
+        .reading-tab::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to bottom, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+
+        .reading-tab:hover::before {
+            opacity: 1;
+            animation: shine 1.5s infinite;
+        }
+
+        .reading-tab.active {
+            background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(106, 27, 154, 0.4);
+            border-color: var(--gold);
+        }
+
+        .dark-mode .reading-tab {
+            background: linear-gradient(to bottom, var(--dark-card), #2a2a2a);
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .dark-mode .reading-tab.active {
+            background: linear-gradient(to bottom, var(--dark-primary), var(--dark-secondary));
+        }
+
+        .reading-content {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .reading-content.active {
+            display: block;
+        }
+
+        .deck-selector {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .deck-option {
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            width: 160px;
+            background-color: var(--card-bg);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .deck-option::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--accent-color), var(--gold));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .deck-option:hover::after {
+            opacity: 1;
+        }
+
+        .dark-mode .deck-option {
+            background-color: var(--dark-card);
+            border-color: var(--secondary-color);
+        }
+
+        .deck-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .deck-option.selected {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            transform: scale(1.05);
+            border-color: var(--gold);
+        }
+
+        .dark-mode .deck-option.selected {
+            background-color: var(--dark-secondary);
+        }
+
+        .deck-option img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 0.8rem;
+            object-fit: contain;
+            max-height: 220px;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .deck-option:hover img {
+            transform: scale(1.05);
+        }
+
+        .deck-option p {
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .card-display {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 2rem 0;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .card-image-container {
+            position: relative;
+            width: 100%;
+            max-width: 280px;
+            height: auto;
+            aspect-ratio: 2/3;
+            margin-bottom: 1.5rem;
+            perspective: 1000px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .card-image-container:hover {
+            box-shadow: 0 15px 30px rgba(106, 27, 154, 0.3);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: transform 0.7s;
+            transform-style: preserve-3d;
+            border: 3px solid var(--card-bg);
+        }
+
+        .card-image.inverted {
+            transform: rotateY(180deg);
+        }
+
+        .multi-card-spread {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .spread-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 220px;
+            transition: all 0.3s ease;
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 1px solid rgba(106, 27, 154, 0.1);
+        }
+
+        .dark-mode .spread-card {
+            background: var(--dark-card);
+            border-color: rgba(225, 190, 231, 0.1);
+        }
+
+        .spread-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(106, 27, 154, 0.2);
+        }
+
+        .spread-card-image-container {
+            position: relative;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 2/3;
+            perspective: 1000px;
+            margin-bottom: 1rem;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .spread-card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: transform 0.7s;
+            transform-style: preserve-3d;
+            border: 2px solid var(--card-bg);
+        }
+
+        .spread-card-image.inverted {
+            transform: rotateY(180deg);
+        }
+
+        .spread-card-position {
+            font-weight: bold;
+            margin-bottom: 0.8rem;
+            color: var(--primary-color);
+            font-family: 'MedievalSharp', cursive;
+            font-size: 1.1rem;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+        }
+
+        .spread-card-position::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .dark-mode .spread-card-position {
+            color: var(--accent-color);
+        }
+
+        .spread-card-name {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .spread-card-orientation {
+            font-style: italic;
+            margin-bottom: 0.8rem;
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+        }
+
+        .dark-mode .spread-card-orientation {
+            color: var(--accent-color);
+        }
+
+        .spread-card-meaning {
+            font-size: 0.95rem;
+            text-align: center;
+            margin-top: 0.8rem;
+            line-height: 1.5;
+        }
+
+        .card-info {
+            margin-top: 1.5rem;
+            text-align: center;
+            width: 100%;
+            max-width: 700px;
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 1px solid rgba(106, 27, 154, 0.1);
+        }
+
+        .dark-mode .card-info {
+            background: var(--dark-card);
+            border-color: rgba(225, 190, 231, 0.1);
+        }
+
+        .card-name {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.8rem;
+            font-family: 'Cinzel Decorative', cursive;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .dark-mode .card-name {
+            color: var(--accent-color);
+        }
+
+        .card-orientation {
+            font-style: italic;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+        }
+
+        .dark-mode .card-orientation {
+            color: var(--accent-color);
+        }
+
+        .card-meaning {
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background-color: var(--accent-color);
+            border-radius: 10px;
+            text-align: left;
+            transition: all 0.3s ease;
+            border-left: 5px solid var(--primary-color);
+            position: relative;
+        }
+
+        .card-meaning::before {
+            content: """;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 3rem;
+            color: rgba(106, 27, 154, 0.1);
+            font-family: serif;
+            line-height: 1;
+        }
+
+        .card-meaning:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(106, 27, 154, 0.2);
+        }
+
+        .dark-mode .card-meaning {
+            background-color: var(--dark-primary);
+            border-left-color: var(--accent-color);
+        }
+
+        .card-history {
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background-color: rgba(0,0,0,0.05);
+            border-radius: 10px;
+            text-align: left;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            border-left: 5px solid var(--gold);
+        }
+
+        .card-history:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .dark-mode .card-history {
+            background-color: rgba(255,255,255,0.05);
+            border-left-color: var(--gold);
+        }
+
+        .card-symbolism {
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background-color: rgba(0,0,0,0.05);
+            border-radius: 10px;
+            text-align: left;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            border-left: 5px solid var(--secondary-color);
+        }
+
+        .card-symbolism:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .dark-mode .card-symbolism {
+            background-color: rgba(255,255,255,0.05);
+            border-left-color: var(--secondary-color);
+        }
+
+        .energy-message {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin: 2rem 0;
+            color: var(--secondary-color);
+            padding: 1.5rem;
+            border-left: 5px solid var(--secondary-color);
+            background-color: rgba(0,0,0,0.03);
+            text-align: center;
+            transition: all 0.3s ease;
+            border-radius: 10px;
+            font-family: 'MedievalSharp', cursive;
+            position: relative;
+        }
+
+        .energy-message::before, .energy-message::after {
+            content: "✧";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+
+        .energy-message::before {
+            left: 10px;
+        }
+
+        .energy-message::after {
+            right: 10px;
+        }
+
+        .energy-message:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(106, 27, 154, 0.2);
+        }
+
+        .dark-mode .energy-message {
+            color: var(--accent-color);
+            border-left-color: var(--accent-color);
+            background-color: rgba(255,255,255,0.03);
+        }
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            font-size: 1rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            font-family: 'MedievalSharp', cursive;
+            letter-spacing: 1px;
+        }
+
+        button::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.2), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+        }
+
+        button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+
+        button:hover::after {
+            animation: shine 1.5s;
+        }
+
+        .dark-mode button {
+            background-color: var(--dark-primary);
+        }
+
+        .dark-mode button:hover {
+            background-color: var(--dark-secondary);
+        }
+
+        .spread-options {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .spread-options button {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 0.6rem 1.2rem;
+        }
+
+        .dark-mode .spread-options button {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .spread-options button:hover {
+            background-color: var(--accent-color);
+            color: var(--light-text);
+        }
+
+        .dark-mode .spread-options button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .spread-options button.active {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(106, 27, 154, 0.3);
+        }
+
+        .dark-mode .spread-options button.active {
+            background-color: var(--dark-secondary);
+        }
+
+        .question-input {
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .question-input label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            font-family: 'MedievalSharp', cursive;
+        }
+
+        .dark-mode .question-input label {
+            color: var(--accent-color);
+        }
+
+        textarea {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 2px solid var(--primary-color);
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 100px;
+            transition: all 0.3s ease;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+        }
+
+        .dark-mode textarea {
+            border-color: var(--accent-color);
+            background-color: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(106, 27, 154, 0.2);
+        }
+
+        .dark-mode textarea:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(225, 190, 231, 0.2);
+        }
+
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .share-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .share-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+
+        .whatsapp {
+            background-color: #25D366;
+        }
+
+        .facebook {
+            background-color: #3b5998;
+        }
+
+        .instagram {
+            background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45, #FFDC80);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow: auto;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            margin: 5% auto;
+            padding: 2.5rem;
+            border-radius: 15px;
+            max-width: 800px;
+            position: relative;
+            animation: slideIn 0.3s ease-out;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 1px solid var(--gold);
+        }
+
+        .dark-mode .modal-content {
+            background-color: var(--dark-card);
+        }
+
+        .close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text-color);
+            transition: all 0.2s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .close-button:hover {
+            transform: scale(1.2);
+            color: var(--primary-color);
+            background-color: rgba(0,0,0,0.05);
+        }
+
+        .dark-mode .close-button {
+            color: var(--dark-text);
+        }
+
+        .dark-mode .close-button:hover {
+            color: var(--accent-color);
+            background-color: rgba(255,255,255,0.05);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1rem;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(106, 27, 154, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(106, 27, 154, 0.2);
+        }
+
+        .gallery-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--accent-color), var(--gold));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-card:hover::before {
+            opacity: 1;
+        }
+
+        .dark-mode .gallery-card {
+            background-color: var(--dark-card);
+            border-color: rgba(225, 190, 231, 0.1);
+        }
+
+        .gallery-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            aspect-ratio: 2/3;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            border: 2px solid var(--card-bg);
+        }
+
+        .gallery-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-card p {
+            text-align: center;
+            margin-top: 1rem;
+            font-weight: bold;
+            font-size: 1rem;
+            color: var(--primary-color);
+        }
+
+        .dark-mode .gallery-card p {
+            color: var(--accent-color);
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .active {
+            display: block;
+        }
+
+        .info-section {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://www.transparenttextures.com/patterns/cardboard.png');
+            opacity: 0.05;
+            pointer-events: none;
+        }
+
+        .info-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+        }
+
+        .dark-mode .info-section {
+            background-color: var(--dark-card);
+            border-color: rgba(212, 175, 55, 0.2);
+        }
+
+        .info-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-family: 'Cinzel Decorative', cursive;
+            text-align: center;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .info-section h2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--accent-color), var(--gold));
+            border-radius: 3px;
+        }
+
+        .dark-mode .info-section h2 {
+            color: var(--accent-color);
+        }
+
+        .info-section p {
+            margin-bottom: 1.2rem;
+            line-height: 1.7;
+        }
+
+        .info-section ul {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .info-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .donation-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .donation-option {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background-color: var(--accent-color);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .donation-option:hover {
+            transform: translateX(8px);
+            box-shadow: 0 5px 15px rgba(106, 27, 154, 0.2);
+        }
+
+        .dark-mode .donation-option {
+            background-color: var(--dark-primary);
+            border-left-color: var(--accent-color);
+        }
+
+        .donation-option img {
+            width: 60px;
+            height: auto;
+            transition: transform 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .donation-option:hover img {
+            transform: scale(1.1);
+        }
+
+        .donation-option div {
+            flex: 1;
+        }
+
+        .donation-option h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-family: 'Cinzel Decorative', cursive;
+        }
+
+        .dark-mode .donation-option h3 {
+            color: var(--accent-color);
+        }
+
+        .donation-option p {
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .donation-option a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+
+        .donation-option a:hover {
+            text-decoration: underline;
+            color: var(--secondary-color);
+        }
+
+        .dark-mode .donation-option a {
+            color: var(--accent-color);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            transition: all 0.3s ease;
+            border: 2px solid var(--gold);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(30deg);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .dark-mode .theme-toggle {
+            background-color: var(--dark-secondary);
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            text-align: center;
+            padding: 2rem 1.5rem;
+            margin-top: 3rem;
+            transition: all 0.3s ease;
+            border-top: 3px solid var(--gold);
+            position: relative;
+        }
+
+        footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--gold), var(--accent-color), var(--gold));
+        }
+
+        footer:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
+        }
+
+        .dark-mode footer {
+            background-color: var(--dark-primary);
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+
+        footer p:first-child {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes cardDrop {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px) rotate(-5deg);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) rotate(0);
+            }
+        }
+
+        @keyframes shine {
+            0% {
+                left: -100%;
+                top: -100%;
+            }
+            100% {
+                left: 100%;
+                top: 100%;
+            }
+        }
+
+        .card-drop {
+            animation: cardDrop 0.7s ease-out;
+        }
+
+        /* Efecto de hover para texto */
+        .hover-underline {
+            position: relative;
+            display: inline-block;
+        }
+
+        .hover-underline::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .hover-underline:hover::after {
+            width: 100%;
+        }
+
+        .dark-mode .hover-underline::after {
+            background-color: var(--accent-color);
+        }
+
+        /* Efecto de brillo sutil */
+        .glow-on-hover {
+            transition: box-shadow 0.3s ease;
+        }
+
+        .glow-on-hover:hover {
+            box-shadow: 0 0 20px rgba(106, 27, 154, 0.4);
+        }
+
+        .dark-mode .glow-on-hover:hover {
+            box-shadow: 0 0 20px rgba(225, 190, 231, 0.4);
+        }
+
+        /* Tarjeta de lectura especial */
+        .reading-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(225, 190, 231, 0.3));
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reading-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://www.transparenttextures.com/patterns/cardboard.png');
+            opacity: 0.05;
+            pointer-events: none;
+        }
+
+        .dark-mode .reading-card {
+            background: linear-gradient(135deg, rgba(30,30,30,0.9), rgba(123, 31, 162, 0.3));
+            border-color: rgba(212, 175, 55, 0.2);
+        }
+
+        .reading-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(106, 27, 154, 0.2);
+        }
+
+        .reading-title {
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            font-size: 2rem;
+            position: relative;
+            display: inline-block;
+            font-family: 'Cinzel Decorative', cursive;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .reading-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--accent-color), var(--gold));
+            border-radius: 3px;
+        }
+
+        .dark-mode .reading-title {
+            color: var(--accent-color);
+        }
+
+        .reading-description {
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            color: var(--text-color);
+            line-height: 1.7;
+            text-align: center;
+        }
+
+        .dark-mode .reading-description {
+            color: var(--dark-text);
+        }
+
+        /* Resultados de tiradas */
+        .reading-result {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(225, 190, 231, 0.2), rgba(255,255,255,0.8));
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 1px solid rgba(106, 27, 154, 0.2);
+        }
+
+        .dark-mode .reading-result {
+            background: linear-gradient(135deg, rgba(123, 31, 162, 0.2), rgba(30,30,30,0.8));
+            border-color: rgba(225, 190, 231, 0.2);
+        }
+
+        .reading-result h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-family: 'Cinzel Decorative', cursive;
+        }
+
+        .dark-mode .reading-result h3 {
+            color: var(--accent-color);
+        }
+
+        .reading-summary {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-style: italic;
+        }
+
+        /* Efecto de carta volteándose */
+        @keyframes flipCard {
+            0% {
+                transform: rotateY(0);
+            }
+            50% {
+                transform: rotateY(90deg);
+            }
+            100% {
+                transform: rotateY(180deg);
+            }
+        }
+
+        .flip-card {
+            animation: flipCard 0.7s ease-out forwards;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-wrap: wrap;
+                padding: 0.5rem;
+            }
+
+            nav button {
+                margin: 0.25rem;
+                padding: 0.6rem;
+                font-size: 0.9rem;
+            }
+
+            .dropdown-content {
+                left: 0;
+                transform: none;
+                width: 100%;
+            }
+
+            .deck-selector {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .deck-option {
+                width: 100%;
+                max-width: 220px;
+            }
+
+            .reading-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .reading-tab {
+                width: 100%;
+                max-width: 250px;
+                text-align: center;
+            }
+
+            .card-image-container {
+                width: 220px;
+                height: 330px;
+            }
+
+            .multi-card-spread {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .spread-card {
+                width: 100%;
+                max-width: 280px;
+            }
+
+            .spread-card-image-container {
+                height: 380px;
+            }
+
+            .actions, .share-buttons, .spread-options {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            }
+            
+            .reading-title {
+                font-size: 1.8rem;
+            }
+            
+            .reading-description {
+                font-size: 1rem;
+            }
+
+            .modal-content {
+                width: 90%;
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            .reading-title {
+                font-size: 1.5rem;
+            }
+
+            .card-name {
+                font-size: 1.5rem;
+            }
+
+            .energy-message {
+                font-size: 1.1rem;
+                padding: 1rem;
+            }
+
+            .theme-toggle {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Tarot del Día</h1>
+        <p>Descubre lo que las cartas tienen para decirte hoy</p>
+    </header>
+
+    <nav>
+        <button onclick="showSection('readings')" class="active">Lecturas</button>
+        <button onclick="showSection('gallery')">Galería</button>
+        <button onclick="showSection('about')">Quién Soy</button>
+        <button onclick="showSection('contact')">Contacto</button>
+        <button onclick="showSection('donate')">Donar</button>
+    </nav>
+
+    <div class="container">
+        <!-- Sección unificada de Lecturas -->
+        <section id="readings" class="section active">
+            <div class="readings-section glow-on-hover">
+                <div class="reading-tabs">
+                    <div class="reading-tab active" onclick="showReading('daily')">Carta del Día</div>
+                    <div class="reading-tab" onclick="showReading('three-cards')">Tirada de 3 Cartas</div>
+                    <div class="reading-tab" onclick="showReading('yes-no')">Tirada de Sí o No</div>
+                    <div class="reading-tab" onclick="showReading('advice')">Tirada de Consejo</div>
+                    <div class="reading-tab" onclick="showReading('love')">Tirada de Amor</div>
+                </div>
+
+                <!-- Contenido de las lecturas -->
+                <div class="reading-content active" id="daily-reading">
+                    <div class="reading-card">
+                        <h2 class="reading-title hover-underline">Carta del Día</h2>
+                        <p class="reading-description">Descubre el mensaje que las cartas tienen para ti hoy. Esta carta refleja la energía que te rodea en este momento y puede ofrecerte guía para tu día.</p>
+
+                        <div class="deck-selector">
+                            <div class="deck-option selected" onclick="selectDeck('RiderWaite')">
+                                <img src="cards/RiderWaite/0.jpg" alt="Rider Waite">
+                                <p>Rider Waite</p>
+                            </div>
+                            <div class="deck-option" onclick="selectDeck('MysticMondays')">
+                                <img src="cards/MysticMondays/0.jpg" alt="Mystic Mondays">
+                                <p>Mystic Mondays</p>
+                            </div>
+                            <div class="deck-option" onclick="selectDeck('TarotDeLaFuerza')">
+                                <img src="cards/TarotDeLaFuerza/0.jpg" alt="Tarot de la Fuerza">
+                                <p>Tarot de la Fuerza</p>
+                            </div>
+                        </div>
+
+                        <div class="actions">
+                            <button onclick="drawDailyCard()">
+                                <span>Sacar tu Carta del Día</span>
+                            </button>
+                        </div>
+
+                        <div class="card-display" id="dailyCardDisplay" style="display: none;">
+                            <div class="card-image-container">
+                                <img id="dailyCardImage" class="card-image card-drop" src="" alt="Carta de Tarot">
+                            </div>
+                            <div class="card-info">
+                                <div class="card-name" id="dailyCardName"></div>
+                                <div class="card-orientation" id="dailyCardOrientation"></div>
+                                <div class="card-meaning" id="dailyCardMeaning"></div>
+                                <div class="card-history" id="dailyCardHistory"></div>
+                                <div class="card-symbolism" id="dailyCardSymbolism"></div>
+                                <div class="energy-message" id="dailyEnergyMessage"></div>
+                            </div>
+                            <div class="actions">
+                                <button onclick="invertDailyCard()">Invertir Carta</button>
+                                <button onclick="drawDailyCard()">Nueva Carta</button>
+                            </div>
+                            <div class="share-buttons">
+                                <a href="#" class="share-button whatsapp" onclick="shareDailyOnWhatsApp()">
+                                    <span>WhatsApp</span>
+                                </a>
+                                <a href="#" class="share-button facebook" onclick="shareDailyOnFacebook()">
+                                    <span>Facebook</span>
+                                </a>
+                                <a href="#" class="share-button instagram" onclick="shareDailyOnInstagram()">
+                                    <span>Instagram</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reading-content" id="three-cards-reading">
+                    <div class="reading-card">
+                        <h2 class="reading-title hover-underline">Tirada de 3 Cartas</h2>
+                        <p class="reading-description">Esta tirada clásica te ofrece una perspectiva completa de tu situación actual, mostrando influencias del pasado, presente y futuro, o bien analizando situación, obstáculos y consejos.</p>
+                        
+                        <div class="deck-selector">
+                            <div class="deck-option selected" onclick="selectDeck('RiderWaite')">
+                                <img src="cards/RiderWaite/0.jpg" alt="Rider Waite">
+                                <p>Rider Waite</p>
+                            </div>
+                            <div class="deck-option" onclick="selectDeck('MysticMondays')">
+                                <img src="cards/MysticMondays/0.jpg" alt="Mystic Mondays">
+                                <p>Mystic Mondays</p>
+                            </div>
+                            <div class="deck-option" onclick="selectDeck('TarotDeLaFuerza')">
+                                <img src="cards/TarotDeLaFuerza/0.jpg" alt="Tarot de la Fuerza">
+                                <p>Tarot de la Fuerza</p>
+                            </div>
+                        </div>
+
+                        <div class="spread-options">
+                            <button class="active" onclick="setThreeCardsSpread('past-present-future')">Pasado - Presente - Futuro</button>
+                            <button onclick="setThreeCardsSpread('situation-obstacle-advice')">Situación - Obstáculo - Consejo</button>
+                        </div>
+
+                        <div class="actions">
+                            <button onclick="drawThreeCards()">Realizar Tirada</button>
+                        </div>
+
+                        <div class="reading-result" id="threeCardsResult" style="display: none;">
+                            <h3>Interpretación de tu Tirada</h3>
+                            <p class="reading-summary" id="threeCardsSummary"></p>
+                            
+                            <div class="multi-card-spread" id="threeCardsDisplay">
+                                <!-- Cartas se insertarán aquí -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reading-content" id="yes-no-reading">
+                    <div class="reading-card">
+                        <h2 class="reading-title hover-underline">Tirada de Sí o No</h2>
+                        <p class="reading-description">Haz una pregunta cerrada y las cartas te darán una orientación sobre la respuesta. Recuerda que el tarot muestra tendencias, no destinos inamovibles.</p>
+                        
+                        <div class="deck-selector">
+                            <div class="deck-option selected" onclick="selectDeck('RiderWaite')">
+                                <img src="cards/RiderWaite/0.jpg" alt="Rider Waite">
+                                <p>Rider Waite</p>
+                            </div>
+                            <div class="deck-option" onclick="selectDeck('MysticMondays')">
+                                <img src="cards/MysticMondays/0.jpg" alt="Mystic Mondays">
+                                <p>Mystic Mondays</p>
+                            </div>
+                            <div class="deck-option" onclick="selectDeck('TarotDeLaFuerza')">
+                                <img src="cards/TarotDeLaFuerza/0.jpg" alt="Tarot de la Fuerza">
+                                <p>Tarot de la Fuerza</p>
+                            </div>
+                        </div>
+
+                        <div class="spread-options">
+                            <button class="active" onclick="setYesNoCardsCount(1)">1 Carta</button>
+                            <button onclick="setYesNoCardsCount(3)">3 Cartas</button>
+                        </div>
+
+                        <div class="question-input">
+                            <label for="yesNoQuestion">Escribe tu pregunta:</label>
+                            <textarea id="yesNoQuestion" placeholder="¿Debería...? ¿Es el momento adecuado para...?" rows="3"></textarea>
+                        </div>
+
+                        <div class="actions">
+                            <button onclick="drawYesNoCards()">Obtener Respuesta</button>
+                        </div>
+
+                        <div class="reading-result" id="yesNoResult" style="display: none;">
+                            <h3 id="yesNoAnswer"></h3>
+                            <p class="reading-summary" id="yesNoExplanation"></p>
+                            
+                            <div class="multi-card-spread" id="yesNoCardsDisplay">
+                                <!-- Cartas se insertarán aquí -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reading-content" id="advice-reading">
+                    <div class="reading-card">
+                        <h2 class="reading-title hover-underline">Tirada de Consejo</h2>
+                        <p class="reading-description">Recibe orientación sobre una situación específica en tu vida. Las cartas pueden mostrarte perspectivas que no habías considerado.</p>
+                        
+                        <div class="deck-selector">
+                            <div class="deck-option selected" onclick="selectDeck('RiderWaite')">
+                                <img src="cards/RiderWaite/0.jpg" alt="Rider Waite">
+                                <p>Rider Waite</p>
+                            </div>
+                            <div class="deck-option" onclick="selectDeck('MysticMondays')">
+                                <img src="cards/MysticMondays/0.jpg" alt="Mystic Mondays">
+                                <p>Mystic Mondays</p>
+                            </div>
+                            <div class="deck-option" onclick="selectDeck('TarotDeLaFuerza')">
+                                <img src="cards/TarotDeLaFuerza/0.jpg" alt="Tarot de la Fuerza">
+                                <p>Tarot de la Fuerza</p>
+                            </div>
+                        </div>
+
+                        <div class="question-input">
+                            <label for="adviceQuestion">Describe tu situación:</label>
+                            <textarea id="adviceQuestion" placeholder="Estoy enfrentando... Me preocupa que... Necesito ayuda con..." rows="4"></textarea>
+                        </div>
+
+                        <div class="spread-options">
+                            <button class="active" onclick="setAdviceCardsCount(1)">1 Carta</button>
+                            <button onclick="setAdviceCardsCount(3)">3 Cartas</button>
+                        </div>
+
+                        <div class="actions">
+                            <button onclick="drawAdviceCards()">Obtener Consejo</button>
+                        </div>
+
+                        <div class="reading-result" id="adviceResult" style="display: none;">
+                            <h3>Consejo para tu situación</h3>
+                            <p class="reading-summary" id="adviceSummary"></p>
+                            
+                            <div class="multi-card-spread" id="adviceCardsDisplay">
+                                <!-- Cartas se insertarán aquí -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reading-content" id="love-reading">
+                    <div class="reading-card">
+                        <h2 class="reading-title hover-underline">Tirada de Amor</h2>
+                        <p class="reading-description">Explora la dinámica de una relación romántica o el potencial amoroso. Esta tirada puede revelar aspectos ocultos y sugerir caminos de crecimiento.</p>
+                        
+                        <div class="deck-selector">
+                            <div class="deck-option selected" onclick="selectDeck('RiderWaite')">
+                                <img src="cards/RiderWaite/0.jpg" alt="Rider Waite">
+                                <p>Rider Waite</p>
+                            </div>
+                            <div class="deck-option" onclick="selectDeck('MysticMondays')">
+                                <img src="cards/MysticMondays/0.jpg" alt="Mystic Mondays">
+                                <p>Mystic Mondays</p>
+                            </div>
+                            <div class="deck-option" onclick="selectDeck('TarotDeLaFuerza')">
+                                <img src="cards/TarotDeLaFuerza/0.jpg" alt="Tarot de la Fuerza">
+                                <p>Tarot de la Fuerza</p>
+                            </div>
+                        </div>
+
+                        <div class="question-input">
+                            <label for="loveQuestion">Describe tu situación amorosa:</label>
+                            <textarea id="loveQuestion" placeholder="Estoy en una relación con... Me siento atraído/a por... Quiero saber si..." rows="4"></textarea>
+                        </div>
+
+                        <div class="actions">
+                            <button onclick="drawLoveCards()">Realizar Tirada</button>
+                        </div>
+
+                        <div class="reading-result" id="loveResult" style="display: none;">
+                            <h3>Lectura de Amor</h3>
+                            <p class="reading-summary" id="loveSummary"></p>
+                            
+                            <div class="multi-card-spread" id="loveCardsDisplay">
+                                <!-- Cartas se insertarán aquí -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Galería de Cartas -->
+        <section id="gallery" class="section">
+            <div class="reading-card glow-on-hover">
+                <h2 class="reading-title hover-underline">Galería de Cartas</h2>
+                <p class="reading-description">Explora todos los arcanos mayores de nuestros mazos de tarot. Haz clic en cualquier carta para conocer su significado completo.</p>
+
+                <div class="deck-selector">
+                    <div class="deck-option selected" onclick="showDeckGallery('RiderWaite')">
+                        <img src="cards/RiderWaite/0.jpg" alt="Rider Waite">
+                        <p>Rider Waite</p>
+                    </div>
+                    <div class="deck-option" onclick="showDeckGallery('MysticMondays')">
+                        <img src="cards/MysticMondays/0.jpg" alt="Mystic Mondays">
+                        <p>Mystic Mondays</p>
+                    </div>
+                    <div class="deck-option" onclick="showDeckGallery('TarotDeLaFuerza')">
+                        <img src="cards/TarotDeLaFuerza/0.jpg" alt="Tarot de la Fuerza">
+                        <p>Tarot de la Fuerza</p>
+                    </div>
+                </div>
+
+                <div class="gallery" id="cardGallery"></div>
+            </div>
+        </section>
+
+        <!-- Quién Soy -->
+        <section id="about" class="section">
+            <div class="info-section glow-on-hover">
+                <h2 class="hover-underline">Quién Soy</h2>
+                <p>Hola, soy [Tu Nombre], tarotista y guía espiritual con más de [X] años de experiencia en la interpretación de las cartas del tarot.</p>
+                <p>Mi misión es ayudar a las personas a encontrar claridad y dirección en sus vidas a través de la sabiduría ancestral del tarot. Creo que cada carta tiene un mensaje único para cada persona en el momento preciso en que la recibe.</p>
+                <p>Este proyecto nació del deseo de hacer el tarot más accesible para todos, ofreciendo una guía diaria que pueda iluminar tu camino. Mi enfoque combina la tradición del tarot con una perspectiva moderna y práctica.</p>
+                <p>Cuando no estoy interpretando cartas, me dedico a estudiar la simbología esotérica y a enseñar a otros cómo conectar con su intuición a través del tarot.</p>
+            </div>
+        </section>
+
+        <!-- Contáctenos -->
+        <section id="contact" class="section">
+            <div class="info-section glow-on-hover">
+                <h2 class="hover-underline">Contáctenos</h2>
+                <p>¿Tienes preguntas, comentarios o deseas una lectura personalizada? No dudes en contactarnos a través de los siguientes medios:</p>
+                
+                <div class="contact-methods" style="margin-top: 1.5rem;">
+                    <p style="margin-bottom: 1rem;"><strong style="color: var(--primary-color);">WhatsApp:</strong> <a href="https://wa.me/1234567890" style="color: var(--secondary-color); text-decoration: none;">+1 (234) 567-890</a></p>
+                    <p style="margin-bottom: 1rem;"><strong style="color: var(--primary-color);">Instagram:</strong> <a href="https://instagram.com/tu_usuario" style="color: var(--secondary-color); text-decoration: none;">@tu_usuario</a></p>
+                    <p style="margin-bottom: 1rem;"><strong style="color: var(--primary-color);">Correo electrónico:</strong> <a href="mailto:contacto@tutarot.com" style="color: var(--secondary-color); text-decoration: none;">contacto@tutarot.com</a></p>
+                </div>
+                
+                <p style="margin-top: 1.5rem;">También puedes seguirnos en nuestras redes sociales para recibir actualizaciones, contenido exclusivo sobre el tarot y el crecimiento espiritual, y promociones especiales para lecturas privadas.</p>
+                
+                <div class="share-buttons" style="margin-top: 2rem; justify-content: center;">
+                    <a href="#" class="share-button whatsapp">
+                        <span>Síguenos en WhatsApp</span>
+                    </a>
+                    <a href="#" class="share-button instagram">
+                        <span>Síguenos en Instagram</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contribuye al Proyecto -->
+        <section id="donate" class="section">
+            <div class="info-section glow-on-hover">
+                <h2 class="hover-underline">Contribuye al Proyecto</h2>
+                <p>Si este proyecto te ha sido útil y deseas apoyarnos para seguir mejorando y manteniendo este servicio gratuito, puedes hacer una contribución voluntaria.</p>
+                <p>Tus donaciones nos ayudan a:</p>
+                <ul>
+                    <li>Mantener el sitio web y los servidores</li>
+                    <li>Crear nuevo contenido y funcionalidades</li>
+                    <li>Adquirir nuevos mazos de tarot para ampliar nuestras lecturas</li>
+                    <li>Ofrecer lecturas gratuitas a quienes no pueden pagarlas</li>
+                    <li>Desarrollar aplicaciones móviles para mayor accesibilidad</li>
+                </ul>
+
+                <div class="donation-options">
+                    <div class="donation-option">
+                        <img src="https://logo.clearbit.com/mercadopago.com" alt="Mercado Pago">
+                        <div>
+                            <h3>Mercado Pago</h3>
+                            <p>Alias: TAROT.LUZ</p>
+                            <p>CVU: 0000003100000000000000</p>
+                        </div>
+                    </div>
+                    <div class="donation-option">
+                        <img src="https://logo.clearbit.com/paypal.com" alt="PayPal">
+                        <div>
+                            <h3>PayPal</h3>
+                            <p><a href="https://paypal.me/tutarot">paypal.me/tutarot</a></p>
+                        </div>
+                    </div>
+                    <div class="donation-option">
+                        <img src="https://logo.clearbit.com/patreon.com" alt="Patreon">
+                        <div>
+                            <h3>Patreon</h3>
+                            <p><a href="https://patreon.com/tutarot">patreon.com/tutarot</a></p>
+                            <p>Acceso a contenido exclusivo para patrocinadores</p>
+                        </div>
+                    </div>
+                </div>
+
+                <p style="margin-top: 1.5rem; text-align: center; font-style: italic;">¡Gracias por tu apoyo! Cada contribución, por pequeña que sea, hace una gran diferencia y nos ayuda a seguir compartiendo la sabiduría del tarot con el mundo.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal para vista ampliada de cartas -->
+    <div id="cardModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <button class="theme-toggle" onclick="toggleDarkMode()">🌓</button>
+
+    <footer>
+        <p>&copy; 2023 Tarot del Día - Todos los derechos reservados</p>
+        <p>Este sitio es solo para fines de entretenimiento. Las interpretaciones no sustituyen el consejo profesional.</p>
+    </footer>
+
+    <script>
+        // Datos de las cartas del tarot con más información
+        const tarotCards = [
+            {
+                name: "El Loco",
+                upright: "Nuevos comienzos, espontaneidad, aventura, libertad, inocencia, vivir el momento. Representa el comienzo de un viaje espiritual o físico, la fe en el universo y la capacidad de seguir la intuición.",
+                inverted: "Imprudencia, irresponsabilidad, riesgo, falta de dirección, caos. Puede indicar temor al cambio o tomar decisiones sin considerar las consecuencias.",
+                history: "El Loco es una de las cartas más antiguas del tarot, representando al bufón de la corte medieval. Simboliza la pureza del espíritu antes de embarcarse en el viaje de la vida. En algunas tradiciones, se asocia con el dios griego Dionisio, representando la libertad y el éxtasis.",
+                symbolism: "El Loco lleva un pequeño fardo, simbolizando que lleva pocas posesiones materiales. El perro a sus pies representa la lealtad y protección. El acantilado sugiere el salto de fe necesario para comenzar nuevas aventuras. Su postura despreocupada muestra confianza en el camino.",
+                positive: true
+            },
+            {
+                name: 'El Mago',
+                upright: 'Habilidad, destreza, concentración, acción, recursos, poder. Indica la capacidad de manifestar deseos a través de la voluntad y el enfoque. Representa el dominio sobre los elementos y la transformación de ideas en realidad.',
+                inverted: 'Manipulación, engaño, poder mal utilizado, falta de preparación. Puede señalar talentos desperdiciados o el uso de habilidades para fines egoístas.',
+                history: 'El Mago tiene sus raíces en el concepto del alquimista medieval, capaz de transformar la materia. En el tarot de Marsella, se le conocía como "Le Bateleur" (el charlatán). Su figura evolucionó para representar el poder creativo del ser humano.',
+                symbolism: 'La mesa con los símbolos de los cuatro elementos (copas, espadas, bastos y oros) muestra su dominio sobre las fuerzas naturales. El infinito sobre su cabeza representa el poder ilimitado de la mente. Su postura activa indica que está listo para actuar.',
+                positive: true
+            },
+            {
+                name: "La Sacerdotisa",
+                upright: "Intuición, misterio, subconsciente, sabiduría interior, secretos. Representa la conexión con lo divino femenino, los sueños y el conocimiento oculto. Sugiere confiar en la intuición más que en la lógica.",
+                inverted: "Secretos ocultos, falta de intuición, ignorancia, superficialidad. Puede indicar el rechazo de la sabiduría interior o la negación de verdades importantes.",
+                history: "La Sacerdotisa está inspirada en figuras como la Papisa Juana y las sacerdotisas de los templos antiguos. Representa el arquetipo de la mujer sabia, guardiana de misterios. En algunas tradiciones se asocia con la diosa Isis o con la luna.",
+                symbolism: "Las columnas J y B (Jakin y Boaz) del Templo de Salomón representan el equilibrio entre opuestos. La media luna a sus pies simboliza la intuición. El libro en sus manos (a menudo medio oculto) representa el conocimiento esotérico.",
+                positive: true
+            },
+            {
+                name: "La Emperatriz",
+                upright: "Fertilidad, naturaleza, feminidad, belleza, abundancia, sensualidad. Representa la creatividad, la maternidad y la conexión con la naturaleza. Es un símbolo de crecimiento y prosperidad en todos los aspectos de la vida.",
+                inverted: "Dependencia, inmadurez, falta de crecimiento, esterilidad. Puede indicar problemas en relaciones o creatividad bloqueada. También puede señalar sobreprotección o manipulación emocional.",
+                history: "La Emperatriz tiene sus raíces en las diosas madre de las antiguas religiones, como Deméter o Venus. En el tarot medieval, representaba a la mujer poderosa en la sociedad. Es el arquetipo de la madre nutricia y la creadora.",
+                symbolism: "El campo de trigo representa abundancia y fertilidad. El escudo con el águila simboliza protección y visión elevada. El río detrás de ella muestra el flujo de emociones y creatividad. Su corona de estrellas la conecta con lo divino.",
+                positive: true
+            },
+            {
+                name: "El Emperador",
+                upright: "Autoridad, estructura, control, liderazgo, estabilidad, protección. Representa el poder establecido, la razón sobre la emoción y la capacidad de organizar. Es un símbolo de seguridad y orden en la vida.",
+                inverted: "Tiranía, rigidez, dominación, abuso de poder, falta de disciplina. Puede indicar control excesivo o autoritarismo. También puede señalar falta de estructura o liderazgo débil.",
+                history: "El Emperador está inspirado en figuras como Carlomagno y los gobernantes medievales. Representa el arquetipo del padre y la autoridad terrenal. En contraste con la Emperatriz, simboliza lo masculino estructurado frente a lo femenino fluido.",
+                symbolism: "El trono con cabezas de carnero representa determinación y liderazgo. La mano que sostiene el orbe muestra su dominio sobre el mundo material. La armadura bajo su manto indica que está listo para defender su reino. Las montañas detrás simbolizan desafíos superados.",
+                positive: true
+            },
+            {
+                name: "El Sumo Sacerdote",
+                upright: "Tradición, conformidad, moralidad, ética, religión, creencias. Representa la sabiduría espiritual, el consejo sabio y las instituciones establecidas. Sugiere seguir normas sociales o buscar guía en sistemas probados.",
+                inverted: "Rebelión, no conformidad, nuevas aproximaciones, ignorancia. Puede indicar dogmatismo excesivo o, por el contrario, rechazo de toda tradición. También puede señalar malos consejos o manipulación espiritual.",
+                history: "El Sumo Sacerdote (antes llamado El Papa) representa las figuras religiosas como el Papa o los rabinos. Es el mediador entre lo divino y lo humano. En algunas tradiciones se asocia con el dios Júpiter o con el concepto de guru espiritual.",
+                symbolism: "Las dos columnas representan la dualidad (como en La Sacerdotisa). Las llaves cruzadas a sus pies simbolizan el acceso al conocimiento espiritual. Los monjes arrodillados muestran sumisión a la tradición. Su gesto de bendición indica guía divina.",
+                positive: true
+            },
+            {
+                name: 'Los Enamorados',
+                upright: 'Amor, unión, relaciones, valores, elecciones, armonía. Representa conexiones profundas, decisiones importantes basadas en valores y la integración de opuestos. Puede indicar una relación significativa o una elección moral.',
+                inverted: 'Desequilibrio, falta de armonía, conflictos, separación. Puede señalar relaciones problemáticas, indecisión o elecciones basadas en deseos superficiales. También puede indicar falta de compromiso.',
+                history: 'Los Enamorados tienen sus raíces en el mito de Paris eligiendo entre las diosas, y en la tradición del "Juicio de Salomón". Representa el momento crucial de elección entre caminos. En algunas versiones muestra a Cupido sobre los amantes.',
+                symbolism: 'El ángel (a veces Cupido) representa la bendición divina sobre la unión. La montaña detrás simboliza los desafíos superados. El árbol del conocimiento (a la derecha) y el árbol de la vida (izquierda) muestran la elección entre sabiduría y placer. La desnudez de los amantes representa pureza.',
+                positive: true
+            },
+            {
+                name: "El Carro",
+                upright: "Determinación, voluntad, triunfo, autodisciplina, éxito. Representa el control sobre fuerzas opuestas, el progreso y la victoria a través del esfuerzo. Sugiere avanzar con confianza hacia los objetivos.",
+                inverted: "Falta de control, falta de dirección, agresión, derrota. Puede indicar obstáculos en el camino o conflicto interno. También puede señalar ambición desmedida o arrogancia.",
+                history: "El Carro está inspirado en los triunfos romanos y en carros ceremoniales de diversas culturas. Representa el dominio sobre los elementos y el propio destino. En algunas tradiciones se asocia con el dios Apolo y su carro solar.",
+                symbolism: "Los dos esfinges (o caballos) representan fuerzas opuestas controladas. La armadura del conductor muestra protección en la batalla. La ciudad detrás simboliza la civilización conquistada. La corona de estrellas indica guía divina. Las ruedas cuadradas sugieren que el progreso requiere esfuerzo.",
+                positive: true
+            },
+            {
+                name: "La Justicia",
+                upright: "Justicia, equidad, verdad, causa y efecto, ley, objetividad. Representa el karma, las consecuencias de las acciones y las decisiones equilibradas. Sugiere que cada acción tiene su reacción correspondiente.",
+                inverted: "Injusticia, falta de responsabilidad, deshonestidad, parcialidad. Puede indicar tratos injustos o negarse a enfrentar las consecuencias de las acciones. También puede señalar autojuicio excesivo.",
+                history: "La Justicia tiene sus raíces en figuras como la diosa Ma'at egipcia y la diosa Themis griega. Representa el equilibrio cósmico y las leyes universales. En el tarot medieval, era un recordatorio del juicio divino.",
+                symbolism: "La espada representa el intelecto que corta hacia la verdad. La balanza muestra la necesidad de equilibrio. La corona indica autoridad moral. El manto rojo simboliza pasión controlada por la razón. El pie descubierto sugiere contacto con la realidad.",
+                positive: true
+            },
+            {
+                name: "El Ermitaño",
+                upright: "Introspección, soledad, búsqueda, guía espiritual, sabiduría. Representa el viaje interior, la búsqueda de verdad y el alejamiento del mundo material. Sugiere un tiempo de reflexión y autoconocimiento.",
+                inverted: "Soledad no deseada, aislamiento, rechazo de ayuda, ignorancia. Puede indicar miedo a la soledad o negarse a enfrentar verdades internas. También puede señalar exceso de introspección que lleva al estancamiento.",
+                history: "El Ermitaño está inspirado en figuras como los monjes cristianos y los sabios solitarios de diversas tradiciones. Representa el arquetipo del viejo sabio que ha renunciado a las distracciones mundanas. En algunas versiones lleva un reloj de arena, simbolizando el tiempo.",
+                symbolism: "La lámpara ilumina el camino, mostrando que la verdad interna guía. El bastón sugiere apoyo en el viaje espiritual. La montaña nevada representa los desafíos del camino hacia la iluminación. El manto gris simboliza neutralidad y alejamiento de extremos.",
+                positive: true
+            },
+            {
+                name: 'La Rueda de la Fortuna',
+                upright: 'Cambio, ciclos, movimiento, suerte, destino, oportunidades. Representa los altibajos de la vida y la naturaleza cíclica de la existencia. Sugiere que la fortuna puede cambiar, para bien o para mal, según los ciclos naturales.',
+                inverted: 'Mala suerte, resistencia al cambio, falta de control, retroceso. Puede indicar obstáculos temporales o resistencia a cambios necesarios. También puede señalar que los ciclos están estancados.',
+                history: 'La Rueda de la Fortuna tiene sus raíces en el concepto medieval de "Rota Fortunae", la diosa caprichosa que gira la rueda del destino. En algunas versiones incluye figuras subiendo y bajando de la rueda, representando los cambios de fortuna.',
+                symbolism: 'La rueda con letras hebreas (TARO) muestra los ciclos del destino. Las figuras en los lados (a menudo un mono, un hombre, un león y un águila) representan las etapas de la vida. El esfinge en la parte superior simboliza el equilibrio en medio del cambio. Las nubes sugieren fuerzas divinas en movimiento.',
+                positive: true
+            },
+            {
+                name: "La Fuerza",
+                upright: "Fuerza interior, compasión, paciencia, control, coraje. Representa el dominio sobre los instintos a través de la suavidad, no la fuerza bruta. Sugiere enfrentar desafíos con confianza y autocontrol.",
+                inverted: "Debilidad, inseguridad, falta de autodisciplina, fuerza bruta. Puede indicar miedo, duda o uso excesivo de la fuerza. También puede señalar abuso de poder o manipulación.",
+                history: "La Fuerza está inspirada en mitos como Hércules y el león de Nemea, pero muestra un enfoque diferente: la fuerza suave. Representa el arquetipo de la domadora de bestias, que controla mediante comprensión más que por violencia. En algunas barajas se asocia con la virtud cristiana de la Fortaleza.",
+                symbolism: "La mujer domando el león representa el control sobre las pasiones. La corona de flores muestra conexión con la naturaleza. El infinito sobre su cabeza indica fuerza espiritual ilimitada. La actitud serena sugiere confianza en lugar de agresión.",
+                positive: true
+            },
+            {
+                name: 'El Colgado',
+                upright: 'Sacrificio, perspectiva, rendición, nuevas visiones, suspensión. Representa el valor de ver las cosas desde otro ángulo y la sabiduría que viene con la entrega. Sugiere un período de espera o sacrificio por un bien mayor.',
+                inverted: 'Estancamiento, falta de sacrificio, resistencia, egoísmo. Puede indicar miedo a cambiar de perspectiva o sacrificios inútiles. También puede señalar martirio o victimización.',
+                history: 'El Colgado tiene raíces en el mito de Odín colgado del árbol Yggdrasil para obtener sabiduría. También refleja el concepto alquímico de "solve et coagula" (disolver y coagular). Representa la idea de que a veces hay que perder para ganar.',
+                symbolism: 'La postura invertida muestra una nueva perspectiva. La cara tranquila indica aceptación. La pierna en forma de cruz simboliza sacrificio con propósito espiritual. La bolsas que caen sugieren dejar ir posesiones materiales. El fondo amarillo representa iluminación.',
+                positive: false
+            },
+            {
+                name: "La Muerte",
+                upright: "Fin de ciclo, transición, cambio, transformación, dejar ir. Representa el final necesario para nuevos comienzos. Sugiere transformaciones profundas, no necesariamente físicas. Es un símbolo de cambio inevitable y liberación.",
+                inverted: "Resistencia al cambio, estancamiento, miedo a lo desconocido. Puede indicar miedo a dejar ir o cambios forzados. También puede señalar transformaciones incompletas o negación de finales necesarios.",
+                history: "La Muerte está inspirada en las danzas macabras medievales que recordaban la igualdad ante la muerte. Representa el arquetipo del transformador. En muchas culturas, la muerte no es un final sino un paso en el ciclo de vida-muerte-renacimiento.",
+                symbolism: "El esqueleto cosechando con su guadaña muestra que la muerte es parte natural del ciclo. El sol naciente entre dos columnas simboliza renacimiento. Las figuras cayendo (rey, niño, mujer) representan que la muerte llega a todos. El barco en el fondo sugiere el viaje al más allá.",
+                positive: false
+            },
+            {
+                name: "La Templanza",
+                upright: "Balance, moderación, paciencia, propósito, mezcla, sanación. Representa la armonía entre opuestos y la transformación alquímica. Sugiere encontrar el punto medio y combinar elementos dispares para crear algo nuevo.",
+                inverted: "Desequilibrio, exceso, falta de armonía, impaciencia. Puede indicar extremos en el comportamiento o falta de propósito. También puede señalar mezclas que no funcionan o curación retrasada.",
+                history: "La Templanza está inspirada en la virtud cristiana del mismo nombre y en los alquimistas mezclando sustancias. Representa el proceso de transformación espiritual. En algunas tradiciones se asocia con el arcángel Miguel equilibrando las fuerzas.",
+                symbolism: "El ángel mezclando líquidos entre dos copas muestra la combinación de opuestos. El camino entre montañas sugiere el viaje hacia la iluminación. El iris en el fondo representa esperanza y conexión entre cielo y tierra. El pie en el agua y otro en tierra firme indican equilibrio.",
+                positive: true
+            },
+            {
+                name: "El Diablo",
+                upright: "Atadura, adicción, materialismo, lujuria, ignorancia. Representa las cadenas autoimpuestas, los deseos materiales y la sombra humana. Sugiere examinar qué nos mantiene atados y enfrentar nuestros demonios internos.",
+                inverted: "Liberación, libertad, revelación, recuperar el control. Puede indicar romper cadenas o superar tentaciones. También puede señalar negación de aspectos oscuros o miedo a la libertad.",
+                history: "El Diablo está inspirado en representaciones medievales de Satán, pero también en deidades como Pan o Baphomet. Representa el arquetipo de la sombra y los aspectos reprimidos. En algunas tradiciones es un recordatorio de los excesos materiales.",
+                symbolism: "Las figuras encadenadas muestran esclavitud voluntaria (las cadenas están flojas). La antorcha invertida indica sabiduría mal utilizada. El pentagrama invertido representa lo material sobre lo espiritual. Los cuernos y alas de murciélago simbolizan la naturaleza dual del diablo como tentador y prisionero.",
+                positive: false
+            },
+            {
+                name: 'La Torre',
+                upright: 'Cambio repentino, revelación, caos, destrucción, despertar. Representa la caída de estructuras falsas y la liberación a través de crisis. Sugiere que a veces es necesario destruir para reconstruir de manera más sólida.',
+                inverted: 'Evitar el desastre, miedo al cambio, resistencia, estancamiento. Puede indicar cambios postergados o negación de verdades dolorosas. También puede señalar crisis menores o advertencias ignoradas.',
+                history: 'La Torre está inspirada en mitos como la Torre de Babel y castillos asediados. Representa el arquetipo de la caída del ego. En alquimia, simboliza la "nigredo" o etapa de putrefacción necesaria para la transformación.',
+                symbolism: 'El rayo que destruye la torre representa la intervención divina. Las llamas muestran transformación a través del fuego purificador. Las figuras cayendo simbolizan la caída del ego. La corona que cae indica pérdida de falsa autoridad. La forma fálica de la torre sugiere orgullo herido.',
+                positive: false
+            },
+            {
+                name: "La Estrella",
+                upright: "Esperanza, fe, inspiración, optimismo, serenidad, sanación. Representa guía espiritual, conexión con lo divino y confianza en el universo. Sugiere un período de paz después de la tormenta y renovación espiritual.",
+                inverted: "Desesperanza, falta de fe, pesimismo, desaliento. Puede indicar pérdida de dirección o conexión espiritual rota. También puede señalar expectativas poco realistas o negación de problemas.",
+                history: "La Estrella está inspirada en la Estrella de Belén y en deidades estelares como Isis. Representa el arquetipo de la guía divina. En algunas tradiciones se asocia con la estrella polar, punto fijo en medio del caos.",
+                symbolism: "La estrella central (a menudo de ocho puntas) representa guía divina. Las siete estrellas menores pueden ser los planetas clásicos o los chakras. El agua fluyendo muestra emociones purificadas. La mujer desnuda simboliza pureza y vulnerabilidad. El pájaro en el árbol sugiere renovación.",
+                positive: true
+            },
+            {
+                name: "La Luna",
+                upright: "Ilusión, miedo, ansiedad, subconsciente, intuición, confusión. Representa el mundo de los sueños, lo inconsciente y las percepciones alteradas. Sugiere prestar atención a los mensajes del subconsciente y enfrentar miedos ocultos.",
+                inverted: "Revelación, comprensión, claridad, superación de miedos. Puede indicar emerger de la confusión o enfrentar ilusiones. También puede señalar negación de la intuición o miedos exagerados.",
+                history: "La Luna está inspirada en diosas lunares como Hécate y Selene. Representa el arquetipo del mundo onírico. En alquimia, simboliza la plata y el aspecto femenino de la psique. Su luz revela pero también distorsiona.",
+                symbolism: "La luna llena con rostro muestra conciencia del subconsciente. Los dos pilares representan el acceso al mundo inconsciente. El cangrejo emergiendo del agua simboliza el surgimiento de contenidos reprimidos. Los perros aullando son guardianes del umbral. El camino serpenteante sugiere el viaje a través de lo desconocido.",
+                positive: false
+            },
+            {
+                name: "El Sol",
+                upright: "Alegría, éxito, celebración, vitalidad, confianza, verdad. Representa la iluminación, la claridad y la energía vital. Sugiere un período de crecimiento, logros y expresión auténtica. Es un símbolo de conciencia despierta.",
+                inverted: "Tristeza temporal, éxito demorado, falta de entusiasmo. Puede indicar optimismo excesivo o logros que no satisfacen. También puede señalar necesidad de descanso o energía bloqueada.",
+                history: "El Sol está inspirado en deidades solares como Apolo y Ra. Representa el arquetipo del niño divino. En alquimia, simboliza el oro y la culminación de la obra. Es la luz que disipa las sombras de La Luna.",
+                symbolism: "El sol radiante con rostro muestra conciencia iluminada. El niño desnudo representa pureza e inocencia. El muro detrás sugiere protección y estructura. Los girasoles mirando al sol simbolizan aspiración espiritual. El caballo blanco (en algunas versiones) representa energía vital pura.",
+                positive: true
+            },
+            {
+                name: "El Juicio",
+                upright: "Renacimiento, evaluación, despertar, absolución, llamado. Representa el momento de rendir cuentas, responder a un llamado superior y experimentar un despertar espiritual. Sugiere una evaluación honesta y transformación profunda.",
+                inverted: "Miedo al cambio, culpa, falta de claridad, rechazo de llamada. Puede indicar negarse a enfrentar consecuencias o resistir una transformación necesaria. También puede señalar autojuicio excesivo.",
+                history: "El Juicio está inspirado en el Juicio Final cristiano y en conceptos como el karma. Representa el arquetipo de la resurrección. En algunas tradiciones se asocia con el arcángel Gabriel tocando la trompeta del despertar.",
+                symbolism: "El ángel tocando la trompeta representa el llamado divino. Las figuras emergiendo de las tumbas muestran renacimiento espiritual. Las montañas al fondo simbolizan elevación de conciencia. El mar sugiere el inconsciente colectivo. La cruz en la bandera indica sacrificio redentor.",
+                positive: true
+            },
+            {
+                name: "El Mundo",
+                upright: "Completitud, unidad, logro, viaje, integración, satisfacción. Representa la culminación exitosa de un ciclo, la totalidad y el equilibrio perfecto. Sugiere haber alcanzado un estado de plenitud y comprensión holística.",
+                inverted: "Incompletitud, falta de cierre, falta de realización. Puede indicar metas no alcanzadas o sensación de estancamiento. También puede señalar necesidad de comenzar un nuevo ciclo.",
+                history: "El Mundo está inspirado en representaciones del cosmos y deidades como Gaia. Representa el arquetipo del sí-mismo realizado. En alquimia, simboliza la piedra filosofal y la culminación de la gran obra. Es la meta del viaje del Loco.",
+                symbolism: "La figura danzante (a veces andrógina) representa la unión de opuestos. La guirnalda ovalada simboliza el huevo cósmico. Los cuatro seres (hombre, águila, león, toro) son los evangelistas y los elementos. El fondo estrellado muestra conexión con el cosmos.",
+                positive: true
+            }
+        ];
+
+        // Variables globales
+        let currentDeck = 'RiderWaite';
+        let currentDailyCard = null;
+        let isDailyCardInverted = false;
+        let threeCardsSpreadType = 'past-present-future';
+        let yesNoCardsCount = 1;
+        let adviceCardsCount = 1;
+        let darkMode = false;
+
+        // Funciones principales
+        function selectDeck(deck) {
+            currentDeck = deck;
+            document.querySelectorAll('.deck-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+            
+            // Efecto visual al seleccionar mazo
+            event.currentTarget.style.transform = 'scale(1.05)';
+            setTimeout(() => {
+                event.currentTarget.style.transform = '';
+            }, 300);
+        }
+
+        // Mostrar lectura específica
+        function showReading(readingId) {
+            document.querySelectorAll('.reading-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`${readingId}-reading`).classList.add('active');
+            
+            // Actualizar pestaña activa
+            document.querySelectorAll('.reading-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+            
+            // Scroll suave al inicio de la lectura
+            document.getElementById('readings').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Carta del Día
+        function drawDailyCard() {
+            const randomIndex = Math.floor(Math.random() * tarotCards.length);
+            currentDailyCard = randomIndex;
+            isDailyCardInverted = Math.random() < 0.3; // 30% de probabilidad de que salga invertida
+            
+            displayDailyCard();
+            
+            // Reproducir sonido
+            playCardSound();
+        }
+
+        function displayDailyCard() {
+            const cardDisplay = document.getElementById('dailyCardDisplay');
+            const cardImage = document.getElementById('dailyCardImage');
+            const cardName = document.getElementById('dailyCardName');
+            const cardOrientation = document.getElementById('dailyCardOrientation');
+            const cardMeaning = document.getElementById('dailyCardMeaning');
+            const cardHistory = document.getElementById('dailyCardHistory');
+            const cardSymbolism = document.getElementById('dailyCardSymbolism');
+            const energyMessage = document.getElementById('dailyEnergyMessage');
+            
+            cardImage.src = `cards/${currentDeck}/${currentDailyCard}.jpg`;
+            cardImage.classList.toggle('inverted', isDailyCardInverted);
+            
+            cardName.textContent = tarotCards[currentDailyCard].name;
+            cardOrientation.textContent = isDailyCardInverted ? 'Posición Invertida' : 'Posición Normal';
+            
+            const meaning = isDailyCardInverted ? tarotCards[currentDailyCard].inverted : tarotCards[currentDailyCard].upright;
+            cardMeaning.textContent = "Significado: " + meaning;
+            cardHistory.textContent = "Historia y simbolismo: " + tarotCards[currentDailyCard].history;
+            cardSymbolism.textContent = "Elementos clave: " + tarotCards[currentDailyCard].symbolism;
+            
+            // Mensaje de energía personalizado
+            const energyMessages = [
+                "Hoy tu energía es de transformación y crecimiento. Reflexiona sobre el mensaje de esta carta.",
+                "Las cartas revelan un día de oportunidades y nuevas perspectivas. Mantén los ojos abiertos.",
+                "Tu energía hoy está alineada con la sabiduría interior. Confía en tu intuición.",
+                "Este es un momento para reflexión y autoconocimiento. Tómate un tiempo para meditar.",
+                "Las cartas muestran un día de equilibrio y armonía. Busca el punto medio en tus decisiones.",
+                "El universo te envía señales hoy. Presta atención a las coincidencias y sincronicidades.",
+                "Hoy es un día para actuar con conciencia. Cada decisión tiene su peso y significado.",
+                "La energía de hoy favorece la creatividad y la expresión auténtica. Deja fluir tu esencia."
+            ];
+            const randomMessage = energyMessages[Math.floor(Math.random() * energyMessages.length)];
+            energyMessage.textContent = randomMessage;
+            
+            cardDisplay.style.display = 'flex';
+            
+            // Scroll suave a la carta
+            cardDisplay.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function invertDailyCard() {
+            isDailyCardInverted = !isDailyCardInverted;
+            const cardImage = document.getElementById('dailyCardImage');
+            
+            // Animación de volteo
+            cardImage.classList.add('flip-card');
+            setTimeout(() => {
+                cardImage.classList.toggle('inverted', isDailyCardInverted);
+                cardImage.classList.remove('flip-card');
+            }, 350);
+            
+            const cardOrientation = document.getElementById('dailyCardOrientation');
+            const cardMeaning = document.getElementById('dailyCardMeaning');
+            
+            cardOrientation.textContent = isDailyCardInverted ? 'Posición Invertida' : 'Posición Normal';
+            
+            const meaning = isDailyCardInverted ? tarotCards[currentDailyCard].inverted : tarotCards[currentDailyCard].upright;
+            cardMeaning.textContent = "Significado: " + meaning;
+        }
+
+        // Tirada de 3 Cartas
+        function setThreeCardsSpread(type) {
+            threeCardsSpreadType = type;
+            document.querySelectorAll('#three-cards-reading .spread-options button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+        }
+
+        function drawThreeCards() {
+            const resultDiv = document.getElementById('threeCardsResult');
+            const summaryDiv = document.getElementById('threeCardsSummary');
+            const display = document.getElementById('threeCardsDisplay');
+            display.innerHTML = '';
+            
+            // Sacar 3 cartas únicas
+            const cards = [];
+            while (cards.length < 3) {
+                const randomIndex = Math.floor(Math.random() * tarotCards.length);
+                if (!cards.includes(randomIndex)) {
+                    cards.push(randomIndex);
+                }
+            }
+            
+            const positions = threeCardsSpreadType === 'past-present-future' 
+                ? ['Pasado', 'Presente', 'Futuro'] 
+                : ['Situación', 'Obstáculo', 'Consejo'];
+            
+            let readingSummary = "";
+            
+            cards.forEach((cardIndex, i) => {
+                const card = tarotCards[cardIndex];
+                const isInverted = Math.random() < 0.3;
+                const meaning = isInverted ? card.inverted : card.upright;
+                
+                readingSummary += `${positions[i]}: ${card.name} ${isInverted ? '(Invertida)' : ''} - ${meaning.split('.')[0]}. `;
+                
+                const cardElement = document.createElement('div');
+                cardElement.className = 'spread-card card-drop';
+                cardElement.style.animationDelay = `${i * 0.1}s`;
+                cardElement.innerHTML = `
+                    <div class="spread-card-position">${positions[i]}</div>
+                    <div class="spread-card-image-container">
+                        <img src="cards/${currentDeck}/${cardIndex}.jpg" 
+                             class="spread-card-image ${isInverted ? 'inverted' : ''}" 
+                             alt="${card.name}">
+                    </div>
+                    <div class="spread-card-name">${card.name}</div>
+                    <div class="spread-card-orientation">${isInverted ? 'Invertida' : 'Normal'}</div>
+                    <div class="spread-card-meaning">${meaning}</div>
+                `;
+                
+                display.appendChild(cardElement);
+            });
+            
+            summaryDiv.textContent = readingSummary;
+            resultDiv.style.display = 'block';
+            
+            // Scroll suave al resultado
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+            
+            // Reproducir sonido
+            playCardSound();
+        }
+
+        // Tirada de Sí o No
+        function setYesNoCardsCount(count) {
+            yesNoCardsCount = count;
+            document.querySelectorAll('#yes-no-reading .spread-options button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+        }
+
+        function drawYesNoCards() {
+            const question = document.getElementById('yesNoQuestion').value.trim();
+            if (!question) {
+                alert('Por favor, escribe tu pregunta primero.');
+                return;
+            }
+            
+            const resultDiv = document.getElementById('yesNoResult');
+            const answerDiv = document.getElementById('yesNoAnswer');
+            const explanationDiv = document.getElementById('yesNoExplanation');
+            const cardsDisplay = document.getElementById('yesNoCardsDisplay');
+            
+            cardsDisplay.innerHTML = '';
+            
+            // Sacar las cartas
+            const cards = [];
+            for (let i = 0; i < yesNoCardsCount; i++) {
+                cards.push(Math.floor(Math.random() * tarotCards.length));
+            }
+            
+            // Determinar la respuesta
+            let answer = '';
+            let explanation = '';
+            
+            if (yesNoCardsCount === 1) {
+                const card = tarotCards[cards[0]];
+                const isPositive = card.positive;
+                const isInverted = Math.random() < 0.3;
+                
+                if (isInverted) {
+                    answer = isPositive ? 'Posiblemente Sí' : 'Definitivamente No';
+                } else {
+                    answer = isPositive ? 'Definitivamente Sí' : 'Posiblemente No';
+                }
+                
+                explanation = `La carta ${card.name} ${isInverted ? 'invertida' : 'normal'} sugiere: ${isInverted ? card.inverted : card.upright}`;
+                
+                // Mostrar la carta
+                const cardElement = document.createElement('div');
+                cardElement.className = 'spread-card card-drop';
+                cardElement.innerHTML = `
+                    <div class="spread-card-image-container">
+                        <img src="cards/${currentDeck}/${cards[0]}.jpg" 
+                             class="spread-card-image ${isInverted ? 'inverted' : ''}" 
+                             alt="${card.name}">
+                    </div>
+                    <div class="spread-card-name">${card.name}</div>
+                    <div class="spread-card-orientation">${isInverted ? 'Invertida' : 'Normal'}</div>
+                `;
+                cardsDisplay.appendChild(cardElement);
+            } else {
+                // Para 3 cartas, contar las positivas y negativas
+                let positiveCount = 0;
+                let negativeCount = 0;
+                let cardsInfo = [];
+                
+                cards.forEach((cardIndex, i) => {
+                    const card = tarotCards[cardIndex];
+                    const isInverted = Math.random() < 0.3;
+                    
+                    if (isInverted) {
+                        if (card.positive) negativeCount++;
+                        else positiveCount++;
+                    } else {
+                        if (card.positive) positiveCount++;
+                        else negativeCount++;
+                    }
+                    
+                    cardsInfo.push(`${card.name} ${isInverted ? '(Invertida)' : ''}`);
+                    
+                    // Mostrar cada carta
+                    const cardElement = document.createElement('div');
+                    cardElement.className = 'spread-card card-drop';
+                    cardElement.style.animationDelay = `${i * 0.1}s`;
+                    cardElement.innerHTML = `
+                        <div class="spread-card-image-container">
+                            <img src="cards/${currentDeck}/${cardIndex}.jpg" 
+                                 class="spread-card-image ${isInverted ? 'inverted' : ''}" 
+                                 alt="${card.name}">
+                        </div>
+                        <div class="spread-card-name">${card.name}</div>
+                        <div class="spread-card-orientation">${isInverted ? 'Invertida' : 'Normal'}</div>
+                    `;
+                    cardsDisplay.appendChild(cardElement);
+                });
+                
+                if (positiveCount > negativeCount) {
+                    answer = 'Sí';
+                    explanation = `La mayoría de las cartas (${positiveCount} de 3) son positivas, indicando una respuesta favorable. Cartas: ${cardsInfo.join(', ')}.`;
+                } else if (negativeCount > positiveCount) {
+                    answer = 'No';
+                    explanation = `La mayoría de las cartas (${negativeCount} de 3) son negativas, sugiriendo que no es el momento adecuado. Cartas: ${cardsInfo.join(', ')}.`;
+                } else {
+                    answer = 'Dudoso';
+                    explanation = `Las cartas están equilibradas (${positiveCount} positivas y ${negativeCount} negativas). Considera todos los aspectos cuidadosamente. Cartas: ${cardsInfo.join(', ')}.`;
+                }
+            }
+            
+            answerDiv.textContent = `Respuesta: ${answer}`;
+            explanationDiv.textContent = explanation;
+            resultDiv.style.display = 'block';
+            
+            // Scroll suave al resultado
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+            
+            // Reproducir sonido
+            playCardSound();
+        }
+
+        // Tirada de Consejo
+        function setAdviceCardsCount(count) {
+            adviceCardsCount = count;
+            document.querySelectorAll('#advice-reading .spread-options button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+        }
+
+        function drawAdviceCards() {
+            const question = document.getElementById('adviceQuestion').value.trim();
+            if (!question) {
+                alert('Por favor, describe tu situación primero.');
+                return;
+            }
+            
+            const resultDiv = document.getElementById('adviceResult');
+            const summaryDiv = document.getElementById('adviceSummary');
+            const cardsDisplay = document.getElementById('adviceCardsDisplay');
+            
+            cardsDisplay.innerHTML = '';
+            
+            // Sacar las cartas
+            const cards = [];
+            for (let i = 0; i < adviceCardsCount; i++) {
+                cards.push(Math.floor(Math.random() * tarotCards.length));
+            }
+            
+            // Generar consejo basado en las cartas
+            let advice = '';
+            
+            if (adviceCardsCount === 1) {
+                const card = tarotCards[cards[0]];
+                const isInverted = Math.random() < 0.3;
+                
+                advice = `La carta ${card.name} ${isInverted ? 'invertida' : 'normal'} sugiere: ${isInverted ? card.inverted : card.upright}`;
+                
+                // Mostrar la carta
+                const cardElement = document.createElement('div');
+                cardElement.className = 'spread-card card-drop';
+                cardElement.innerHTML = `
+                    <div class="spread-card-image-container">
+                        <img src="cards/${currentDeck}/${cards[0]}.jpg" 
+                             class="spread-card-image ${isInverted ? 'inverted' : ''}" 
+                             alt="${card.name}">
+                    </div>
+                    <div class="spread-card-name">${card.name}</div>
+                    <div class="spread-card-orientation">${isInverted ? 'Invertida' : 'Normal'}</div>
+                `;
+                cardsDisplay.appendChild(cardElement);
+            } else {
+                // Para 3 cartas
+                const positions = ['Perspectiva', 'Acción Recomendada', 'Resultado Potencial'];
+                let adviceParts = [];
+                
+                cards.forEach((cardIndex, i) => {
+                    const card = tarotCards[cardIndex];
+                    const isInverted = Math.random() < 0.3;
+                    
+                    adviceParts.push(`${positions[i]}: ${card.name} ${isInverted ? 'invertida' : 'normal'} - ${isInverted ? card.inverted : card.upright}`);
+                    
+                    // Mostrar cada carta
+                    const cardElement = document.createElement('div');
+                    cardElement.className = 'spread-card card-drop';
+                    cardElement.style.animationDelay = `${i * 0.1}s`;
+                    cardElement.innerHTML = `
+                        <div class="spread-card-position">${positions[i]}</div>
+                        <div class="spread-card-image-container">
+                            <img src="cards/${currentDeck}/${cardIndex}.jpg" 
+                                 class="spread-card-image ${isInverted ? 'inverted' : ''}" 
+                                 alt="${card.name}">
+                        </div>
+                        <div class="spread-card-name">${card.name}</div>
+                        <div class="spread-card-orientation">${isInverted ? 'Invertida' : 'Normal'}</div>
+                    `;
+                    cardsDisplay.appendChild(cardElement);
+                });
+                
+                advice = adviceParts.join(' | ');
+            }
+            
+            summaryDiv.textContent = advice;
+            resultDiv.style.display = 'block';
+            
+            // Scroll suave al resultado
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+            
+            // Reproducir sonido
+            playCardSound();
+        }
+
+        // Tirada de Amor
+        function drawLoveCards() {
+            const question = document.getElementById('loveQuestion').value.trim();
+            if (!question) {
+                alert('Por favor, describe tu situación amorosa primero.');
+                return;
+            }
+            
+            const resultDiv = document.getElementById('loveResult');
+            const summaryDiv = document.getElementById('loveSummary');
+            const cardsDisplay = document.getElementById('loveCardsDisplay');
+            
+            cardsDisplay.innerHTML = '';
+            
+            // Sacar 3 cartas únicas
+            const cards = [];
+            while (cards.length < 3) {
+                const randomIndex = Math.floor(Math.random() * tarotCards.length);
+                if (!cards.includes(randomIndex)) {
+                    cards.push(randomIndex);
+                }
+            }
+            
+            const positions = ['Tú', 'Tu Pareja/Perspectiva', 'La Relación'];
+            
+            let reading = [];
+            
+            cards.forEach((cardIndex, i) => {
+                const card = tarotCards[cardIndex];
+                const isInverted = Math.random() < 0.3;
+                
+                reading.push(`${positions[i]}: ${card.name} ${isInverted ? 'invertida' : 'normal'} - ${isInverted ? card.inverted : card.upright}`);
+                
+                // Mostrar cada carta
+                const cardElement = document.createElement('div');
+                cardElement.className = 'spread-card card-drop';
+                cardElement.style.animationDelay = `${i * 0.1}s`;
+                cardElement.innerHTML = `
+                    <div class="spread-card-position">${positions[i]}</div>
+                    <div class="spread-card-image-container">
+                        <img src="cards/${currentDeck}/${cardIndex}.jpg" 
+                             class="spread-card-image ${isInverted ? 'inverted' : ''}" 
+                             alt="${card.name}">
+                    </div>
+                    <div class="spread-card-name">${card.name}</div>
+                    <div class="spread-card-orientation">${isInverted ? 'Invertida' : 'Normal'}</div>
+                `;
+                cardsDisplay.appendChild(cardElement);
+            });
+            
+            summaryDiv.textContent = reading.join(' | ');
+            resultDiv.style.display = 'block';
+            
+            // Scroll suave al resultado
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+            
+            // Reproducir sonido
+            playCardSound();
+        }
+
+        // Funciones para compartir
+        function shareDailyOnWhatsApp() {
+            const cardName = tarotCards[currentDailyCard].name;
+            const orientation = isDailyCardInverted ? 'Invertida' : 'Normal';
+            const meaning = isDailyCardInverted ? tarotCards[currentDailyCard].inverted : tarotCards[currentDailyCard].upright;
+            const message = document.getElementById('dailyEnergyMessage').textContent;
+            
+            const text = `✨ Mi carta del día es ${cardName} (${orientation}) ✨\n\nSignificado: ${meaning}\n\nMensaje energético: ${message}\n\nDescubre tu carta en: ${window.location.href}`;
+            const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+        }
+
+        function shareDailyOnFacebook() {
+            const cardName = tarotCards[currentDailyCard].name;
+            const orientation = isDailyCardInverted ? 'Invertida' : 'Normal';
+            const meaning = isDailyCardInverted ? tarotCards[currentDailyCard].inverted : tarotCards[currentDailyCard].upright;
+            const message = document.getElementById('dailyEnergyMessage').textContent;
+            
+            const text = `✨ Mi carta del día es ${cardName} (${orientation}) ✨\n\nSignificado: ${meaning}\n\nMensaje energético: ${message}`;
+            const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+        }
+
+        function shareDailyOnInstagram() {
+            alert('Para compartir en Instagram, toma una captura de pantalla de tu carta y compártela directamente desde la app con el hashtag #TarotDelDia');
+        }
+
+        // Galería de cartas
+        function showDeckGallery(deck) {
+            document.querySelectorAll('.deck-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+            
+            const gallery = document.getElementById('cardGallery');
+            gallery.innerHTML = '';
+            
+            for (let i = 0; i < tarotCards.length; i++) {
+                const cardElement = document.createElement('div');
+                cardElement.className = 'gallery-card';
+                cardElement.innerHTML = `
+                    <img src="cards/${deck}/${i}.jpg" alt="${tarotCards[i].name}" onclick="showCardDetail(${i}, '${deck}')">
+                    <p>${tarotCards[i].name}</p>
+                `;
+                gallery.appendChild(cardElement);
+            }
+        }
+
+        function showCardDetail(cardIndex, deck) {
+            const modal = document.getElementById('cardModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalContent.innerHTML = `
+                <div style="text-align: center;">
+                    <h2 style="color: var(--primary-color); font-family: 'Cinzel Decorative', cursive;">${tarotCards[cardIndex].name}</h2>
+                    <img src="cards/${deck}/${cardIndex}.jpg" style="max-width: 300px; height: auto; margin: 1.5rem 0; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); border: 3px solid var(--gold);">
+                    <div style="margin: 1.5rem 0; text-align: left;">
+                        <h3 style="color: var(--primary-color); border-bottom: 2px solid var(--gold); padding-bottom: 0.5rem; display: inline-block;">Posición Normal:</h3>
+                        <p style="margin-top: 0.5rem;">${tarotCards[cardIndex].upright}</p>
+                    </div>
+                    <div style="margin: 1.5rem 0; text-align: left;">
+                        <h3 style="color: var(--primary-color); border-bottom: 2px solid var(--gold); padding-bottom: 0.5rem; display: inline-block;">Posición Invertida:</h3>
+                        <p style="margin-top: 0.5rem;">${tarotCards[cardIndex].inverted}</p>
+                    </div>
+                    <div style="margin: 1.5rem 0; text-align: left;">
+                        <h3 style="color: var(--primary-color); border-bottom: 2px solid var(--gold); padding-bottom: 0.5rem; display: inline-block;">Historia y simbolismo:</h3>
+                        <p style="margin-top: 0.5rem;">${tarotCards[cardIndex].history}</p>
+                    </div>
+                    <div style="margin: 1.5rem 0; text-align: left;">
+                        <h3 style="color: var(--primary-color); border-bottom: 2px solid var(--gold); padding-bottom: 0.5rem; display: inline-block;">Elementos clave:</h3>
+                        <p style="margin-top: 0.5rem;">${tarotCards[cardIndex].symbolism}</p>
+                    </div>
+                </div>
+            `;
+            
+            modal.style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('cardModal').style.display = 'none';
+        }
+
+        // Navegación entre secciones
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Actualizar botón activo en el nav
+            document.querySelectorAll('nav button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Si es una sección con botón directo
+            const directBtn = document.querySelector(`nav button[onclick="showSection('${sectionId}')"]`);
+            if (directBtn) {
+                directBtn.classList.add('active');
+            }
+            
+            // Si es la galería, mostrar el mazo actual
+            if (sectionId === 'gallery') {
+                showDeckGallery(currentDeck);
+            }
+            
+            // Scroll suave al inicio de la sección
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Modo oscuro/claro
+        function toggleDarkMode() {
+            darkMode = !darkMode;
+            document.body.classList.toggle('dark-mode', darkMode);
+            
+            // Efecto visual
+            const themeToggle = document.querySelector('.theme-toggle');
+            themeToggle.style.transform = 'rotate(180deg)';
+            setTimeout(() => {
+                themeToggle.style.transform = '';
+            }, 300);
+            
+            // Guardar preferencia en localStorage
+            localStorage.setItem('darkMode', darkMode);
+        }
+
+        // Sonido
+        function playCardSound() {
+            // Crear un elemento de audio dinámicamente
+            const audio = new Audio();
+            audio.src = "data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU..."; // Sonido corto base64
+            audio.volume = 0.3;
+            audio.play().catch(e => console.log("No se pudo reproducir el sonido:", e));
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', () => {
+            // Verificar preferencia de modo oscuro
+            const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+            if (savedDarkMode) {
+                darkMode = true;
+                document.body.classList.add('dark-mode');
+            }
+            
+            // Mostrar galería con el mazo actual
+            showDeckGallery(currentDeck);
+            
+            // Establecer botón activo inicial
+            document.querySelector('nav button.active').classList.add('active');
+        });
+
+        // Cerrar modal al hacer clic fuera del contenido
+        window.onclick = function(event) {
+            const modal = document.getElementById('cardModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
