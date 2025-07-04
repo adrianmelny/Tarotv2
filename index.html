@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Tarot del Día - Tu Carta Diaria</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=MedievalSharp&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -38,6 +38,8 @@
             line-height: 1.6;
             transition: all 0.3s ease;
             background-image: url('https://www.transparenttextures.com/patterns/black-thread-light.png');
+            -webkit-text-size-adjust: 100%;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body.dark-mode {
@@ -49,7 +51,7 @@
         header {
             background: linear-gradient(135deg, var(--deep-purple), var(--primary-color));
             color: var(--light-text);
-            padding: 2rem 1.5rem;
+            padding: 1.5rem 1rem;
             text-align: center;
             box-shadow: var(--shadow);
             position: relative;
@@ -76,7 +78,7 @@
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             margin-bottom: 0.5rem;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
             color: var(--gold);
@@ -84,7 +86,7 @@
 
         header p {
             font-style: italic;
-            font-size: 1.1rem;
+            font-size: 1rem;
             opacity: 0.9;
         }
 
@@ -92,12 +94,15 @@
             display: flex;
             justify-content: center;
             background-color: var(--deep-purple);
-            padding: 0.8rem;
+            padding: 0.5rem;
             position: sticky;
             top: 0;
             z-index: 100;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
             border-bottom: 1px solid var(--gold);
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
         }
 
         .dark-mode nav {
@@ -108,15 +113,16 @@
             background: none;
             border: none;
             color: var(--light-text);
-            padding: 0.7rem 1.2rem;
-            margin: 0 0.5rem;
+            padding: 0.6rem 1rem;
+            margin: 0 0.3rem;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
             border-radius: 4px;
             position: relative;
             font-family: 'MedievalSharp', cursive;
             letter-spacing: 1px;
+            min-width: max-content;
         }
 
         nav button:hover {
@@ -188,7 +194,7 @@
 
         .container {
             max-width: 1200px;
-            margin: 2rem auto;
+            margin: 1.5rem auto;
             padding: 0 1rem;
         }
 
@@ -196,9 +202,9 @@
         .readings-section {
             background: linear-gradient(135deg, rgba(106, 27, 154, 0.1), rgba(225, 190, 231, 0.1));
             border-radius: 15px;
-            padding: 2rem;
+            padding: 1.5rem;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             border: 1px solid rgba(212, 175, 55, 0.3);
             position: relative;
             overflow: hidden;
@@ -224,13 +230,16 @@
         .reading-tabs {
             display: flex;
             justify-content: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             flex-wrap: wrap;
-            gap: 1rem;
+            gap: 0.8rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+            -webkit-overflow-scrolling: touch;
         }
 
         .reading-tab {
-            padding: 0.8rem 1.5rem;
+            padding: 0.7rem 1.2rem;
             background: linear-gradient(to bottom, var(--card-bg), #f0f0f0);
             border: 1px solid var(--primary-color);
             border-radius: 30px;
@@ -242,6 +251,8 @@
             position: relative;
             overflow: hidden;
             font-family: 'MedievalSharp', cursive;
+            font-size: 0.9rem;
+            min-width: max-content;
         }
 
         .reading-tab::before {
@@ -293,18 +304,18 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .deck-option {
             border: 2px solid var(--primary-color);
             border-radius: 10px;
-            padding: 1.2rem;
+            padding: 1rem;
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
-            width: 160px;
+            width: 140px;
             background-color: var(--card-bg);
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             position: relative;
@@ -352,9 +363,9 @@
             width: 100%;
             height: auto;
             border-radius: 8px;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.6rem;
             object-fit: contain;
-            max-height: 220px;
+            max-height: 180px;
             transition: transform 0.3s ease;
             border: 1px solid rgba(0,0,0,0.1);
         }
@@ -365,24 +376,24 @@
 
         .deck-option p {
             font-weight: bold;
-            font-size: 1rem;
+            font-size: 0.9rem;
         }
 
         .card-display {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 2rem 0;
+            margin: 1.5rem 0;
             animation: fadeIn 0.5s ease-out;
         }
 
         .card-image-container {
             position: relative;
             width: 100%;
-            max-width: 280px;
+            max-width: 220px;
             height: auto;
             aspect-ratio: 2/3;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
             perspective: 1000px;
             border-radius: 15px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
@@ -412,8 +423,8 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 2rem;
-            margin: 2rem 0;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
             animation: fadeIn 0.5s ease-out;
         }
 
@@ -422,10 +433,10 @@
             flex-direction: column;
             align-items: center;
             width: 100%;
-            max-width: 220px;
+            max-width: 200px;
             transition: all 0.3s ease;
             background: var(--card-bg);
-            padding: 1.5rem;
+            padding: 1.2rem;
             border-radius: 12px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             border: 1px solid rgba(106, 27, 154, 0.1);
@@ -469,10 +480,10 @@
 
         .spread-card-position {
             font-weight: bold;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.6rem;
             color: var(--primary-color);
             font-family: 'MedievalSharp', cursive;
-            font-size: 1.1rem;
+            font-size: 1rem;
             text-align: center;
             position: relative;
             display: inline-block;
@@ -494,16 +505,16 @@
 
         .spread-card-name {
             font-weight: bold;
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
+            margin-bottom: 0.4rem;
+            font-size: 1rem;
             text-align: center;
         }
 
         .spread-card-orientation {
             font-style: italic;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.6rem;
             color: var(--secondary-color);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .dark-mode .spread-card-orientation {
@@ -511,19 +522,19 @@
         }
 
         .spread-card-meaning {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             text-align: center;
-            margin-top: 0.8rem;
+            margin-top: 0.6rem;
             line-height: 1.5;
         }
 
         .card-info {
-            margin-top: 1.5rem;
+            margin-top: 1.2rem;
             text-align: center;
             width: 100%;
             max-width: 700px;
             background: var(--card-bg);
-            padding: 1.5rem;
+            padding: 1.2rem;
             border-radius: 12px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             border: 1px solid rgba(106, 27, 154, 0.1);
@@ -535,10 +546,10 @@
         }
 
         .card-name {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: bold;
             color: var(--primary-color);
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.6rem;
             font-family: 'Cinzel Decorative', cursive;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
@@ -549,9 +560,9 @@
 
         .card-orientation {
             font-style: italic;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
             color: var(--secondary-color);
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         .dark-mode .card-orientation {
@@ -559,8 +570,8 @@
         }
 
         .card-meaning {
-            margin: 1.5rem 0;
-            padding: 1.5rem;
+            margin: 1.2rem 0;
+            padding: 1.2rem;
             background-color: var(--accent-color);
             border-radius: 10px;
             text-align: left;
@@ -570,7 +581,7 @@
         }
 
         .card-meaning::before {
-            content: """;
+            content: "“";
             position: absolute;
             top: 10px;
             left: 10px;
@@ -591,12 +602,12 @@
         }
 
         .card-history {
-            margin: 1.5rem 0;
-            padding: 1.5rem;
+            margin: 1.2rem 0;
+            padding: 1.2rem;
             background-color: rgba(0,0,0,0.05);
             border-radius: 10px;
             text-align: left;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
             border-left: 5px solid var(--gold);
         }
@@ -612,12 +623,12 @@
         }
 
         .card-symbolism {
-            margin: 1.5rem 0;
-            padding: 1.5rem;
+            margin: 1.2rem 0;
+            padding: 1.2rem;
             background-color: rgba(0,0,0,0.05);
             border-radius: 10px;
             text-align: left;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
             border-left: 5px solid var(--secondary-color);
         }
@@ -633,11 +644,11 @@
         }
 
         .energy-message {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: bold;
-            margin: 2rem 0;
+            margin: 1.5rem 0;
             color: var(--secondary-color);
-            padding: 1.5rem;
+            padding: 1.2rem;
             border-left: 5px solid var(--secondary-color);
             background-color: rgba(0,0,0,0.03);
             text-align: center;
@@ -653,7 +664,7 @@
             top: 50%;
             transform: translateY(-50%);
             color: var(--gold);
-            font-size: 1.5rem;
+            font-size: 1.2rem;
         }
 
         .energy-message::before {
@@ -678,8 +689,8 @@
         .actions {
             display: flex;
             justify-content: center;
-            gap: 1.5rem;
-            margin-top: 2rem;
+            gap: 1rem;
+            margin-top: 1.5rem;
             flex-wrap: wrap;
         }
 
@@ -687,17 +698,18 @@
             background-color: var(--primary-color);
             color: var(--light-text);
             border: none;
-            padding: 0.8rem 1.5rem;
+            padding: 0.7rem 1.2rem;
             border-radius: 30px;
             cursor: pointer;
             transition: all 0.3s;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 0.9rem;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             position: relative;
             overflow: hidden;
             font-family: 'MedievalSharp', cursive;
             letter-spacing: 1px;
+            min-width: max-content;
         }
 
         button::after {
@@ -733,8 +745,8 @@
         .spread-options {
             display: flex;
             justify-content: center;
-            gap: 1.5rem;
-            margin: 1.5rem 0;
+            gap: 1rem;
+            margin: 1.2rem 0;
             flex-wrap: wrap;
         }
 
@@ -742,7 +754,8 @@
             background-color: transparent;
             border: 2px solid var(--primary-color);
             color: var(--primary-color);
-            padding: 0.6rem 1.2rem;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
         }
 
         .dark-mode .spread-options button {
@@ -771,7 +784,7 @@
         }
 
         .question-input {
-            margin: 2rem 0;
+            margin: 1.5rem 0;
             position: relative;
         }
 
@@ -789,10 +802,10 @@
 
         textarea {
             width: 100%;
-            padding: 1rem;
+            padding: 0.8rem;
             border-radius: 8px;
             border: 2px solid var(--primary-color);
-            font-size: 1rem;
+            font-size: 0.9rem;
             resize: vertical;
             min-height: 100px;
             transition: all 0.3s ease;
@@ -820,8 +833,8 @@
         .share-buttons {
             display: flex;
             justify-content: center;
-            gap: 1.5rem;
-            margin-top: 2rem;
+            gap: 1rem;
+            margin-top: 1.5rem;
             flex-wrap: wrap;
         }
 
@@ -829,13 +842,14 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.8rem 1.5rem;
+            padding: 0.7rem 1.2rem;
             border-radius: 30px;
             color: white;
             text-decoration: none;
             font-weight: bold;
             transition: all 0.3s ease;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            font-size: 0.9rem;
         }
 
         .share-button:hover {
@@ -866,18 +880,21 @@
             z-index: 1000;
             overflow: auto;
             animation: fadeIn 0.3s ease-out;
+            padding: 1rem;
+            box-sizing: border-box;
         }
 
         .modal-content {
             background-color: var(--card-bg);
-            margin: 5% auto;
-            padding: 2.5rem;
+            margin: 2rem auto;
+            padding: 1.5rem;
             border-radius: 15px;
             max-width: 800px;
             position: relative;
             animation: slideIn 0.3s ease-out;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             border: 1px solid var(--gold);
+            width: calc(100% - 2rem);
         }
 
         .dark-mode .modal-content {
@@ -886,14 +903,14 @@
 
         .close-button {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
-            font-size: 1.8rem;
+            top: 0.5rem;
+            right: 0.5rem;
+            font-size: 1.5rem;
             cursor: pointer;
             color: var(--text-color);
             transition: all 0.2s ease;
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            height: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -917,9 +934,9 @@
 
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
         }
 
         .gallery-card {
@@ -927,7 +944,7 @@
             transition: all 0.3s ease;
             background-color: var(--card-bg);
             border-radius: 12px;
-            padding: 1rem;
+            padding: 0.8rem;
             box-shadow: var(--shadow);
             border: 1px solid rgba(106, 27, 154, 0.1);
             position: relative;
@@ -977,9 +994,9 @@
 
         .gallery-card p {
             text-align: center;
-            margin-top: 1rem;
+            margin-top: 0.8rem;
             font-weight: bold;
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: var(--primary-color);
         }
 
@@ -999,9 +1016,9 @@
         .info-section {
             background-color: var(--card-bg);
             border-radius: 15px;
-            padding: 2.5rem;
+            padding: 1.5rem;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             transition: all 0.3s ease;
             border: 1px solid rgba(212, 175, 55, 0.3);
             position: relative;
@@ -1032,11 +1049,12 @@
 
         .info-section h2 {
             color: var(--primary-color);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
             font-family: 'Cinzel Decorative', cursive;
             text-align: center;
             position: relative;
             padding-bottom: 0.5rem;
+            font-size: 1.5rem;
         }
 
         .info-section h2::after {
@@ -1045,7 +1063,7 @@
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 100px;
+            width: 80px;
             height: 3px;
             background: linear-gradient(90deg, var(--gold), var(--accent-color), var(--gold));
             border-radius: 3px;
@@ -1056,31 +1074,33 @@
         }
 
         .info-section p {
-            margin-bottom: 1.2rem;
+            margin-bottom: 1rem;
             line-height: 1.7;
+            font-size: 0.95rem;
         }
 
         .info-section ul {
-            margin-bottom: 1.5rem;
-            padding-left: 1.5rem;
+            margin-bottom: 1.2rem;
+            padding-left: 1.2rem;
         }
 
         .info-section ul li {
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.6rem;
+            font-size: 0.95rem;
         }
 
         .donation-options {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
-            margin-top: 2rem;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
         }
 
         .donation-option {
             display: flex;
             align-items: center;
-            gap: 1.5rem;
-            padding: 1.5rem;
+            gap: 1rem;
+            padding: 1rem;
             background-color: var(--accent-color);
             border-radius: 12px;
             transition: all 0.3s ease;
@@ -1098,7 +1118,7 @@
         }
 
         .donation-option img {
-            width: 60px;
+            width: 50px;
             height: auto;
             transition: transform 0.3s ease;
             border-radius: 8px;
@@ -1114,8 +1134,9 @@
 
         .donation-option h3 {
             color: var(--primary-color);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
             font-family: 'Cinzel Decorative', cursive;
+            font-size: 1.1rem;
         }
 
         .dark-mode .donation-option h3 {
@@ -1123,8 +1144,8 @@
         }
 
         .donation-option p {
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
         }
 
         .donation-option a {
@@ -1132,6 +1153,7 @@
             text-decoration: none;
             font-weight: bold;
             transition: all 0.2s ease;
+            font-size: 0.9rem;
         }
 
         .donation-option a:hover {
@@ -1145,15 +1167,15 @@
 
         .theme-toggle {
             position: fixed;
-            bottom: 25px;
-            right: 25px;
+            bottom: 20px;
+            right: 20px;
             background-color: var(--primary-color);
             color: white;
             border: none;
             border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            font-size: 1.8rem;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -1177,8 +1199,8 @@
             background-color: var(--primary-color);
             color: var(--light-text);
             text-align: center;
-            padding: 2rem 1.5rem;
-            margin-top: 3rem;
+            padding: 1.5rem 1rem;
+            margin-top: 2rem;
             transition: all 0.3s ease;
             border-top: 3px solid var(--gold);
             position: relative;
@@ -1206,11 +1228,12 @@
         footer p {
             margin-bottom: 0.5rem;
             opacity: 0.9;
+            font-size: 0.9rem;
         }
 
         footer p:first-child {
             font-weight: bold;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         /* Animaciones */
@@ -1298,9 +1321,9 @@
         .reading-card {
             background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(225, 190, 231, 0.3));
             border-radius: 15px;
-            padding: 2rem;
+            padding: 1.5rem;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             transition: all 0.3s ease;
             border: 1px solid rgba(212, 175, 55, 0.3);
             position: relative;
@@ -1330,9 +1353,9 @@
         }
 
         .reading-title {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
             color: var(--primary-color);
-            font-size: 2rem;
+            font-size: 1.5rem;
             position: relative;
             display: inline-block;
             font-family: 'Cinzel Decorative', cursive;
@@ -1345,8 +1368,8 @@
             bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
+            width: 60px;
+            height: 3px;
             background: linear-gradient(90deg, var(--gold), var(--accent-color), var(--gold));
             border-radius: 3px;
         }
@@ -1356,8 +1379,8 @@
         }
 
         .reading-description {
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
             color: var(--text-color);
             line-height: 1.7;
             text-align: center;
@@ -1369,8 +1392,8 @@
 
         /* Resultados de tiradas */
         .reading-result {
-            margin-top: 2rem;
-            padding: 2rem;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
             background: linear-gradient(135deg, rgba(225, 190, 231, 0.2), rgba(255,255,255,0.8));
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
@@ -1384,9 +1407,10 @@
 
         .reading-result h3 {
             color: var(--primary-color);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
             text-align: center;
             font-family: 'Cinzel Decorative', cursive;
+            font-size: 1.3rem;
         }
 
         .dark-mode .reading-result h3 {
@@ -1394,9 +1418,9 @@
         }
 
         .reading-summary {
-            font-size: 1.1rem;
+            font-size: 1rem;
             line-height: 1.7;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
             text-align: center;
             font-style: italic;
         }
@@ -1418,113 +1442,216 @@
             animation: flipCard 0.7s ease-out forwards;
         }
 
+        /* Mejoras específicas para móviles */
         @media (max-width: 768px) {
-            nav {
-                flex-wrap: wrap;
-                padding: 0.5rem;
-            }
-
-            nav button {
-                margin: 0.25rem;
-                padding: 0.6rem;
-                font-size: 0.9rem;
-            }
-
-            .dropdown-content {
-                left: 0;
-                transform: none;
-                width: 100%;
-            }
-
-            .deck-selector {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .deck-option {
-                width: 100%;
-                max-width: 220px;
-            }
-
-            .reading-tabs {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .reading-tab {
-                width: 100%;
-                max-width: 250px;
-                text-align: center;
-            }
-
-            .card-image-container {
-                width: 220px;
-                height: 330px;
-            }
-
-            .multi-card-spread {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .spread-card {
-                width: 100%;
-                max-width: 280px;
-            }
-
-            .spread-card-image-container {
-                height: 380px;
-            }
-
-            .actions, .share-buttons, .spread-options {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .gallery {
-                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            header {
+                padding: 1.2rem 1rem;
             }
             
-            .reading-title {
+            h1 {
                 font-size: 1.8rem;
             }
             
-            .reading-description {
+            header p {
+                font-size: 0.95rem;
+            }
+            
+            nav {
+                padding: 0.4rem;
+                justify-content: flex-start;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            nav button {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.85rem;
+                margin: 0 0.2rem;
+            }
+            
+            .container {
+                padding: 0 0.8rem;
+                margin: 1rem auto;
+            }
+            
+            .readings-section, .info-section, .reading-card {
+                padding: 1.2rem;
+            }
+            
+            .reading-tabs {
+                justify-content: flex-start;
+                padding-bottom: 0.5rem;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .reading-tab {
+                padding: 0.6rem 1rem;
+                font-size: 0.85rem;
+            }
+            
+            .deck-selector {
+                gap: 0.8rem;
+            }
+            
+            .deck-option {
+                width: 120px;
+                padding: 0.8rem;
+            }
+            
+            .deck-option img {
+                max-height: 150px;
+            }
+            
+            .card-image-container {
+                max-width: 200px;
+            }
+            
+            .card-info, .reading-result {
+                padding: 1rem;
+            }
+            
+            .card-name {
+                font-size: 1.3rem;
+            }
+            
+            .card-meaning, .card-history, .card-symbolism {
+                padding: 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .energy-message {
+                font-size: 1rem;
+                padding: 1rem;
+            }
+            
+            .energy-message::before, .energy-message::after {
                 font-size: 1rem;
             }
-
+            
+            .actions, .share-buttons, .spread-options {
+                gap: 0.8rem;
+            }
+            
+            button, .share-button {
+                padding: 0.6rem 1rem;
+                font-size: 0.85rem;
+            }
+            
+            .spread-card {
+                max-width: 160px;
+                padding: 1rem;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 0.8rem;
+            }
+            
             .modal-content {
-                width: 90%;
-                padding: 1.5rem;
+                padding: 1.2rem;
+            }
+            
+            .donation-option {
+                padding: 0.8rem;
+                gap: 0.8rem;
+            }
+            
+            .donation-option img {
+                width: 40px;
+            }
+            
+            .donation-option h3 {
+                font-size: 1rem;
+            }
+            
+            .theme-toggle {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+                bottom: 15px;
+                right: 15px;
             }
         }
 
         @media (max-width: 480px) {
             h1 {
-                font-size: 2rem;
+                font-size: 1.6rem;
             }
-
+            
             header p {
-                font-size: 1rem;
+                font-size: 0.9rem;
             }
-
+            
             .reading-title {
-                font-size: 1.5rem;
+                font-size: 1.3rem;
             }
-
-            .card-name {
-                font-size: 1.5rem;
-            }
-
-            .energy-message {
-                font-size: 1.1rem;
-                padding: 1rem;
-            }
-
-            .theme-toggle {
+            
+            .reading-title::after {
                 width: 50px;
-                height: 50px;
-                font-size: 1.5rem;
+            }
+            
+            .reading-description {
+                font-size: 0.95rem;
+            }
+            
+            .deck-option {
+                width: 100%;
+                max-width: 140px;
+            }
+            
+            .spread-card {
+                max-width: 140px;
+                padding: 0.8rem;
+            }
+            
+            .spread-card-name {
+                font-size: 0.9rem;
+            }
+            
+            .spread-card-meaning {
+                font-size: 0.85rem;
+            }
+            
+            .card-info {
+                padding: 0.8rem;
+            }
+            
+            .card-name {
+                font-size: 1.2rem;
+            }
+            
+            .card-meaning, .card-history, .card-symbolism {
+                padding: 0.8rem;
+                font-size: 0.85rem;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+            }
+            
+            .info-section h2 {
+                font-size: 1.3rem;
+            }
+            
+            .info-section p, .info-section ul li {
+                font-size: 0.9rem;
+            }
+            
+            .donation-options {
+                gap: 1rem;
+            }
+            
+            .donation-option {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            footer p {
+                font-size: 0.85rem;
+            }
+            
+            footer p:first-child {
+                font-size: 0.95rem;
             }
         }
     </style>
@@ -1549,10 +1676,10 @@
             <div class="readings-section glow-on-hover">
                 <div class="reading-tabs">
                     <div class="reading-tab active" onclick="showReading('daily')">Carta del Día</div>
-                    <div class="reading-tab" onclick="showReading('three-cards')">Tirada de 3 Cartas</div>
-                    <div class="reading-tab" onclick="showReading('yes-no')">Tirada de Sí o No</div>
-                    <div class="reading-tab" onclick="showReading('advice')">Tirada de Consejo</div>
-                    <div class="reading-tab" onclick="showReading('love')">Tirada de Amor</div>
+                    <div class="reading-tab" onclick="showReading('three-cards')">3 Cartas</div>
+                    <div class="reading-tab" onclick="showReading('yes-no')">Sí o No</div>
+                    <div class="reading-tab" onclick="showReading('advice')">Consejo</div>
+                    <div class="reading-tab" onclick="showReading('love')">Amor</div>
                 </div>
 
                 <!-- Contenido de las lecturas -->
@@ -2590,20 +2717,20 @@
             modalContent.innerHTML = `
                 <div style="text-align: center;">
                     <h2 style="color: var(--primary-color); font-family: 'Cinzel Decorative', cursive;">${tarotCards[cardIndex].name}</h2>
-                    <img src="cards/${deck}/${cardIndex}.jpg" style="max-width: 300px; height: auto; margin: 1.5rem 0; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); border: 3px solid var(--gold);">
-                    <div style="margin: 1.5rem 0; text-align: left;">
+                    <img src="cards/${deck}/${cardIndex}.jpg" style="max-width: 100%; height: auto; margin: 1rem 0; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); border: 3px solid var(--gold);">
+                    <div style="margin: 1rem 0; text-align: left;">
                         <h3 style="color: var(--primary-color); border-bottom: 2px solid var(--gold); padding-bottom: 0.5rem; display: inline-block;">Posición Normal:</h3>
                         <p style="margin-top: 0.5rem;">${tarotCards[cardIndex].upright}</p>
                     </div>
-                    <div style="margin: 1.5rem 0; text-align: left;">
+                    <div style="margin: 1rem 0; text-align: left;">
                         <h3 style="color: var(--primary-color); border-bottom: 2px solid var(--gold); padding-bottom: 0.5rem; display: inline-block;">Posición Invertida:</h3>
                         <p style="margin-top: 0.5rem;">${tarotCards[cardIndex].inverted}</p>
                     </div>
-                    <div style="margin: 1.5rem 0; text-align: left;">
+                    <div style="margin: 1rem 0; text-align: left;">
                         <h3 style="color: var(--primary-color); border-bottom: 2px solid var(--gold); padding-bottom: 0.5rem; display: inline-block;">Historia y simbolismo:</h3>
                         <p style="margin-top: 0.5rem;">${tarotCards[cardIndex].history}</p>
                     </div>
-                    <div style="margin: 1.5rem 0; text-align: left;">
+                    <div style="margin: 1rem 0; text-align: left;">
                         <h3 style="color: var(--primary-color); border-bottom: 2px solid var(--gold); padding-bottom: 0.5rem; display: inline-block;">Elementos clave:</h3>
                         <p style="margin-top: 0.5rem;">${tarotCards[cardIndex].symbolism}</p>
                     </div>
