@@ -1,0 +1,1487 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Numerología Esotérica - Conexión con el Tarot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=MedievalSharp&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --primary-color: #8e44ad;
+            --secondary-color: #9b59b6;
+            --background-color: #f5e6ff;
+            --text-color: #2c3e50;
+            --card-bg: #ffffff;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-mode {
+            --primary-color: #9b59b6;
+            --secondary-color: #8e44ad;
+            --background-color: #1a1a1a;
+            --text-color: #ecf0f1;
+            --card-bg: #2c3e50;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: 'Merriweather', serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px var(--shadow-color);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cinzel Decorative', cursive;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .reading-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glow-on-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(142, 68, 173, 0.3);
+        }
+
+        .hover-underline {
+            display: inline-block;
+            position: relative;
+        }
+
+        .hover-underline:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--primary-color);
+            transform-origin: bottom right;
+            transition: transform 0.25s ease-out;
+        }
+
+        .hover-underline:hover:after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        .info-section {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px dashed var(--primary-color);
+        }
+
+        .question-input {
+            margin: 1rem 0;
+        }
+
+        .custom-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1rem;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            transition: border 0.3s ease;
+        }
+
+        .custom-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(142, 68, 173, 0.2);
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'MedievalSharp', cursive;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin: 0.5rem 0;
+        }
+
+        button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button.active {
+            background-color: var(--secondary-color);
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-info {
+            background-color: rgba(142, 68, 173, 0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .card-name {
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .card-meaning {
+            margin-bottom: 1rem;
+        }
+
+        .card-symbolism {
+            font-style: italic;
+            color: var(--secondary-color);
+        }
+
+        .energy-message {
+            padding: 1rem;
+            background-color: rgba(46, 204, 113, 0.1);
+            border-left: 4px solid #2ecc71;
+            margin-top: 1rem;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+            background-color: rgba(0, 0, 0, 0.05);
+            color: var(--text-color);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .gallery-item {
+            background-color: var(--card-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 5px var(--shadow-color);
+        }
+
+        .card-display {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-image-container {
+            flex: 0 0 200px;
+        }
+
+        .card-image {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            transition: transform 0.3s ease;
+        }
+
+        .card-drop {
+            animation: dropIn 0.5s ease;
+        }
+
+        @keyframes dropIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .multi-card-spread {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .spread-card {
+            width: 120px;
+            text-align: center;
+        }
+
+        .spread-card img {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .card-display {
+                flex-direction: column;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Numerología Esotérica</h1>
+        <p>Descubre la conexión mágica entre los números y el Tarot</p>
+    </header>
+
+    <nav>
+        <button onclick="window.location.href='index.html'">Volver al Tarot</button>
+        <button onclick="showSection('personal')" class="active">Análisis Personal</button>
+        <button onclick="showSection('tarot')">Tarot y Numerología</button>
+        <button onclick="showSection('forecast')">Pronósticos</button>
+        <button onclick="showSection('learning')">Aprendizaje</button>
+    </nav>
+
+    <div class="container">
+        <!-- Sección de Análisis Personal -->
+        <section id="personal" class="section active">
+            <div class="reading-card glow-on-hover">
+                <h2 class="reading-title hover-underline">Tu Análisis Numerológico</h2>
+                <p class="reading-description">Descubre los números clave de tu vida y su conexión con los Arcanos Mayores del Tarot.</p>
+
+                <div class="info-section">
+                    <h3 class="hover-underline">Número de Vida o Camino de Vida</h3>
+                    <p>Calculado a partir de tu fecha de nacimiento, revela tu propósito y lecciones de vida.</p>
+                    
+                    <div class="question-input">
+                        <label for="birthdate">Ingresa tu fecha de nacimiento:</label>
+                        <input type="date" id="birthdate" class="custom-input">
+                    </div>
+                    
+                    <div class="actions">
+                        <button onclick="calculateLifePath()">Calcular Número de Vida</button>
+                    </div>
+                    
+                    <div id="lifePathResult" style="display: none; margin-top: 1.5rem;">
+                        <div class="card-info">
+                            <div class="card-name" id="lifePathNumber"></div>
+                            <div class="card-meaning" id="lifePathMeaning"></div>
+                            <div class="card-symbolism" id="lifePathTarot"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section" style="margin-top: 1.5rem;">
+                    <h3 class="hover-underline">Número del Alma</h3>
+                    <p>Basado en las vocales de tu nombre completo, revela tus deseos internos y motivaciones espirituales.</p>
+                    
+                    <div class="question-input">
+                        <label for="fullName">Ingresa tu nombre completo:</label>
+                        <input type="text" id="fullName" class="custom-input" placeholder="Ej: María Guadalupe García">
+                    </div>
+                    
+                    <div class="actions">
+                        <button onclick="calculateSoulNumber()">Calcular Número del Alma</button>
+                    </div>
+                    
+                    <div id="soulNumberResult" style="display: none; margin-top: 1.5rem;">
+                        <div class="card-info">
+                            <div class="card-name" id="soulNumber"></div>
+                            <div class="card-meaning" id="soulMeaning"></div>
+                            <div class="card-symbolism" id="soulTarot"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section" style="margin-top: 1.5rem;">
+                    <h3 class="hover-underline">Número de Personalidad</h3>
+                    <p>Calculado a partir de las consonantes de tu nombre, muestra cómo te perciben los demás.</p>
+                    
+                    <div class="actions">
+                        <button onclick="calculatePersonalityNumber()">Calcular Número de Personalidad</button>
+                    </div>
+                    
+                    <div id="personalityNumberResult" style="display: none; margin-top: 1.5rem;">
+                        <div class="card-info">
+                            <div class="card-name" id="personalityNumber"></div>
+                            <div class="card-meaning" id="personalityMeaning"></div>
+                            <div class="card-symbolism" id="personalityTarot"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section" style="margin-top: 1.5rem;">
+                    <h3 class="hover-underline">Números Kármicos</h3>
+                    <p>Identifica los números kármicos (13, 14, 16, 19) en tu numerología y su significado.</p>
+                    
+                    <div class="actions">
+                        <button onclick="calculateKarmicNumbers()">Buscar Números Kármicos</button>
+                    </div>
+                    
+                    <div id="karmicNumbersResult" style="display: none; margin-top: 1.5rem;">
+                        <div class="card-info">
+                            <div class="card-name" id="karmicNumbersTitle"></div>
+                            <div class="card-meaning" id="karmicNumbersMeaning"></div>
+                            <div class="card-symbolism" id="karmicNumbersTarot"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Tarot y Numerología -->
+        <section id="tarot" class="section">
+            <div class="reading-card glow-on-hover">
+                <h2 class="reading-title hover-underline">Tarot y Numerología Combinados</h2>
+                <p class="reading-description">Explora la profunda conexión entre los números y los arcanos del Tarot.</p>
+
+                <div class="info-section">
+                    <h3 class="hover-underline">Tu Carta Natal Numerológica</h3>
+                    <p>Visualiza tus números personales junto a las cartas de Tarot que los representan.</p>
+                    
+                    <div class="actions">
+                        <button onclick="generateNumerologicalChart()">Generar Carta Natal</button>
+                    </div>
+                    
+                    <div id="numerologicalChart" style="display: none; margin-top: 1.5rem;">
+                        <div class="multi-card-spread" id="numerologicalCards"></div>
+                        <div class="card-info" id="numerologicalInterpretation"></div>
+                    </div>
+                </div>
+
+                <div class="info-section" style="margin-top: 1.5rem;">
+                    <h3 class="hover-underline">Tirada Sugerida para tu Número</h3>
+                    <p>Recibe una recomendación de tirada de Tarot basada en tu número de vida.</p>
+                    
+                    <div class="actions">
+                        <button onclick="suggestSpread()">Obtener Sugerencia</button>
+                    </div>
+                    
+                    <div id="suggestedSpread" style="display: none; margin-top: 1.5rem;">
+                        <div class="card-info">
+                            <div class="card-name" id="suggestedSpreadTitle"></div>
+                            <div class="card-meaning" id="suggestedSpreadDescription"></div>
+                            <div class="actions">
+                                <button onclick="performSuggestedSpread()">Realizar esta Tirada</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section" style="margin-top: 1.5rem;">
+                    <h3 class="hover-underline">Carta Vinculada a tu Número</h3>
+                    <p>Descubre qué carta del Tarot tiene una afinidad especial con tu número personal.</p>
+                    
+                    <div class="actions">
+                        <button onclick="drawNumberCard()">Sacar Carta Numerológica</button>
+                    </div>
+                    
+                    <div id="numberCardResult" style="display: none; margin-top: 1.5rem;">
+                        <div class="card-display">
+                            <div class="card-image-container">
+                                <img id="numberCardImage" class="card-image card-drop" src="" alt="Carta Numerológica">
+                            </div>
+                            <div class="card-info">
+                                <div class="card-name" id="numberCardName"></div>
+                                <div class="card-meaning" id="numberCardMeaning"></div>
+                                <div class="card-symbolism" id="numberCardConnection"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Pronósticos -->
+        <section id="forecast" class="section">
+            <div class="reading-card glow-on-hover">
+                <h2 class="reading-title hover-underline">Pronósticos Numerológicos</h2>
+                <p class="reading-description">Descubre cómo influyen los números en tu presente y futuro.</p>
+
+                <div class="info-section">
+                    <h3 class="hover-underline">Pronóstico Diario</h3>
+                    <p>Combina el número del día con tu número personal para recibir orientación.</p>
+                    
+                    <div class="actions">
+                        <button onclick="dailyNumerologyForecast()">Obtener Pronóstico</button>
+                    </div>
+                    
+                    <div id="dailyForecast" style="display: none; margin-top: 1.5rem;">
+                        <div class="card-info">
+                            <div class="card-name" id="dailyForecastTitle"></div>
+                            <div class="card-meaning" id="dailyForecastMeaning"></div>
+                            <div class="energy-message" id="dailyForecastMessage"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section" style="margin-top: 1.5rem;">
+                    <h3 class="hover-underline">Tu Año Personal</h3>
+                    <p>Calcula tu año personal numerológico y su carta de Tarot asociada.</p>
+                    
+                    <div class="question-input">
+                        <label for="currentYear">Ingresa el año que deseas analizar:</label>
+                        <input type="number" id="currentYear" class="custom-input" placeholder="Ej: 2023" min="1900" max="2100">
+                    </div>
+                    
+                    <div class="actions">
+                        <button onclick="calculatePersonalYear()">Calcular Año Personal</button>
+                    </div>
+                    
+                    <div id="personalYearResult" style="display: none; margin-top: 1.5rem;">
+                        <div class="card-info">
+                            <div class="card-name" id="personalYearTitle"></div>
+                            <div class="card-meaning" id="personalYearMeaning"></div>
+                            <div class="card-symbolism" id="personalYearTarot"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section" style="margin-top: 1.5rem;">
+                    <h3 class="hover-underline">Calendario Esotérico</h3>
+                    <p>Descubre los días propicios según tu numerología.</p>
+                    
+                    <div class="actions">
+                        <button onclick="generateEsotericCalendar()">Generar Calendario</button>
+                    </div>
+                    
+                    <div id="esotericCalendar" style="display: none; margin-top: 1.5rem;">
+                        <div class="card-info">
+                            <div class="card-name">Días Propicios para ti</div>
+                            <div class="card-meaning" id="favorableDays"></div>
+                            <div class="card-symbolism">
+                                <h4>Recomendaciones para estos días:</h4>
+                                <div id="calendarRecommendations"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Aprendizaje -->
+        <section id="learning" class="section">
+            <div class="reading-card glow-on-hover">
+                <h2 class="reading-title hover-underline">Aprende Numerología y Tarot</h2>
+                <p class="reading-description">Explora las conexiones entre números y arcanos.</p>
+
+                <div class="info-section">
+                    <h3 class="hover-underline">Correspondencias Numéricas</h3>
+                    <p>Tabla de relación entre números y Arcanos Mayores del Tarot.</p>
+                    
+                    <div class="gallery" id="numberCorrespondences">
+                        <!-- Se llenará dinámicamente -->
+                    </div>
+                </div>
+
+                <div class="info-section" style="margin-top: 1.5rem;">
+                    <h3 class="hover-underline">Juego Didáctico</h3>
+                    <p>Adivina el número o la carta asociada a cada significado.</p>
+                    
+                    <div class="actions">
+                        <button onclick="startNumerologyGame()">Comenzar Juego</button>
+                    </div>
+                    
+                    <div id="numerologyGame" style="display: none; margin-top: 1.5rem;">
+                        <div class="card-info">
+                            <div class="card-meaning" id="gameQuestion"></div>
+                            <div class="actions">
+                                <button onclick="checkGameAnswer(1)">Opción 1</button>
+                                <button onclick="checkGameAnswer(2)">Opción 2</button>
+                                <button onclick="checkGameAnswer(3)">Opción 3</button>
+                            </div>
+                            <div class="energy-message" id="gameFeedback"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section" style="margin-top: 1.5rem;">
+                    <h3 class="hover-underline">Generador de Firma Esotérica</h3>
+                    <p>Crea una firma gráfica basada en tus números y cartas asociadas.</p>
+                    
+                    <div class="actions">
+                        <button onclick="generateEsotericSignature()">Generar Firma</button>
+                    </div>
+                    
+                    <div id="esotericSignature" style="display: none; margin-top: 1.5rem; text-align: center;">
+                        <canvas id="signatureCanvas" width="400" height="200" style="border: 1px solid var(--primary-color); margin-bottom: 1rem;"></canvas>
+                        <div class="actions">
+                            <button onclick="downloadSignature()">Descargar Firma</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <button class="theme-toggle" onclick="toggleDarkMode()">🌓</button>
+
+    <footer>
+        <p>&copy; 2023 Numerología Esotérica - Todos los derechos reservados</p>
+        <p>Este sitio combina sabiduría numerológica tradicional con interpretaciones esotéricas del Tarot.</p>
+    </footer>
+
+    <script>
+        // Almacenamiento de datos del usuario
+        let userData = {
+            lifePathNumber: null,
+            soulNumber: null,
+            personalityNumber: null,
+            karmicNumbers: []
+        };
+
+        // Datos de correspondencia entre números y cartas de Tarot
+        const tarotCards = [
+            { number: 0, name: "El Loco", image: "https://www.tarotcardmeanings.net/images/tarotcards/rider-waite/fool.jpg", meaning: "Inocencia, nuevas aventuras, libre espíritu" },
+            { number: 1, name: "El Mago", image: "https://www.tarotcardmeanings.net/images/tarotcards/rider-waite/magician.jpg", meaning: "Habilidad, destreza, concentración" },
+            { number: 2, name: "La Sacerdotisa", image: "https://www.tarotcardmeanings.net/images/tarotcards/rider-waite/highpriestess.jpg", meaning: "Intuición, misterio, subconsciente" },
+            { number: 3, name: "La Emperatriz", image: "https://www.tarotcardmeanings.net/images/tarotcards/rider-waite/empress.jpg", meaning: "Fertilidad, naturaleza, abundancia" },
+            { number: 4, name: "El Emperador", image: "https://www.tarotcardmeanings.net/images/tarotcards/rider-waite/emperor.jpg", meaning: "Autoridad, estructura, control" },
+            { number: 5, name: "El Hierofante", image: "https://www.tarotcardmeanings.net/images/tarotcards/rider-waite/hierophant.jpg", meaning: "Tradición, conformidad, moralidad" },
+            { number: 6, name: "Los Enamorados", image: "https://www.tarotcardmeanings.net/images/tarotcards/rider-waite/lovers.jpg", meaning: "Amor, armonía, relaciones" },
+            { number: 7, name: "El Carro", image: "https://www.tarotcardmeanings.net/images/tarotcards/rider-waite/chariot.jpg", meaning: "Determinación, voluntad, triunfo" },
+            { number: 8, name: "La Fuerza", image: "https://www.tarotcardmeanings.net/images/tarotcards/rider-waite/strength.jpg", meaning: "Fuerza interior, compasión, paciencia" },
+            { number: 9, name: "El Ermitaño", image: "https://www.tarotcardmeanings.net/images/tarotcards/rider-waite/hermit.jpg", meaning: "Introspección, soledad, guía" },
+            { number: 10, name: "La Rueda de la Fortuna", image: "https://www.tarotcardmeanings.net/images/tarotcards/rider-waite/wheeloffortune.jpg", meaning: "Destino, cambio, giros del azar" },
+            { number: 11, name: "La Justicia", image: "https://www.tarotcardmeanings.net/images/tarotcards/rider-waite/justice.jpg", meaning: "Equilibrio, verdad, justicia" },
+            { number: 12, name: "El Colgado", image: "https://www.tarotcardmeanings.net/images/tarotcards/rider-waite/hangedman.jpg", meaning: "Sacrificio, nueva perspectiva, suspensión" },
+            { number: 13, name: "La Muerte", image: "https://www.tarotcardmeanings.net/images/tarotcards/rider-waite/death.jpg", meaning: "Transformación, finales, cambio" },
+            { number: 14, name: "Templanza", image: "https://www.tarotcardmeanings.net/images/tarotcards/rider-waite/temperance.jpg", meaning: "Moderación, paciencia, propósito" },
+            { number: 15, name: "El Diablo", image: "https://www.tarotcardmeanings.net/images/tarotcards/rider-waite/devil.jpg", meaning: "Atadura, materialismo, ignorancia" },
+            { number: 16, name: "La Torre", image: "https://www.tarotcardmeanings.net/images/tarotcards/rider-waite/tower.jpg", meaning: "Cambio repentino, revelación, caída" },
+            { number: 17, name: "La Estrella", image: "https://www.tarotcardmeanings.net/images/tarotcards/rider-waite/star.jpg", meaning: "Esperanza, inspiración, serenidad" },
+            { number: 18, name: "La Luna", image: "https://www.tarotcardmeanings.net/images/tarotcards/rider-waite/moon.jpg", meaning: "Ilusión, miedo, subconsciente" },
+            { number: 19, name: "El Sol", image: "https://www.tarotcardmeanings.net/images/tarotcards/rider-waite/sun.jpg", meaning: "Alegría, éxito, vitalidad" },
+            { number: 20, name: "El Juicio", image: "https://www.tarotcardmeanings.net/images/tarotcards/rider-waite/judgement.jpg", meaning: "Renacimiento, llamado interno, absolución" },
+            { number: 21, name: "El Mundo", image: "https://www.tarotcardmeanings.net/images/tarotcards/rider-waite/world.jpg", meaning: "Completitud, logro, viaje" },
+            { number: 22, name: "El Loco (como 22)", image: "https://www.tarotcardmeanings.net/images/tarotcards/rider-waite/fool.jpg", meaning: "Potencial ilimitado, nuevos comienzos" }
+        ];
+
+        // Datos para el juego didáctico
+        const gameQuestions = [
+            {
+                question: "¿Qué carta del Tarot representa el número 0 en numerología?",
+                options: ["El Mago", "El Loco", "La Sacerdotisa"],
+                correct: 2
+            },
+            {
+                question: "¿Qué número se asocia con la carta 'La Justicia'?",
+                options: ["8", "11", "13"],
+                correct: 2
+            },
+            {
+                question: "¿Qué carta representa la transformación y el cambio en numerología?",
+                options: ["La Muerte", "El Sol", "La Torre"],
+                correct: 1
+            },
+            {
+                question: "¿Qué número de vida se considera un 'número maestro'?",
+                options: ["5", "11", "7"],
+                correct: 2
+            },
+            {
+                question: "¿Qué carta está asociada con el número kármico 16?",
+                options: ["La Torre", "La Estrella", "El Diablo"],
+                correct: 1
+            }
+        ];
+
+        // Inicialización al cargar la página
+        window.onload = function() {
+            populateNumberCorrespondences();
+            
+            // Verificar preferencia de modo oscuro
+            if (localStorage.getItem('darkMode') === 'true') {
+                document.body.classList.add('dark-mode');
+            }
+            
+            // Establecer fecha máxima para el input de fecha
+            document.getElementById('birthdate').max = new Date().toISOString().split('T')[0];
+            
+            // Establecer año actual por defecto
+            document.getElementById('currentYear').value = new Date().getFullYear();
+        };
+
+        // Funciones de navegación
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Actualizar botones de navegación
+            document.querySelectorAll('nav button').forEach(button => {
+                button.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // Funciones de análisis personal
+        function calculateLifePath() {
+            const birthdate = document.getElementById('birthdate').value;
+            if (!birthdate) {
+                alert('Por favor ingresa tu fecha de nacimiento');
+                return;
+            }
+            
+            // Algoritmo optimizado para calcular el número de vida
+            const dateParts = birthdate.split('-');
+            const day = parseInt(dateParts[2], 10);
+            const month = parseInt(dateParts[1], 10);
+            const year = parseInt(dateParts[0], 10);
+            
+            // Usamos el teorema de la congruencia lineal para optimizar el cálculo
+            const sumDigits = (num) => {
+                if (num === 11 || num === 22) return num; // Números maestros
+                return num < 10 ? num : sumDigits(Math.floor(num / 10) + (num % 10));
+            };
+            
+            const dayNum = sumDigits(day);
+            const monthNum = sumDigits(month);
+            const yearNum = sumDigits(sumDigits(year));
+            
+            let lifePathNumber = sumDigits(dayNum + monthNum + yearNum);
+            
+            // Verificar si es un número maestro compuesto
+            if ([11, 22].includes(dayNum + monthNum + yearNum)) {
+                lifePathNumber = dayNum + monthNum + yearNum;
+            }
+            
+            // Almacenar en los datos del usuario
+            userData.lifePathNumber = lifePathNumber;
+            
+            // Mostrar resultados
+            document.getElementById('lifePathNumber').textContent = `Tu Número de Vida es el ${lifePathNumber}`;
+            document.getElementById('lifePathMeaning').textContent = getLifePathMeaning(lifePathNumber);
+            document.getElementById('lifePathTarot').textContent = getTarotCorrespondence(lifePathNumber);
+            
+            document.getElementById('lifePathResult').style.display = 'block';
+        }
+
+        function getLifePathMeaning(number) {
+            const meanings = {
+                0: "Potencial puro y libre albedrío. Tu camino es único y está lleno de posibilidades infinitas.",
+                1: "Liderazgo e independencia. Tu camino te lleva a desarrollar confianza en ti mismo y a tomar iniciativas.",
+                2: "Cooperación y equilibrio. Tu vida está marcada por la diplomacia, la paciencia y el trabajo en equipo.",
+                3: "Creatividad y expresión. Tu propósito implica comunicar, inspirar y disfrutar de la vida.",
+                4: "Estabilidad y trabajo duro. Construir bases sólidas y ser práctico son claves en tu camino.",
+                5: "Libertad y cambio. La adaptabilidad y la búsqueda de nuevas experiencias definen tu vida.",
+                6: "Responsabilidad y servicio. El amor, la familia y la comunidad son centrales en tu propósito.",
+                7: "Sabiduría y espiritualidad. Tu camino te lleva a buscar conocimiento interior y verdad.",
+                8: "Abundancia y poder. Manejar recursos materiales y energía es clave en tu vida.",
+                9: "Humanitarismo y compasión. Tu propósito implica dar y servir a la humanidad.",
+                11: "Inspiración e intuición. Eres un maestro espiritual con dones psíquicos para compartir.",
+                22: "Maestro constructor. Tienes la capacidad de materializar grandes sueños para beneficio de todos.",
+                13: "Transformación kármica. Tu camino implica superar pruebas y renacer más fuerte.",
+                14: "Equilibrio kármico. Debes aprender moderación y adaptabilidad en tu vida.",
+                16: "Caída y renovación kármica. Tu camino conlleva pruebas repentinas que llevan a la iluminación.",
+                19: "Liderazgo kármico. Tienes una gran energía que debe ser usada sabiamente."
+            };
+            return meanings[number] || "Este número tiene un significado especial en tu camino de vida.";
+        }
+
+        function getTarotCorrespondence(number) {
+            // Mapeo especial para números kármicos
+            const karmicMap = {
+                13: 13, // La Muerte
+                14: 14, // Templanza
+                16: 16, // La Torre
+                19: 19  // El Sol
+            };
+            
+            const effectiveNumber = karmicMap[number] || (number % 22);
+            const card = tarotCards.find(c => c.number === effectiveNumber) || tarotCards[0];
+            
+            return `En el Tarot, este número se relaciona con: ${card.name} - ${card.meaning}`;
+        }
+
+        function calculateSoulNumber() {
+            const fullName = document.getElementById('fullName').value.trim();
+            if (!fullName) {
+                alert('Por favor ingresa tu nombre completo');
+                return;
+            }
+            
+            // Algoritmo avanzado para calcular el número del alma (vocales)
+            const vowels = new Set(['a', 'á', 'e', 'é', 'i', 'í', 'o', 'ó', 'u', 'ú', 'ü']);
+            let soulNumber = 0;
+            
+            // Usamos una expresión regular para normalizar y separar las vocales
+            const normalizedName = fullName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            const nameVowels = normalizedName.split('').filter(c => vowels.has(c));
+            
+            if (nameVowels.length === 0) {
+                soulNumber = 0; // Caso especial para nombres sin vocales
+            } else {
+                // Mapeo de letras a números usando el sistema pitagórico
+                const letterValues = {
+                    'a': 1, 'e': 5, 'i': 9, 'o': 6, 'u': 3
+                };
+                
+                // Usamos reducción modular para optimizar el cálculo
+                soulNumber = nameVowels.reduce((sum, vowel) => {
+                    return sum + (letterValues[vowel] || 0);
+                }, 0);
+                
+                // Reducir a un solo dígito o número maestro
+                soulNumber = reduceToMasterNumber(soulNumber);
+            }
+            
+            // Almacenar en los datos del usuario
+            userData.soulNumber = soulNumber;
+            
+            // Mostrar resultados
+            document.getElementById('soulNumber').textContent = `Tu Número del Alma es el ${soulNumber}`;
+            document.getElementById('soulMeaning').textContent = getSoulMeaning(soulNumber);
+            document.getElementById('soulTarot').textContent = getTarotCorrespondence(soulNumber);
+            
+            document.getElementById('soulNumberResult').style.display = 'block';
+        }
+
+        function getSoulMeaning(number) {
+            const meanings = {
+                0: "Un alma antigua con conexiones kármicas profundas. Buscas la sabiduría trascendental.",
+                1: "Deseas independencia y autosuficiencia. Tu alma anhela liderar y ser original.",
+                2: "Anhelas armonía y compañía. Tu alma busca paz, amor y cooperación.",
+                3: "Deseas expresarte creativamente. Tu alma quiere comunicar, inspirar y disfrutar.",
+                4: "Anhelas seguridad y estructura. Tu alma busca orden, practicidad y resultados tangibles.",
+                5: "Deseas libertad y aventura. Tu alma anhela cambio, variedad y nuevas experiencias.",
+                6: "Anhelas amor y servicio. Tu alma busca armonía, belleza y responsabilidad.",
+                7: "Deseas sabiduría y soledad. Tu alma anhela conocimiento, espiritualidad y verdad.",
+                8: "Anhelas éxito y abundancia. Tu alma busca poder, reconocimiento y logros materiales.",
+                9: "Deseas ayudar a la humanidad. Tu alma anhela compasión, idealismo y servicio.",
+                11: "Anhelas inspiración divina. Tu alma busca iluminación y guía espiritual.",
+                22: "Deseas construir algo grande. Tu alma anhela manifestar visiones en la realidad."
+            };
+            return meanings[number] || "Tu número del alma tiene un significado especial y único.";
+        }
+
+        function calculatePersonalityNumber() {
+            const fullName = document.getElementById('fullName').value.trim();
+            if (!fullName) {
+                alert('Por favor ingresa tu nombre completo primero');
+                return;
+            }
+            
+            // Algoritmo avanzado para calcular el número de personalidad (consonantes)
+            const vowels = new Set(['a', 'á', 'e', 'é', 'i', 'í', 'o', 'ó', 'u', 'ú', 'ü']);
+            let personalityNumber = 0;
+            
+            // Normalización del nombre
+            const normalizedName = fullName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z]/g, "");
+            const nameConsonants = normalizedName.split('').filter(c => !vowels.has(c) && c >= 'a' && c <= 'z');
+            
+            if (nameConsonants.length === 0) {
+                personalityNumber = 0; // Caso especial para nombres sin consonantes
+            } else {
+                // Sistema pitagórico para consonantes
+                const letterValues = {
+                    'b': 2, 'c': 3, 'd': 4, 'f': 6, 'g': 7, 
+                    'h': 8, 'j': 1, 'k': 2, 'l': 3, 'm': 4,
+                    'n': 5, 'p': 7, 'q': 8, 'r': 9, 's': 1,
+                    't': 2, 'v': 4, 'w': 5, 'x': 6, 'y': 7, 'z': 8
+                };
+                
+                // Cálculo optimizado con reducción modular
+                personalityNumber = nameConsonants.reduce((sum, consonant) => {
+                    return sum + (letterValues[consonant] || 0);
+                }, 0);
+                
+                personalityNumber = reduceToMasterNumber(personalityNumber);
+            }
+            
+            // Almacenar en los datos del usuario
+            userData.personalityNumber = personalityNumber;
+            
+            // Mostrar resultados
+            document.getElementById('personalityNumber').textContent = `Tu Número de Personalidad es el ${personalityNumber}`;
+            document.getElementById('personalityMeaning').textContent = getPersonalityMeaning(personalityNumber);
+            document.getElementById('personalityTarot').textContent = getTarotCorrespondence(personalityNumber);
+            
+            document.getElementById('personalityNumberResult').style.display = 'block';
+        }
+
+        function getPersonalityMeaning(number) {
+            const meanings = {
+                0: "Personalidad misteriosa y enigmática. Los demás te perciben como alguien único y diferente.",
+                1: "Los demás te ven como independiente, seguro y líder. Perciben tu fuerza y determinación.",
+                2: "Te perciben como diplomático, amable y cooperador. Ven tu sensibilidad y tacto.",
+                3: "Los demás te ven como expresivo, creativo y sociable. Perciben tu entusiasmo y alegría.",
+                4: "Te perciben como práctico, organizado y confiable. Ven tu disciplina y ética de trabajo.",
+                5: "Los demás te ven como adaptable, curioso y aventurero. Perciben tu energía y libertad.",
+                6: "Te perciben como responsable, cariñoso y protector. Ven tu naturaleza servicial.",
+                7: "Los demás te ven como analítico, reservado y sabio. Perciben tu profundidad intelectual.",
+                8: "Te perciben como ambicioso, eficiente y poderoso. Ven tu capacidad de logro.",
+                9: "Los demás te ven como humanitario, comprensivo y artístico. Perciben tu compasión.",
+                11: "Te perciben como inspirador, intuitivo y visionario. Ven tu energía espiritual.",
+                22: "Los demás te ven como un maestro constructor, práctico y visionario. Perciben tu gran potencial."
+            };
+            return meanings[number] || "Tu personalidad es percibida de manera especial por los demás.";
+        }
+
+        function calculateKarmicNumbers() {
+            if (!userData.lifePathNumber && !userData.soulNumber && !userData.personalityNumber) {
+                alert('Por favor calcula al menos uno de tus números principales primero');
+                return;
+            }
+            
+            // Algoritmo para identificar números kármicos (13, 14, 16, 19)
+            const karmicNumbers = [13, 14, 16, 19];
+            const userNumbers = [
+                userData.lifePathNumber,
+                userData.soulNumber,
+                userData.personalityNumber
+            ];
+            
+            const foundKarmicNumbers = karmicNumbers.filter(kn => 
+                userNumbers.includes(kn) || 
+                userNumbers.some(n => reduceToSingleDigit(n) === reduceToSingleDigit(kn))
+            );
+            
+            // Almacenar en los datos del usuario
+            userData.karmicNumbers = foundKarmicNumbers;
+            
+            // Mostrar resultados
+            if (foundKarmicNumbers.length > 0) {
+                document.getElementById('karmicNumbersTitle').textContent = 
+                    `Tienes ${foundKarmicNumbers.length} número(s) kármico(s): ${foundKarmicNumbers.join(', ')}`;
+                
+                let meaning = "";
+                let tarotConnections = "";
+                
+                foundKarmicNumbers.forEach(num => {
+                    meaning += `<strong>${num}:</strong> ${getKarmicMeaning(num)}<br><br>`;
+                    tarotConnections += `${getTarotCorrespondence(num)}<br><br>`;
+                });
+                
+                document.getElementById('karmicNumbersMeaning').innerHTML = meaning;
+                document.getElementById('karmicNumbersTarot').innerHTML = tarotConnections;
+            } else {
+                document.getElementById('karmicNumbersTitle').textContent = "No se encontraron números kármicos significativos";
+                document.getElementById('karmicNumbersMeaning').textContent = 
+                    "Tu numerología no muestra números kármicos fuertes (13, 14, 16, 19). Esto sugiere que no tienes lecciones kármicas pendientes importantes en esta vida.";
+                document.getElementById('karmicNumbersTarot').textContent = "";
+            }
+            
+            document.getElementById('karmicNumbersResult').style.display = 'block';
+        }
+
+        function getKarmicMeaning(number) {
+            const meanings = {
+                13: "El número kármico 13 indica lecciones sobre transformación y renacimiento. En vidas pasadas, pudiste haber resistido cambios necesarios o abusado del poder de transformación. Ahora debes aprender a fluir con los cambios y usar las transiciones sabiamente.",
+                14: "El número kármico 14 señala lecciones sobre moderación y adaptabilidad. En encarnaciones anteriores, pudiste haber sido excesivamente indulgentes o rígido. Esta vida te desafía a encontrar equilibrio y temperancia en todos los aspectos.",
+                16: "El número kármico 16 indica una caída kármica previa por orgullo o ego. Ahora tienes la oportunidad de reconstruir desde una base más humilde y espiritual. Las crisis repentinas son oportunidades de crecimiento.",
+                19: "El número kármico 19 sugiere abuso de poder o liderazgo en el pasado. Ahora debes aprender a usar tu influencia sabiamente y para el bien mayor. El egoísmo traerá pruebas kármicas."
+            };
+            return meanings[number] || "Este número kármico tiene un significado especial en tu camino.";
+        }
+
+        // Funciones de Tarot y Numerología
+        function generateNumerologicalChart() {
+            if (!userData.lifePathNumber && !userData.soulNumber && !userData.personalityNumber) {
+                alert('Por favor calcula tus números personales primero');
+                return;
+            }
+            
+            const chartContainer = document.getElementById('numerologicalCards');
+            chartContainer.innerHTML = '';
+            
+            // Crear cartas para cada número importante
+            const numbersToShow = [
+                { type: "Camino de Vida", number: userData.lifePathNumber },
+                { type: "Alma", number: userData.soulNumber },
+                { type: "Personalidad", number: userData.personalityNumber },
+                ...userData.karmicNumbers.map(num => ({ type: "Kármico", number: num }))
+            ].filter(item => item.number !== null && item.number !== undefined);
+            
+            numbersToShow.forEach(item => {
+                const effectiveNumber = item.number % 22;
+                const card = tarotCards.find(c => c.number === effectiveNumber) || tarotCards[0];
+                
+                const cardElement = document.createElement('div');
+                cardElement.className = 'spread-card';
+                cardElement.innerHTML = `
+                    <img src="${card.image}" alt="${card.name}">
+                    <h4>${item.type} (${item.number})</h4>
+                    <p>${card.name}</p>
+                `;
+                
+                chartContainer.appendChild(cardElement);
+            });
+            
+            // Interpretación general
+            let interpretation = "<h4>Interpretación de tu Carta Natal Numerológica</h4>";
+            interpretation += "<p>Tus números personales y sus correspondientes cartas de Tarot revelan: </p>";
+            interpretation += "<ul>";
+            
+            if (userData.lifePathNumber) {
+                interpretation += `<li><strong>Camino de Vida (${userData.lifePathNumber}):</strong> ${getLifePathMeaning(userData.lifePathNumber)}</li>`;
+            }
+            
+            if (userData.soulNumber) {
+                interpretation += `<li><strong>Alma (${userData.soulNumber}):</strong> ${getSoulMeaning(userData.soulNumber)}</li>`;
+            }
+            
+            if (userData.personalityNumber) {
+                interpretation += `<li><strong>Personalidad (${userData.personalityNumber}):</strong> ${getPersonalityMeaning(userData.personalityNumber)}</li>`;
+            }
+            
+            if (userData.karmicNumbers.length > 0) {
+                interpretation += `<li><strong>Números Kármicos:</strong> Lecciones importantes de vidas pasadas que afectan tu presente.</li>`;
+            }
+            
+            interpretation += "</ul>";
+            interpretation += "<p>Esta combinación única revela cómo los números influyen en tu destino y personalidad, y cómo las energías del Tarot pueden guiarte en tu camino.</p>";
+            
+            document.getElementById('numerologicalInterpretation').innerHTML = interpretation;
+            document.getElementById('numerologicalChart').style.display = 'block';
+        }
+
+        function suggestSpread() {
+            if (!userData.lifePathNumber) {
+                alert('Por favor calcula tu número de vida primero');
+                return;
+            }
+            
+            const spreads = [
+                {
+                    title: "Tirada del Camino",
+                    description: "3 cartas que representan: Pasado, Presente y Futuro de tu camino de vida.",
+                    cards: 3,
+                    forNumbers: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+                },
+                {
+                    title: "Tirada del Alma",
+                    description: "5 cartas en forma de estrella que revelan tus deseos más profundos y bloqueos.",
+                    cards: 5,
+                    forNumbers: [2, 3, 6, 9, 11]
+                },
+                {
+                    title: "Tirada del Karma",
+                    description: "7 cartas que exploran tus lecciones kármicas y cómo superarlas.",
+                    cards: 7,
+                    forNumbers: [13, 14, 16, 19]
+                },
+                {
+                    title: "Tirada del Maestro",
+                    description: "11 cartas en círculo para una visión completa de tu misión espiritual.",
+                    cards: 11,
+                    forNumbers: [11, 22]
+                },
+                {
+                    title: "Tirada del Equilibrio",
+                    description: "4 cartas que representan los 4 elementos y cómo equilibrarlos en tu vida.",
+                    cards: 4,
+                    forNumbers: [2, 4, 6, 8]
+                }
+            ];
+            
+            // Encontrar la tirada más adecuada
+            let suggestedSpread;
+            
+            // Primero verificar números kármicos
+            if (userData.karmicNumbers.length > 0) {
+                suggestedSpread = spreads.find(s => s.title === "Tirada del Karma");
+            } 
+            // Luego verificar números maestros
+            else if ([11, 22].includes(userData.lifePathNumber)) {
+                suggestedSpread = spreads.find(s => s.title === "Tirada del Maestro");
+            }
+            // Finalmente buscar por número de vida
+            else {
+                suggestedSpread = spreads.find(s => s.forNumbers.includes(userData.lifePathNumber)) || 
+                                  spreads[0];
+            }
+            
+            document.getElementById('suggestedSpreadTitle').textContent = suggestedSpread.title;
+            document.getElementById('suggestedSpreadDescription').textContent = suggestedSpread.description;
+            
+            document.getElementById('suggestedSpread').style.display = 'block';
+        }
+
+        function performSuggestedSpread() {
+            alert(`Realizando la tirada sugerida. Se mostrarían ${document.getElementById('suggestedSpreadTitle').textContent} cartas.`);
+            // En una implementación completa, esto generaría una visualización de la tirada
+        }
+
+        function drawNumberCard() {
+            if (!userData.lifePathNumber) {
+                alert('Por favor calcula tu número de vida primero');
+                return;
+            }
+            
+            // Seleccionar una carta basada en el número de vida, pero con variaciones
+            const baseCardIndex = userData.lifePathNumber % 22;
+            const variation = Math.floor(Math.random() * 3); // 0: normal, 1: relacionada, 2: complementaria
+            
+            let card;
+            if (variation === 0) {
+                // Carta directa
+                card = tarotCards[baseCardIndex];
+            } else if (variation === 1) {
+                // Carta relacionada (siguiente en el mazo)
+                card = tarotCards[(baseCardIndex + 1) % 22];
+            } else {
+                // Carta complementaria (opuesta en significado)
+                const complementaryIndex = (baseCardIndex + 11) % 22;
+                card = tarotCards[complementaryIndex];
+            }
+            
+            // Mostrar la carta
+            document.getElementById('numberCardImage').src = card.image;
+            document.getElementById('numberCardImage').alt = card.name;
+            document.getElementById('numberCardName').textContent = card.name;
+            document.getElementById('numberCardMeaning').textContent = card.meaning;
+            
+            const connectionText = variation === 0 ? "Esta carta está directamente vinculada a tu número de vida." :
+                              variation === 1 ? "Esta carta está relacionada con tu número de vida, mostrando una energía complementaria." :
+                              "Esta carta ofrece un equilibrio a las energías de tu número de vida.";
+            
+            document.getElementById('numberCardConnection').textContent = connectionText;
+            
+            document.getElementById('numberCardResult').style.display = 'block';
+        }
+
+        // Funciones de pronósticos
+        function dailyNumerologyForecast() {
+            if (!userData.lifePathNumber) {
+                alert('Por favor calcula tu número de vida primero');
+                return;
+            }
+            
+            const today = new Date();
+            const dayNumber = reduceToSingleDigit(today.getDate());
+            const monthNumber = reduceToSingleDigit(today.getMonth() + 1);
+            const yearNumber = reduceToSingleDigit(today.getFullYear());
+            
+            const dailyNumber = reduceToSingleDigit(dayNumber + monthNumber + yearNumber);
+            const personalDailyNumber = reduceToSingleDigit(dailyNumber + userData.lifePathNumber);
+            
+            // Obtener significado
+            const dailyMeaning = getDailyMeaning(dailyNumber);
+            const personalMeaning = getPersonalDailyMeaning(personalDailyNumber);
+            
+            // Mostrar resultados
+            document.getElementById('dailyForecastTitle').textContent = 
+                `Pronóstico Numerológico para ${today.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`;
+            
+            document.getElementById('dailyForecastMeaning').textContent = 
+                `Número del día: ${dailyNumber} - ${dailyMeaning}`;
+            
+            document.getElementById('dailyForecastMessage').textContent = 
+                `Para ti (Número ${userData.lifePathNumber} + ${dailyNumber} = ${personalDailyNumber}): ${personalMeaning}`;
+            
+            document.getElementById('dailyForecast').style.display = 'block';
+        }
+
+        function getDailyMeaning(number) {
+            const meanings = {
+                1: "Día de nuevos comienzos y tomar la iniciativa. Energía propicia para empezar proyectos.",
+                2: "Día de cooperación y paciencia. Buen momento para relaciones y trabajo en equipo.",
+                3: "Día de creatividad y comunicación. Expresa tus ideas y disfruta de la vida.",
+                4: "Día de trabajo duro y organización. Enfócate en construir bases sólidas.",
+                5: "Día de cambio y aventura. Sé flexible y abierto a nuevas experiencias.",
+                6: "Día de responsabilidad y servicio. Enfócate en familia y comunidad.",
+                7: "Día de introspección y sabiduría. Buen momento para estudio y reflexión.",
+                8: "Día de abundancia y poder. Enfócate en metas materiales y logros.",
+                9: "Día de compasión y finalización. Buen momento para cerrar ciclos y ayudar.",
+                11: "Día de inspiración e intuición. Confía en tus percepciones espirituales.",
+                22: "Día de manifestación. Puedes materializar tus visiones con trabajo práctico."
+            };
+            return meanings[number] || "Día con energía especial. Permanece atento a señales y oportunidades.";
+        }
+
+        function getPersonalDailyMeaning(number) {
+            const meanings = {
+                1: "Hoy es tu día para brillar. Toma el liderazgo y confía en tus habilidades únicas.",
+                2: "La cooperación es clave hoy. Escucha a los demás y busca armonía en tus relaciones.",
+                3: "Tu creatividad está en su punto máximo. Expresa tus ideas y disfruta del arte y la belleza.",
+                4: "Trabaja en tus fundamentos hoy. La disciplina traerá recompensas a largo plazo.",
+                5: "Cambios positivos están en el aire. Sé flexible y abraza nuevas experiencias.",
+                6: "Enfócate en tus seres queridos hoy. El servicio y el amor traerán satisfacción.",
+                7: "Momento para introspección. Confía en tu intuición y busca conocimiento interior.",
+                8: "Tus esfuerzos pueden traer recompensas materiales hoy. Enfócate en tus metas.",
+                9: "Cierra ciclos y perdona hoy. Tu compasión puede sanar heridas propias y ajenas.",
+                11: "Tu intuición está especialmente aguda hoy. Presta atención a señales espirituales.",
+                22: "Puedes lograr grandes cosas hoy. Combina visión con acción práctica."
+            };
+            return meanings[number] || "Hoy tiene un mensaje especial para ti. Mantén los ojos abiertos a las sincronicidades.";
+        }
+
+        function calculatePersonalYear() {
+            if (!userData.lifePathNumber) {
+                alert('Por favor calcula tu número de vida primero');
+                return;
+            }
+            
+            const yearInput = document.getElementById('currentYear').value;
+            if (!yearInput || yearInput < 1900 || yearInput > 2100) {
+                alert('Por favor ingresa un año válido entre 1900 y 2100');
+                return;
+            }
+            
+            const year = parseInt(yearInput, 10);
+            const personalYearNumber = reduceToSingleDigit(userData.lifePathNumber + reduceToSingleDigit(year));
+            
+            // Obtener significado
+            const yearMeaning = getPersonalYearMeaning(personalYearNumber);
+            const tarotCard = tarotCards.find(c => c.number === (personalYearNumber % 22)) || tarotCards[0];
+            
+            // Mostrar resultados
+            document.getElementById('personalYearTitle').textContent = 
+                `Tu Año Personal ${year} es el número ${personalYearNumber}`;
+            
+            document.getElementById('personalYearMeaning').textContent = yearMeaning;
+            
+            document.getElementById('personalYearTarot').innerHTML = 
+                `<strong>Carta de Tarot asociada:</strong> ${tarotCard.name} - ${tarotCard.meaning}<br>
+                 <strong>Consejo:</strong> ${getYearAdvice(personalYearNumber)}`;
+            
+            document.getElementById('personalYearResult').style.display = 'block';
+        }
+
+        function getPersonalYearMeaning(number) {
+            const meanings = {
+                1: "Año de nuevos comienzos e independencia. Es tiempo de iniciar proyectos, tomar decisiones importantes y confiar en ti mismo. Planta semillas que darán fruto en los próximos años.",
+                2: "Año de cooperación y paciencia. Desarrolla relaciones, trabaja en equipo y cultiva la diplomacia. Las cosas pueden moverse lentamente, pero es un período importante para sentar bases.",
+                3: "Año de creatividad y expresión. Es un buen momento para comunicar tus ideas, disfrutar de la vida y explorar tus talentos artísticos. La socialización es favorable.",
+                4: "Año de trabajo duro y estabilidad. Enfócate en construir bases sólidas, ser práctico y organizado. El esfuerzo realizado ahora traerá seguridad en el futuro.",
+                5: "Año de cambio y libertad. Prepárate para adaptarte a circunstancias cambiantes y buscar nuevas experiencias. Es un buen momento para viajar y aprender.",
+                6: "Año de responsabilidad y servicio. La familia y el hogar pueden requerir atención. Es un período para nutrir relaciones y cumplir obligaciones con amor.",
+                7: "Año de introspección y sabiduría. Busca conocimiento interior, estudia y reflexiona. Puede ser un tiempo de crecimiento espiritual y comprensión más profunda.",
+                8: "Año de abundancia y poder. Es un período favorable para logros materiales y profesionales. Maneja bien tus recursos y aprovecha oportunidades de crecimiento.",
+                9: "Año de completación y compasión. Es tiempo de cerrar ciclos, dejar ir lo que ya no sirve y servir a causas humanitarias. Prepárate para nuevos comienzos.",
+                11: "Año maestro de inspiración e intuición. Puedes experimentar importantes revelaciones espirituales. Es un período para confiar en tu guía interior y compartir tu sabiduría.",
+                22: "Año maestro de manifestación. Tienes el potencial de materializar grandes visiones. Combina idealismo con trabajo práctico para lograr resultados significativos."
+            };
+            return meanings[number] || "Este es un año especial en tu ciclo numerológico, con oportunidades únicas para crecimiento y transformación.";
+        }
+
+        function getYearAdvice(number) {
+            const advice = {
+                1: "Sé valiente y toma la iniciativa. No esperes que otros te den permiso para actuar.",
+                2: "Practica la paciencia y la diplomacia. A veces, ceder un poco puede llevarte más lejos que insistir en tu posición.",
+                3: "Expresa tu creatividad sin miedo al juicio. La alegría que compartas volverá a ti multiplicada.",
+                4: "El trabajo duro da sus frutos. Establece sistemas y estructuras que te servirán en el futuro.",
+                5: "Abraza el cambio con flexibilidad. Las experiencias nuevas son tus mejores maestros este año.",
+                6: "El amor y el servicio traen las mayores recompensas. Cuida de los tuyos con generosidad.",
+                7: "Confía en tu intuición. El conocimiento que buscas está dentro de ti más que en fuentes externas.",
+                8: "Maneja sabiamente tu poder y recursos. El éxito real incluye integridad y responsabilidad.",
+                9: "Deja ir con gratitud lo que ha cumplido su propósito. Haz espacio para nuevas bendiciones.",
+                11: "Mantén altos ideales pero anclados en la realidad. Tu inspiración puede guiar a otros.",
+                22: "Piensa en grande pero actúa con precisión. Tus visiones pueden cambiar realidades si las trabajas."
+            };
+            return advice[number] || "Escucha a tu sabiduría interior y confía en el proceso de tu vida este año.";
+        }
+
+        function generateEsotericCalendar() {
+            if (!userData.lifePathNumber) {
+                alert('Por favor calcula tu número de vida primero');
+                return;
+            }
+            
+            const currentYear = new Date().getFullYear();
+            const favorableDays = [];
+            const recommendations = [];
+            
+            // Algoritmo para encontrar días propicios
+            for (let month = 0; month < 12; month++) {
+                const daysInMonth = new Date(currentYear, month + 1, 0).getDate();
+                
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const date = new Date(currentYear, month, day);
+                    const dayNumber = reduceToSingleDigit(day);
+                    const monthNumber = reduceToSingleDigit(month + 1);
+                    const yearNumber = reduceToSingleDigit(currentYear);
+                    
+                    const dayEnergy = reduceToSingleDigit(dayNumber + monthNumber + yearNumber);
+                    const personalDayEnergy = reduceToSingleDigit(dayEnergy + userData.lifePathNumber);
+                    
+                    // Días especialmente favorables
+                    if (dayEnergy === userData.lifePathNumber || 
+                        personalDayEnergy === userData.lifePathNumber ||
+                        dayEnergy === 1 || personalDayEnergy === 1 || // Nuevos comienzos
+                        dayEnergy === 8 || personalDayEnergy === 8 || // Abundancia
+                        dayEnergy === 11 || personalDayEnergy === 11) { // Inspiración
+                        
+                        const dateStr = date.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
+                        favorableDays.push(dateStr);
+                        
+                        let recommendation;
+                        if (dayEnergy === userData.lifePathNumber) {
+                            recommendation = "Día especialmente alineado con tu energía vital. Ideal para tomar decisiones importantes.";
+                        } else if (personalDayEnergy === userData.lifePathNumber) {
+                            recommendation = "Día de sincronía personal. Buen momento para avanzar en proyectos significativos.";
+                        } else if (dayEnergy === 1 || personalDayEnergy === 1) {
+                            recommendation = "Día de nuevos comienzos. Perfecto para iniciar proyectos o cambios importantes.";
+                        } else if (dayEnergy === 8 || personalDayEnergy === 8) {
+                            recommendation = "Día de abundancia. Favorable para asuntos financieros y logro de metas materiales.";
+                        } else {
+                            recommendation = "Día de inspiración. Ideal para trabajo creativo y conexión espiritual.";
+                        }
+                        
+                        recommendations.push({
+                            date: dateStr,
+                            recommendation: recommendation
+                        });
+                    }
+                }
+            }
+            
+            // Mostrar resultados
+            if (favorableDays.length > 0) {
+                document.getElementById('favorableDays').innerHTML = 
+                    `<ul>${favorableDays.map(d => `<li>${d}</li>`).join('')}</ul>`;
+                
+                document.getElementById('calendarRecommendations').innerHTML = 
+                    `<ul>${recommendations.map(r => 
+                        `<li><strong>${r.date}:</strong> ${r.recommendation}</li>`
+                    ).join('')}</ul>`;
+            } else {
+                document.getElementById('favorableDays').textContent = 
+                    "Este año no tiene días especialmente propicios según tu numerología, pero cada día tiene su energía positiva.";
+                document.getElementById('calendarRecommendations').textContent = 
+                    "Enfócate en vivir cada día con conciencia y encontrarás oportunidades en todo momento.";
+            }
+            
+            document.getElementById('esotericCalendar').style.display = 'block';
+        }
+
+        // Funciones de aprendizaje
+        function populateNumberCorrespondences() {
+            const container = document.getElementById('numberCorrespondences');
+            container.innerHTML = '';
+            
+            // Mostrar correspondencias para números del 0 al 22
+            for (let i = 0; i <= 22; i++) {
+                const card = tarotCards.find(c => c.number === i) || tarotCards[0];
+                
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                item.innerHTML = `
+                    <h4>Número ${i}</h4>
+                    <p><strong>${card.name}</strong></p>
+                    <p>${i === 0 ? "Potencial puro" : card.meaning.substring(0, 50)}...</p>
+                `;
+                
+                container.appendChild(item);
+            }
+        }
+
+        function startNumerologyGame() {
+            const gameContainer = document.getElementById('numerologyGame');
+            gameContainer.style.display = 'block';
+            
+            // Seleccionar pregunta aleatoria
+            currentGameQuestion = gameQuestions[Math.floor(Math.random() * gameQuestions.length)];
+            
+            document.getElementById('gameQuestion').textContent = currentGameQuestion.question;
+            
+            // Mezclar opciones
+            const shuffledOptions = [...currentGameQuestion.options];
+            for (let i = shuffledOptions.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffledOptions[i], shuffledOptions[j]] = [shuffledOptions[j], shuffledOptions[i]];
+            }
+            
+            // Actualizar botones
+            const buttons = document.querySelectorAll('#numerologyGame .actions button');
+            buttons.forEach((button, index) => {
+                button.textContent = shuffledOptions[index];
+            });
+            
+            document.getElementById('gameFeedback').textContent = '';
+        }
+
+        function checkGameAnswer(selectedOption) {
+            const buttons = document.querySelectorAll('#numerologyGame .actions button');
+            const selectedText = buttons[selectedOption - 1].textContent;
+            
+            // Encontrar el índice de la opción correcta en las opciones mezcladas
+            const correctIndex = currentGameQuestion.options.indexOf(
+                currentGameQuestion.options[currentGameQuestion.correct - 1]
+            ) + 1;
+            
+            if (selectedOption === correctIndex) {
+                document.getElementById('gameFeedback').textContent = "¡Correcto! " + getRandomCongratulation();
+                document.getElementById('gameFeedback').style.backgroundColor = "rgba(46, 204, 113, 0.1)";
+                document.getElementById('gameFeedback').style.borderLeft = "4px solid #2ecc71";
+            } else {
+                document.getElementById('gameFeedback').textContent = 
+                    `Incorrecto. La respuesta correcta es: ${currentGameQuestion.options[currentGameQuestion.correct - 1]}`;
+                document.getElementById('gameFeedback').style.backgroundColor = "rgba(231, 76, 60, 0.1)";
+                document.getElementById('gameFeedback').style.borderLeft = "4px solid #e74c3c";
+            }
+            
+            // Deshabilitar botones después de responder
+            buttons.forEach(button => {
+                button.disabled = true;
+            });
+            
+            // Agregar botón para siguiente pregunta
+            const actionsDiv = document.querySelector('#numerologyGame .actions');
+            if (!document.getElementById('nextQuestionBtn')) {
+                const nextBtn = document.createElement('button');
+                nextBtn.id = 'nextQuestionBtn';
+                nextBtn.textContent = 'Siguiente Pregunta';
+                nextBtn.onclick = startNumerologyGame;
+                actionsDiv.appendChild(nextBtn);
+            }
+        }
+
+        function getRandomCongratulation() {
+            const congrats = [
+                "Tu intuición numérica es impresionante.",
+                "Conoces bien las conexiones entre números y arcanos.",
+                "Excelente respuesta. Tu comprensión de la numerología es notable.",
+                "¡Correcto! Tu sabiduría esotérica brilla.",
+                "Acertaste. Las energías numéricas te son favorables."
+            ];
+            return congrats[Math.floor(Math.random() * congrats.length)];
+        }
+
+        function generateEsotericSignature() {
+            if (!userData.lifePathNumber && !userData.soulNumber && !userData.personalityNumber) {
+                alert('Por favor calcula tus números personales primero');
+                return;
+            }
+            
+            const canvas = document.getElementById('signatureCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Limpiar canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Configuración de estilo
+            ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--primary-color');
+            ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--secondary-color');
+            ctx.lineWidth = 2;
+            
+            // Fondo
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Texto central
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 24px MedievalSharp';
+            ctx.textAlign = 'center';
+            ctx.fillText('Firma Esotérica', canvas.width / 2, 40);
+            
+            // Números
+            ctx.font = 'bold 36px Cinzel Decorative';
+            ctx.fillText(`${userData.lifePathNumber} • ${userData.soulNumber} • ${userData.personalityNumber}`, canvas.width / 2, 90);
+            
+            // Símbolos
+            if (userData.karmicNumbers.length > 0) {
+                ctx.font = '20px MedievalSharp';
+                ctx.fillText(`Karma: ${userData.karmicNumbers.join(', ')}`, canvas.width / 2, 120);
+            }
+            
+            // Fecha
+            ctx.font = '16px Merriweather';
+            ctx.fillText(new Date().toLocaleDateString('es-ES'), canvas.width / 2, 180);
+            
+            // Mostrar canvas
+            document.getElementById('esotericSignature').style.display = 'block';
+        }
+
+        function downloadSignature() {
+            const canvas = document.getElementById('signatureCanvas');
+            const link = document.createElement('a');
+            link.download = 'firma-esoterica.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // Funciones auxiliares
+        function reduceToSingleDigit(number) {
+            if (number === 11 || number === 22) return number; // Números maestros
+            
+            while (number > 9) {
+                number = Math.floor(number / 10) + (number % 10);
+            }
+            return number;
+        }
+
+        function reduceToMasterNumber(number) {
+            if (number === 11 || number === 22) return number;
+            
+            let reduced = number;
+            while (reduced > 9 && reduced !== 11 && reduced !== 22) {
+                reduced = reduceToSingleDigit(reduced);
+            }
+            return reduced;
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            // Guardar preferencia en localStorage
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        }
+    </script>
+</body>
+</html>
