@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tarot del Día - Tu Carta Diaria</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=MedievalSharp&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Tarot del Día</h1>
+        <p>Descubre lo que las cartas tienen para decirte hoy</p>
+    </header>
+
+    <nav>
+    <button onclick="showSection('readings')" class="active">Lecturas</button>
+    <button onclick="showSection('gallery')">Galería</button>
+    <button onclick="showSection('about')">Quién Soy</button>
+    <button onclick="showSection('contact')">Contacto</button>
+    <button onclick="showSection('donate')">Donar</button>
+    <button onclick="window.location.href='astrologia.html'">Astrología</button>
+</nav>
+
+    <div class="container">
+        <!-- Sección unificada de Lecturas -->
+        <section id="readings" class="section active">
+            <div class="readings-section glow-on-hover">
+                <div class="reading-tabs">
+                    <div class="reading-tab active" onclick="showReading('daily')">Carta del Día</div>
+                    <div class="reading-tab" onclick="showReading('three-cards')">3 Cartas</div>
+                    <div class="reading-tab" onclick="showReading('yes-no')">Sí o No</div>
+                    <div class="reading-tab" onclick="showReading('advice')">Consejo</div>
+                    <div class="reading-tab" onclick="showReading('love')">Amor</div>
+                </div>
+
+                <!-- Contenido de las lecturas -->
+                <div class="reading-content active" id="daily-reading">
+                    <div class="reading-card">
+                        <h2 class="reading-title hover-underline">Carta del Día</h2>
+                        <p class="reading-description">Descubre el mensaje que las cartas tienen para ti hoy. Esta carta refleja la energía que te rodea en este momento y puede ofrecerte guía para tu día.</p>
+
+                        <div class="deck-selector">
+                            <div class="deck-option selected" onclick="selectDeck('RiderWaite')">
+                                <img src="cards/RiderWaite/0.jpg" alt="Rider Waite">
+                                <p>Rider Waite</p>
+                            </div>
+                            <div class="deck-option" onclick="selectDeck('MysticMondays')">
+                                <img src="cards/MysticMondays/0.jpg" alt="Mystic Mondays">
+                                <p>Mystic Mondays</p>
+                            </div>
+                            <div class="deck-option" onclick="selectDeck('TarotDeLaFuerza')">
+                                <img src="cards/TarotDeLaFuerza/0.jpg" alt="Tarot de la Fuerza">
+                                <p>Tarot de la Fuerza</p>
+                            </div>
+                        </div>
+
+                        <div class="actions">
+                            <button onclick="drawDailyCard()">
+                                <span>Sacar tu Carta del Día</span>
+                            </button>
+                        </div>
+
+                        <div class="card-display" id="dailyCardDisplay" style="display: none;">
+                            <div class="card-image-container">
+                                <img id="dailyCardImage" class="card-image card-drop" src="" alt="Carta de Tarot">
+                            </div>
+                            <div class="card-info">
+                                <div class="card-name" id="dailyCardName"></div>
+                                <div class="card-orientation" id="dailyCardOrientation"></div>
+                                <div class="card-meaning" id="dailyCardMeaning"></div>
+                                <div class="card-history" id="dailyCardHistory"></div>
+                                <div class="card-symbolism" id="dailyCardSymbolism"></div>
+                                <div class="energy-message" id="dailyEnergyMessage"></div>
+                            </div>
+                            <div class="actions">
+                                <button onclick="invertDailyCard()">Invertir Carta</button>
+                                <button onclick="drawDailyCard()">Nueva Carta</button>
+                            </div>
+                            <div class="share-buttons">
+                                <a href="#" class="share-button whatsapp" onclick="shareDailyOnWhatsApp()">
+                                    <span>WhatsApp</span>
+                                </a>
+                                <a href="#" class="share-button facebook" onclick="shareDailyOnFacebook()">
+                                    <span>Facebook</span>
+                                </a>
+                                <a href="#" class="share-button instagram" onclick="shareDailyOnInstagram()">
+                                    <span>Instagram</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reading-content" id="three-cards-reading">
+                    <div class="reading-card">
+                        <h2 class="reading-title hover-underline">Tirada de 3 Cartas</h2>
+                        <p class="reading-description">Esta tirada clásica te ofrece una perspectiva completa de tu situación actual, mostrando influencias del pasado, presente y futuro, o bien analizando situación, obstáculos y consejos.</p>
+                        
+                        <div class="deck-selector">
+                            <div class="deck-option selected" onclick="selectDeck('RiderWaite')">
+                                <img src="cards/RiderWaite/0.jpg" alt="Rider Waite">
+                                <p>Rider Waite</p>
+                            </div>
+                            <div class="deck-option" onclick="selectDeck('MysticMondays')">
+                                <img src="cards/MysticMondays/0.jpg" alt="Mystic Mondays">
+                                <p>Mystic Mondays</p>
+                            </div>
+                            <div class="deck-option" onclick="selectDeck('TarotDeLaFuerza')">
+                                <img src="cards/TarotDeLaFuerza/0.jpg" alt="Tarot de la Fuerza">
+                                <p>Tarot de la Fuerza</p>
+                            </div>
+                        </div>
+
+                        <div class="spread-options">
+                            <button class="active" onclick="setThreeCardsSpread('past-present-future')">Pasado - Presente - Futuro</button>
+                            <button onclick="setThreeCardsSpread('situation-obstacle-advice')">Situación - Obstáculo - Consejo</button>
+                        </div>
+
+                        <div class="actions">
+                            <button onclick="drawThreeCards()">Realizar Tirada</button>
+                        </div>
+
+                        <div class="reading-result" id="threeCardsResult" style="display: none;">
+                            <h3>Interpretación de tu Tirada</h3>
+                            <p class="reading-summary" id="threeCardsSummary"></p>
+                            
+                            <div class="multi-card-spread" id="threeCardsDisplay">
+                                <!-- Cartas se insertarán aquí -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reading-content" id="yes-no-reading">
+                    <div class="reading-card">
+                        <h2 class="reading-title hover-underline">Tirada de Sí o No</h2>
+                        <p class="reading-description">Haz una pregunta cerrada y las cartas te darán una orientación sobre la respuesta. Recuerda que el tarot muestra tendencias, no destinos inamovibles.</p>
+                        
+                        <div class="deck-selector">
+                            <div class="deck-option selected" onclick="selectDeck('RiderWaite')">
+                                <img src="cards/RiderWaite/0.jpg" alt="Rider Waite">
+                                <p>Rider Waite</p>
+                            </div>
+                            <div class="deck-option" onclick="selectDeck('MysticMondays')">
+                                <img src="cards/MysticMondays/0.jpg" alt="Mystic Mondays">
+                                <p>Mystic Mondays</p>
+                            </div>
+                            <div class="deck-option" onclick="selectDeck('TarotDeLaFuerza')">
+                                <img src="cards/TarotDeLaFuerza/0.jpg" alt="Tarot de la Fuerza">
+                                <p>Tarot de la Fuerza</p>
+                            </div>
+                        </div>
+
+                        <div class="spread-options">
+                            <button class="active" onclick="setYesNoCardsCount(1)">1 Carta</button>
+                            <button onclick="setYesNoCardsCount(3)">3 Cartas</button>
+                        </div>
+
+                        <div class="question-input">
+                            <label for="yesNoQuestion">Escribe tu pregunta:</label>
+                            <textarea id="yesNoQuestion" placeholder="¿Debería...? ¿Es el momento adecuado para...?" rows="3"></textarea>
+                        </div>
+
+                        <div class="actions">
+                            <button onclick="drawYesNoCards()">Obtener Respuesta</button>
+                        </div>
+
+                        <div class="reading-result" id="yesNoResult" style="display: none;">
+                            <h3 id="yesNoAnswer"></h3>
+                            <p class="reading-summary" id="yesNoExplanation"></p>
+                            
+                            <div class="multi-card-spread" id="yesNoCardsDisplay">
+                                <!-- Cartas se insertarán aquí -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reading-content" id="advice-reading">
+                    <div class="reading-card">
+                        <h2 class="reading-title hover-underline">Tirada de Consejo</h2>
+                        <p class="reading-description">Recibe orientación sobre una situación específica en tu vida. Las cartas pueden mostrarte perspectivas que no habías considerado.</p>
+                        
+                        <div class="deck-selector">
+                            <div class="deck-option selected" onclick="selectDeck('RiderWaite')">
+                                <img src="cards/RiderWaite/0.jpg" alt="Rider Waite">
+                                <p>Rider Waite</p>
+                            </div>
+                            <div class="deck-option" onclick="selectDeck('MysticMondays')">
+                                <img src="cards/MysticMondays/0.jpg" alt="Mystic Mondays">
+                                <p>Mystic Mondays</p>
+                            </div>
+                            <div class="deck-option" onclick="selectDeck('TarotDeLaFuerza')">
+                                <img src="cards/TarotDeLaFuerza/0.jpg" alt="Tarot de la Fuerza">
+                                <p>Tarot de la Fuerza</p>
+                            </div>
+                        </div>
+
+                        <div class="question-input">
+                            <label for="adviceQuestion">Describe tu situación:</label>
+                            <textarea id="adviceQuestion" placeholder="Estoy enfrentando... Me preocupa que... Necesito ayuda con..." rows="4"></textarea>
+                        </div>
+
+                        <div class="spread-options">
+                            <button class="active" onclick="setAdviceCardsCount(1)">1 Carta</button>
+                            <button onclick="setAdviceCardsCount(3)">3 Cartas</button>
+                        </div>
+
+                        <div class="actions">
+                            <button onclick="drawAdviceCards()">Obtener Consejo</button>
+                        </div>
+
+                        <div class="reading-result" id="adviceResult" style="display: none;">
+                            <h3>Consejo para tu situación</h3>
+                            <p class="reading-summary" id="adviceSummary"></p>
+                            
+                            <div class="multi-card-spread" id="adviceCardsDisplay">
+                                <!-- Cartas se insertarán aquí -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reading-content" id="love-reading">
+                    <div class="reading-card">
+                        <h2 class="reading-title hover-underline">Tirada de Amor</h2>
+                        <p class="reading-description">Explora la dinámica de una relación romántica o el potencial amoroso. Esta tirada puede revelar aspectos ocultos y sugerir caminos de crecimiento.</p>
+                        
+                        <div class="deck-selector">
+                            <div class="deck-option selected" onclick="selectDeck('RiderWaite')">
+                                <img src="cards/RiderWaite/0.jpg" alt="Rider Waite">
+                                <p>Rider Waite</p>
+                            </div>
+                            <div class="deck-option" onclick="selectDeck('MysticMondays')">
+                                <img src="cards/MysticMondays/0.jpg" alt="Mystic Mondays">
+                                <p>Mystic Mondays</p>
+                            </div>
+                            <div class="deck-option" onclick="selectDeck('TarotDeLaFuerza')">
+                                <img src="cards/TarotDeLaFuerza/0.jpg" alt="Tarot de la Fuerza">
+                                <p>Tarot de la Fuerza</p>
+                            </div>
+                        </div>
+
+                        <div class="question-input">
+                            <label for="loveQuestion">Describe tu situación amorosa:</label>
+                            <textarea id="loveQuestion" placeholder="Estoy en una relación con... Me siento atraído/a por... Quiero saber si..." rows="4"></textarea>
+                        </div>
+
+                        <div class="actions">
+                            <button onclick="drawLoveCards()">Realizar Tirada</button>
+                        </div>
+
+                        <div class="reading-result" id="loveResult" style="display: none;">
+                            <h3>Lectura de Amor</h3>
+                            <p class="reading-summary" id="loveSummary"></p>
+                            
+                            <div class="multi-card-spread" id="loveCardsDisplay">
+                                <!-- Cartas se insertarán aquí -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Galería de Cartas -->
+        <section id="gallery" class="section">
+            <div class="reading-card glow-on-hover">
+                <h2 class="reading-title hover-underline">Galería de Cartas</h2>
+                <p class="reading-description">Explora todos los arcanos mayores de nuestros mazos de tarot. Haz clic en cualquier carta para conocer su significado completo.</p>
+
+                <div class="deck-selector">
+                    <div class="deck-option selected" onclick="showDeckGallery('RiderWaite')">
+                        <img src="cards/RiderWaite/0.jpg" alt="Rider Waite">
+                        <p>Rider Waite</p>
+                    </div>
+                    <div class="deck-option" onclick="showDeckGallery('MysticMondays')">
+                        <img src="cards/MysticMondays/0.jpg" alt="Mystic Mondays">
+                        <p>Mystic Mondays</p>
+                    </div>
+                    <div class="deck-option" onclick="showDeckGallery('TarotDeLaFuerza')">
+                        <img src="cards/TarotDeLaFuerza/0.jpg" alt="Tarot de la Fuerza">
+                        <p>Tarot de la Fuerza</p>
+                    </div>
+                </div>
+
+                <div class="gallery" id="cardGallery"></div>
+            </div>
+        </section>
+
+        <!-- Quién Soy -->
+        <section id="about" class="section">
+            <div class="info-section glow-on-hover">
+                <h2 class="hover-underline">Quién Soy</h2>
+                <p>Hola, soy [Tu Nombre], tarotista y guía espiritual con más de [X] años de experiencia en la interpretación de las cartas del tarot.</p>
+                <p>Mi misión es ayudar a las personas a encontrar claridad y dirección en sus vidas a través de la sabiduría ancestral del tarot. Creo que cada carta tiene un mensaje único para cada persona en el momento preciso en que la recibe.</p>
+                <p>Este proyecto nació del deseo de hacer el tarot más accesible para todos, ofreciendo una guía diaria que pueda iluminar tu camino. Mi enfoque combina la tradición del tarot con una perspectiva moderna y práctica.</p>
+                <p>Cuando no estoy interpretando cartas, me dedico a estudiar la simbología esotérica y a enseñar a otros cómo conectar con su intuición a través del tarot.</p>
+            </div>
+        </section>
+
+        <!-- Contáctenos -->
+        <section id="contact" class="section">
+            <div class="info-section glow-on-hover">
+                <h2 class="hover-underline">Contáctenos</h2>
+                <p>¿Tienes preguntas, comentarios o deseas una lectura personalizada? No dudes en contactarnos a través de los siguientes medios:</p>
+                
+                <div class="contact-methods" style="margin-top: 1.5rem;">
+                    <p style="margin-bottom: 1rem;"><strong style="color: var(--primary-color);">WhatsApp:</strong> <a href="https://wa.me/1234567890" style="color: var(--secondary-color); text-decoration: none;">+1 (234) 567-890</a></p>
+                    <p style="margin-bottom: 1rem;"><strong style="color: var(--primary-color);">Instagram:</strong> <a href="https://instagram.com/tu_usuario" style="color: var(--secondary-color); text-decoration: none;">@tu_usuario</a></p>
+                    <p style="margin-bottom: 1rem;"><strong style="color: var(--primary-color);">Correo electrónico:</strong> <a href="mailto:contacto@tutarot.com" style="color: var(--secondary-color); text-decoration: none;">contacto@tutarot.com</a></p>
+                </div>
+                
+                <p style="margin-top: 1.5rem;">También puedes seguirnos en nuestras redes sociales para recibir actualizaciones, contenido exclusivo sobre el tarot y el crecimiento espiritual, y promociones especiales para lecturas privadas.</p>
+                
+                <div class="share-buttons" style="margin-top: 2rem; justify-content: center;">
+                    <a href="#" class="share-button whatsapp">
+                        <span>Síguenos en WhatsApp</span>
+                    </a>
+                    <a href="#" class="share-button instagram">
+                        <span>Síguenos en Instagram</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contribuye al Proyecto -->
+        <section id="donate" class="section">
+            <div class="info-section glow-on-hover">
+                <h2 class="hover-underline">Contribuye al Proyecto</h2>
+                <p>Si este proyecto te ha sido útil y deseas apoyarnos para seguir mejorando y manteniendo este servicio gratuito, puedes hacer una contribución voluntaria.</p>
+                <p>Tus donaciones nos ayudan a:</p>
+                <ul>
+                    <li>Mantener el sitio web y los servidores</li>
+                    <li>Crear nuevo contenido y funcionalidades</li>
+                    <li>Adquirir nuevos mazos de tarot para ampliar nuestras lecturas</li>
+                    <li>Ofrecer lecturas gratuitas a quienes no pueden pagarlas</li>
+                    <li>Desarrollar aplicaciones móviles para mayor accesibilidad</li>
+                </ul>
+
+                <div class="donation-options">
+                    <div class="donation-option">
+                        <img src="https://logo.clearbit.com/mercadopago.com" alt="Mercado Pago">
+                        <div>
+                            <h3>Mercado Pago</h3>
+                            <p>Alias: TAROT.LUZ</p>
+                            <p>CVU: 0000003100000000000000</p>
+                        </div>
+                    </div>
+                    <div class="donation-option">
+                        <img src="https://logo.clearbit.com/paypal.com" alt="PayPal">
+                        <div>
+                            <h3>PayPal</h3>
+                            <p><a href="https://paypal.me/tutarot">paypal.me/tutarot</a></p>
+                        </div>
+                    </div>
+                    <div class="donation-option">
+                        <img src="https://logo.clearbit.com/patreon.com" alt="Patreon">
+                        <div>
+                            <h3>Patreon</h3>
+                            <p><a href="https://patreon.com/tutarot">patreon.com/tutarot</a></p>
+                            <p>Acceso a contenido exclusivo para patrocinadores</p>
+                        </div>
+                    </div>
+                </div>
+
+                <p style="margin-top: 1.5rem; text-align: center; font-style: italic;">¡Gracias por tu apoyo! Cada contribución, por pequeña que sea, hace una gran diferencia y nos ayuda a seguir compartiendo la sabiduría del tarot con el mundo.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal para vista ampliada de cartas -->
+    <div id="cardModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <button class="theme-toggle" onclick="toggleDarkMode()">🌓</button>
+
+    <footer>
+        <p>&copy; 2023 Tarot del Día - Todos los derechos reservados</p>
+        <p>Este sitio es solo para fines de entretenimiento. Las interpretaciones no sustituyen el consejo profesional.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

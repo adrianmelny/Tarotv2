@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Astrología - Signos, Planetas y Cartas Natales</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=MedievalSharp&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="astrologia.css">
+</head>
+<body>
+    <a href="index.html" class="nav-btn">Volver al Inicio</a>
+    
+    <header>
+        <h1>Astrología</h1>
+        <p>Descubre los secretos del cosmos y su influencia en tu vida</p>
+    </header>
+
+    <nav>
+        <button onclick="showSection('signos')" class="active">Signos Zodiacales</button>
+        <button onclick="showSection('planetas')">Planetas</button>
+        <button onclick="showSection('casas')">Casas Astrológicas</button>
+        <button onclick="showSection('aspectos')">Aspectos</button>
+        <button onclick="showSection('carta-natal')">Carta Natal</button>
+    </nav>
+
+    <div class="container">
+        <!-- Sección de Signos Zodiacales -->
+        <section id="signos" class="section active">
+            <div class="info-section glow-on-hover">
+                <h2 class="hover-underline">Los 12 Signos del Zodíaco</h2>
+                <p>El zodiaco se divide en 12 signos, cada uno con características únicas. Estos se agrupan en elementos (Fuego, Tierra, Aire, Agua) y modalidades (Cardinales, Fijos, Mutables).</p>
+                
+                <div class="zodiac-grid">
+                    <!-- Aries -->
+                    <div class="zodiac-sign">
+                        <img src="https://www.astrology-zodiac-signs.com/images/aries.jpg" alt="Aries">
+                        <h3>Aries ♈</h3>
+                        <p><strong>Elemento:</strong> Fuego<br>
+                        <strong>Modalidad:</strong> Cardinal<br>
+                        <strong>Planeta Regente:</strong> Marte<br>
+                        <strong>Fechas:</strong> Mar 21 - Abr 19</p>
+                        <button onclick="showSignModal('Aries')">Ver Detalles</button>
+                    </div>
+                    
+                    <!-- Tauro -->
+                    <div class="zodiac-sign">
+                        <img src="https://www.astrology-zodiac-signs.com/images/taurus.jpg" alt="Tauro">
+                        <h3>Tauro ♉</h3>
+                        <p><strong>Elemento:</strong> Tierra<br>
+                        <strong>Modalidad:</strong> Fijo<br>
+                        <strong>Planeta Regente:</strong> Venus<br>
+                        <strong>Fechas:</strong> Abr 20 - May 20</p>
+                        <button onclick="showSignModal('Tauro')">Ver Detalles</button>
+                    </div>
+                    
+                    <!-- Géminis -->
+                    <div class="zodiac-sign">
+                        <img src="https://www.astrology-zodiac-signs.com/images/gemini.jpg" alt="Géminis">
+                        <h3>Géminis ♊</h3>
+                        <p><strong>Elemento:</strong> Aire<br>
+                        <strong>Modalidad:</strong> Mutable<br>
+                        <strong>Planeta Regente:</strong> Mercurio<br>
+                        <strong>Fechas:</strong> May 21 - Jun 20</p>
+                        <button onclick="showSignModal('Géminis')">Ver Detalles</button>
+                    </div>
+                    
+                    <!-- Cáncer -->
+                    <div class="zodiac-sign">
+                        <img src="https://www.astrology-zodiac-signs.com/images/cancer.jpg" alt="Cáncer">
+                        <h3>Cáncer ♋</h3>
+                        <p><strong>Elemento:</strong> Agua<br>
+                        <strong>Modalidad:</strong> Cardinal<br>
+                        <strong>Planeta Regente:</strong> Luna<br>
+                        <strong>Fechas:</strong> Jun 21 - Jul 22</p>
+                        <button onclick="showSignModal('Cáncer')">Ver Detalles</button>
+                    </div>
+                    
+                    <!-- Leo -->
+                    <div class="zodiac-sign">
+                        <img src="https://www.astrology-zodiac-signs.com/images/leo.jpg" alt="Leo">
+                        <h3>Leo ♌</h3>
+                        <p><strong>Elemento:</strong> Fuego<br>
+                        <strong>Modalidad:</strong> Fijo<br>
+                        <strong>Planeta Regente:</strong> Sol<br>
+                        <strong>Fechas:</strong> Jul 23 - Ago 22</p>
+                        <button onclick="showSignModal('Leo')">Ver Detalles</button>
+                    </div>
+                    
+                    <!-- Virgo -->
+                    <div class="zodiac-sign">
+                        <img src="https://www.astrology-zodiac-signs.com/images/virgo.jpg" alt="Virgo">
+                        <h3>Virgo ♍</h3>
+                        <p><strong>Elemento:</strong> Tierra<br>
+                        <strong>Modalidad:</strong> Mutable<br>
+                        <strong>Planeta Regente:</strong> Mercurio<br>
+                        <strong>Fechas:</strong> Ago 23 - Sep 22</p>
+                        <button onclick="showSignModal('Virgo')">Ver Detalles</button>
+                    </div>
+                    
+                    <!-- Libra -->
+                    <div class="zodiac-sign">
+                        <img src="https://www.astrology-zodiac-signs.com/images/libra.jpg" alt="Libra">
+                        <h3>Libra ♎</h3>
+                        <p><strong>Elemento:</strong> Aire<br>
+                        <strong>Modalidad:</strong> Cardinal<br>
+                        <strong>Planeta Regente:</strong> Venus<br>
+                        <strong>Fechas:</strong> Sep 23 - Oct 22</p>
+                        <button onclick="showSignModal('Libra')">Ver Detalles</button>
+                    </div>
+                    
+                    <!-- Escorpio -->
+                    <div class="zodiac-sign">
+                        <img src="https://www.astrology-zodiac-signs.com/images/scorpio.jpg" alt="Escorpio">
+                        <h3>Escorpio ♏</h3>
+                        <p><strong>Elemento:</strong> Agua<br>
+                        <strong>Modalidad:</strong> Fijo<br>
+                        <strong>Planeta Regente:</strong> Plutón (y Marte)<br>
+                        <strong>Fechas:</strong> Oct 23 - Nov 21</p>
+                        <button onclick="showSignModal('Escorpio')">Ver Detalles</button>
+                    </div>
+                    
+                    <!-- Sagitario -->
+                    <div class="zodiac-sign">
+                        <img src="https://www.astrology-zodiac-signs.com/images/sagittarius.jpg" alt="Sagitario">
+                        <h3>Sagitario ♐</h3>
+                        <p><strong>Elemento:</strong> Fuego<br>
+                        <strong>Modalidad:</strong> Mutable<br>
+                        <strong>Planeta Regente:</strong> Júpiter<br>
+                        <strong>Fechas:</strong> Nov 22 - Dic 21</p>
+                        <button onclick="showSignModal('Sagitario')">Ver Detalles</button>
+                    </div>
+                    
+                    <!-- Capricornio -->
+                    <div class="zodiac-sign">
+                        <img src="https://www.astrology-zodiac-signs.com/images/capricorn.jpg" alt="Capricornio">
+                        <h3>Capricornio ♑</h3>
+                        <p><strong>Elemento:</strong> Tierra<br>
+                        <strong>Modalidad:</strong> Cardinal<br>
+                        <strong>Planeta Regente:</strong> Saturno<br>
+                        <strong>Fechas:</strong> Dic 22 - Ene 19</p>
+                        <button onclick="showSignModal('Capricornio')">Ver Detalles</button>
+                    </div>
+                    
+                    <!-- Acuario -->
+                    <div class="zodiac-sign">
+                        <img src="https://www.astrology-zodiac-signs.com/images/aquarius.jpg" alt="Acuario">
+                        <h3>Acuario ♒</h3>
+                        <p><strong>Elemento:</strong> Aire<br>
+                        <strong>Modalidad:</strong> Fijo<br>
+                        <strong>Planeta Regente:</strong> Urano (y Saturno)<br>
+                        <strong>Fechas:</strong> Ene 20 - Feb 18</p>
+                        <button onclick="showSignModal('Acuario')">Ver Detalles</button>
+                    </div>
+                    
+                    <!-- Piscis -->
+                    <div class="zodiac-sign">
+                        <img src="https://www.astrology-zodiac-signs.com/images/pisces.jpg" alt="Piscis">
+                        <h3>Piscis ♓</h3>
+                        <p><strong>Elemento:</strong> Agua<br>
+                        <strong>Modalidad:</strong> Mutable<br>
+                        <strong>Planeta Regente:</strong> Neptuno (y Júpiter)<br>
+                        <strong>Fechas:</strong> Feb 19 - Mar 20</p>
+                        <button onclick="showSignModal('Piscis')">Ver Detalles</button>
+                    </div>
+                </div>
+                
+                <div class="elements-section">
+                    <h3>Los Cuatro Elementos</h3>
+                    <div class="element-grid">
+                        <div class="element-card">
+                            <h4>Fuego ♈♌♐</h4>
+                            <p>Energía, acción, pasión, creatividad. Los signos de fuego son espontáneos y entusiastas.</p>
+                        </div>
+                        <div class="element-card">
+                            <h4>Tierra ♉♍♑</h4>
+                            <p>Estabilidad, practicidad, materialismo. Los signos de tierra son confiables y sensatos.</p>
+                        </div>
+                        <div class="element-card">
+                            <h4>Aire ♊♎♒</h4>
+                            <p>Comunicación, intelecto, socialización. Los signos de aire son pensadores y comunicadores.</p>
+                        </div>
+                        <div class="element-card">
+                            <h4>Agua ♋♏♓</h4>
+                            <p>Emoción, intuición, sensibilidad. Los signos de agua son profundamente emocionales.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modalities-section">
+                    <h3>Las Tres Modalidades</h3>
+                    <div class="modality-grid">
+                        <div class="modality-card">
+                            <h4>Cardinales ♈♋♎♑</h4>
+                            <p>Iniciativa, liderazgo, comienzo de estaciones. Son iniciadores de acción.</p>
+                        </div>
+                        <div class="modality-card">
+                            <h4>Fijos ♉♌♏♒</h4>
+                            <p>Estabilidad, resistencia, medio de estaciones. Son mantenedores y concentrados.</p>
+                        </div>
+                        <div class="modality-card">
+                            <h4>Mutables ♊♍♐♓</h4>
+                            <p>Adaptabilidad, cambio, final de estaciones. Son flexibles y versátiles.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Planetas -->
+        <section id="planetas" class="section">
+            <div class="info-section glow-on-hover">
+                <h2 class="hover-underline">Planetas y sus Significados</h2>
+                <p>Los planetas en astrología representan diferentes energías y áreas de la vida. Cada uno rige uno o más signos del zodiaco.</p>
+                
+                <div class="planet-tabs">
+                    <button class="active" onclick="showPlanetCategory('personales')">Personales</button>
+                    <button onclick="showPlanetCategory('sociales')">Sociales</button>
+                    <button onclick="showPlanetCategory('transpersonales')">Transpersonales</button>
+                </div>
+                
+                <div class="planet-content active" id="personales-planets">
+                    <h3>Planetas Personales</h3>
+                    <p>Representan aspectos fundamentales de la personalidad y la experiencia individual.</p>
+                    
+                    <div class="planet-grid">
+                        <!-- Sol -->
+                        <div class="planet-card">
+                            <img src="https://www.astrology-zodiac-signs.com/images/sun.png" alt="Sol">
+                            <h4>Sol ☉</h4>
+                            <p><strong>Rige:</strong> Leo<br>
+                            <strong>Significado:</strong> Esencia, ego, identidad, propósito vital.<br>
+                            <strong>Tránsito:</strong> 1 mes por signo</p>
+                            <button onclick="showPlanetModal('Sol')">Detalles</button>
+                        </div>
+                        
+                        <!-- Luna -->
+                        <div class="planet-card">
+                            <img src="https://www.astrology-zodiac-signs.com/images/moon.png" alt="Luna">
+                            <h4>Luna ☽</h4>
+                            <p><strong>Rige:</strong> Cáncer<br>
+                            <strong>Significado:</strong> Emociones, inconsciente, necesidades, hábitos.<br>
+                            <strong>Tránsito:</strong> 2-3 días por signo</p>
+                            <button onclick="showPlanetModal('Luna')">Detalles</button>
+                        </div>
+                        
+                        <!-- Mercurio -->
+                        <div class="planet-card">
+                            <img src="https://www.astrology-zodiac-signs.com/images/mercury.png" alt="Mercurio">
+                            <h4>Mercurio ☿</h4>
+                            <p><strong>Rige:</strong> Géminis y Virgo<br>
+                            <strong>Significado:</strong> Comunicación, intelecto, pensamiento.<br>
+                            <strong>Tránsito:</strong> 2-3 semanas por signo</p>
+                            <button onclick="showPlanetModal('Mercurio')">Detalles</button>
+                        </div>
+                        
+                        <!-- Venus -->
+                        <div class="planet-card">
+                            <img src="https://www.astrology-zodiac-signs.com/images/venus.png" alt="Venus">
+                            <h4>Venus ♀</h4>
+                            <p><strong>Rige:</strong> Tauro y Libra<br>
+                            <strong>Significado:</strong> Amor, belleza, valores, armonía.<br>
+                            <strong>Tránsito:</strong> 3-4 semanas por signo</p>
+                            <button onclick="showPlanetModal('Venus')">Detalles</button>
+                        </div>
+                        
+                        <!-- Marte -->
+                        <div class="planet-card">
+                            <img src="https://www.astrology-zodiac-signs.com/images/mars.png" alt="Marte">
+                            <h4>Marte ♂</h4>
+                            <p><strong>Rige:</strong> Aries (y Escorpio)<br>
+                            <strong>Significado:</strong> Acción, deseo, energía, agresión.<br>
+                            <strong>Tránsito:</strong> 6-7 semanas por signo</p>
+                            <button onclick="showPlanetModal('Marte')">Detalles</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="planet-content" id="sociales-planets">
+                    <h3>Planetas Sociales</h3>
+                    <p>Representan nuestra relación con la sociedad y las estructuras colectivas.</p>
+                    
+                    <div class="planet-grid">
+                        <!-- Júpiter -->
+                        <div class="planet-card">
+                            <img src="https://www.astrology-zodiac-signs.com/images/jupiter.png" alt="Júpiter">
+                            <h4>Júpiter ♃</h4>
+                            <p><strong>Rige:</strong> Sagitario (y Piscis)<br>
+                            <strong>Significado:</strong> Expansión, suerte, filosofía, crecimiento.<br>
+                            <strong>Tránsito:</strong> 1 año por signo</p>
+                            <button onclick="showPlanetModal('Júpiter')">Detalles</button>
+                        </div>
+                        
+                        <!-- Saturno -->
+                        <div class="planet-card">
+                            <img src="https://www.astrology-zodiac-signs.com/images/saturn.png" alt="Saturno">
+                            <h4>Saturno ♄</h4>
+                            <p><strong>Rige:</strong> Capricornio (y Acuario)<br>
+                            <strong>Significado:</strong> Estructura, disciplina, límites, karma.<br>
+                            <strong>Tránsito:</strong> 2.5 años por signo</p>
+                            <button onclick="showPlanetModal('Saturno')">Detalles</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="planet-content" id="transpersonales-planets">
+                    <h3>Planetas Transpersonales</h3>
+                    <p>Representan fuerzas generacionales y transformaciones colectivas.</p>
+                    
+                    <div class="planet-grid">
+                        <!-- Urano -->
+                        <div class="planet-card">
+                            <img src="https://www.astrology-zodiac-signs.com/images/uranus.png" alt="Urano">
+                            <h4>Urano ♅</h4>
+                            <p><strong>Rige:</strong> Acuario<br>
+                            <strong>Significado:</strong> Innovación, rebelión, libertad, cambio.<br>
+                            <strong>Tránsito:</strong> 7 años por signo</p>
+                            <button onclick="showPlanetModal('Urano')">Detalles</button>
+                        </div>
+                        
+                        <!-- Neptuno -->
+                        <div class="planet-card">
+                            <img src="https://www.astrology-zodiac-signs.com/images/neptune.png" alt="Neptuno">
+                            <h4>Neptuno ♆</h4>
+                            <p><strong>Rige:</strong> Piscis<br>
+                            <strong>Significado:</strong> Ilusión, espiritualidad, creatividad.<br>
+                            <strong>Tránsito:</strong> 14 años por signo</p>
+                            <button onclick="showPlanetModal('Neptuno')">Detalles</button>
+                        </div>
+                        
+                        <!-- Plutón -->
+                        <div class="planet-card">
+                            <img src="https://www.astrology-zodiac-signs.com/images/pluto.png" alt="Plutón">
+                            <h4>Plutón ♇</h4>
+                            <p><strong>Rige:</strong> Escorpio<br>
+                            <strong>Significado:</strong> Transformación, poder, renacimiento.<br>
+                            <strong>Tránsito:</strong> 12-30 años por signo</p>
+                            <button onclick="showPlanetModal('Plutón')">Detalles</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="special-objects">
+                    <h3>Objetos Especiales</h3>
+                    <div class="special-grid">
+                        <!-- Quirón -->
+                        <div class="special-card">
+                            <img src="https://www.astrology-zodiac-signs.com/images/chiron.png" alt="Quirón">
+                            <h4>Quirón ⚷</h4>
+                            <p><strong>Significado:</strong> Heridas y sanación, el sanador herido.<br>
+                            <strong>Tránsito:</strong> 4-9 años por signo</p>
+                        </div>
+                        
+                        <!-- Nodo Norte -->
+                        <div class="special-card">
+                            <img src="https://www.astrology-zodiac-signs.com/images/north-node.png" alt="Nodo Norte">
+                            <h4>Nodo Norte ☊</h4>
+                            <p><strong>Significado:</strong> Propósito de vida, crecimiento.<br>
+                            <strong>Tránsito:</strong> 1.5 años por signo</p>
+                        </div>
+                        
+                        <!-- Lilith -->
+                        <div class="special-card">
+                            <img src="https://www.astrology-zodiac-signs.com/images/lilith.png" alt="Lilith">
+                            <h4>Lilith ⚸</h4>
+                            <p><strong>Significado:</strong> Instinto, sombra, sexualidad.<br>
+                            <strong>Tránsito:</strong> 9 años por signo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Casas Astrológicas -->
+        <section id="casas" class="section">
+            <div class="info-section glow-on-hover">
+                <h2 class="hover-underline">Las 12 Casas Astrológicas</h2>
+                <p>Las casas representan áreas específicas de la vida donde se manifiestan las energías de los planetas y signos.</p>
+                
+                <div class="houses-chart">
+                    <img src="https://www.astrology-zodiac-signs.com/images/houses-chart.png" alt="Carta Astral" class="chart-image">
+                    
+                    <div class="houses-list">
+                        <div class="house-item">
+                            <h4>1ª Casa - Ascendente</h4>
+                            <p><strong>Área:</strong> Personalidad, apariencia, primera impresión.<br>
+                            <strong>Signo Natural:</strong> Aries<br>
+                            <strong>Planeta:</strong> Marte</p>
+                        </div>
+                        
+                        <div class="house-item">
+                            <h4>2ª Casa</h4>
+                            <p><strong>Área:</strong> Valores, posesiones, autoestima.<br>
+                            <strong>Signo Natural:</strong> Tauro<br>
+                            <strong>Planeta:</strong> Venus</p>
+                        </div>
+                        
+                        <div class="house-item">
+                            <h4>3ª Casa</h4>
+                            <p><strong>Área:</strong> Comunicación, hermanos, entorno cercano.<br>
+                            <strong>Signo Natural:</strong> Géminis<br>
+                            <strong>Planeta:</strong> Mercurio</p>
+                        </div>
+                        
+                        <div class="house-item">
+                            <h4>4ª Casa - Fondo del Cielo</h4>
+                            <p><strong>Área:</strong> Hogar, familia, raíces.<br>
+                            <strong>Signo Natural:</strong> Cáncer<br>
+                            <strong>Planeta:</strong> Luna</p>
+                        </div>
+                        
+                        <div class="house-item">
+                            <h4>5ª Casa</h4>
+                            <p><strong>Área:</strong> Creatividad, romance, hijos, placer.<br>
+                            <strong>Signo Natural:</strong> Leo<br>
+                            <strong>Planeta:</strong> Sol</p>
+                        </div>
+                        
+                        <div class="house-item">
+                            <h4>6ª Casa</h4>
+                            <p><strong>Área:</strong> Trabajo, salud, rutinas.<br>
+                            <strong>Signo Natural:</strong> Virgo<br>
+                            <strong>Planeta:</strong> Mercurio</p>
+                        </div>
+                        
+                        <div class="house-item">
+                            <h4>7ª Casa - Descendente</h4>
+                            <p><strong>Área:</strong> Relaciones, socios, matrimonio.<br>
+                            <strong>Signo Natural:</strong> Libra<br>
+                            <strong>Planeta:</strong> Venus</p>
+                        </div>
+                        
+                        <div class="house-item">
+                            <h4>8ª Casa</h4>
+                            <p><strong>Área:</strong> Transformación, sexo, muerte, recursos ajenos.<br>
+                            <strong>Signo Natural:</strong> Escorpio<br>
+                            <strong>Planeta:</strong> Plutón</p>
+                        </div>
+                        
+                        <div class="house-item">
+                            <h4>9ª Casa</h4>
+                            <p><strong>Área:</strong> Filosofía, viajes, educación superior.<br>
+                            <strong>Signo Natural:</strong> Sagitario<br>
+                            <strong>Planeta:</strong> Júpiter</p>
+                        </div>
+                        
+                        <div class="house-item">
+                            <h4>10ª Casa - Medio Cielo</h4>
+                            <p><strong>Área:</strong> Carrera, reputación, logros públicos.<br>
+                            <strong>Signo Natural:</strong> Capricornio<br>
+                            <strong>Planeta:</strong> Saturno</p>
+                        </div>
+                        
+                        <div class="house-item">
+                            <h4>11ª Casa</h4>
+                            <p><strong>Área:</strong> Amistades, grupos, aspiraciones.<br>
+                            <strong>Signo Natural:</strong> Acuario<br>
+                            <strong>Planeta:</strong> Urano</p>
+                        </div>
+                        
+                        <div class="house-item">
+                            <h4>12ª Casa</h4>
+                            <p><strong>Área:</strong> Subconsciente, aislamiento, karma.<br>
+                            <strong>Signo Natural:</strong> Piscis<br>
+                            <strong>Planeta:</strong> Neptuno</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="angles-section">
+                    <h3>Ángulos Importantes</h3>
+                    <div class="angle-grid">
+                        <div class="angle-card">
+                            <h4>Ascendente (ASC)</h4>
+                            <p>Punto de la carta que estaba en el horizonte oriental al nacer. Representa cómo nos presentamos al mundo.</p>
+                        </div>
+                        <div class="angle-card">
+                            <h4>Descendente (DES)</h4>
+                            <p>Opuesto al Ascendente. Representa lo que buscamos en los demás y en las relaciones.</p>
+                        </div>
+                        <div class="angle-card">
+                            <h4>Medio Cielo (MC)</h4>
+                            <p>Punto más alto de la carta. Representa vocación, logros públicos y reputación.</p>
+                        </div>
+                        <div class="angle-card">
+                            <h4>Fondo del Cielo (IC)</h4>
+                            <p>Opuesto al Medio Cielo. Representa nuestras raíces, hogar y vida privada.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Aspectos -->
+        <section id="aspectos" class="section">
+            <div class="info-section glow-on-hover">
+                <h2 class="hover-underline">Aspectos Planetarios</h2>
+                <p>Los aspectos son ángulos específicos entre planetas que indican cómo interactúan sus energías.</p>
+                
+                <div class="aspect-types">
+                    <h3>Tipos de Aspectos</h3>
+                    <div class="aspect-grid">
+                        <div class="aspect-card">
+                            <h4>Conjunción (0°)</h4>
+                            <p><strong>Orbe:</strong> ±8°<br>
+                            <strong>Naturaleza:</strong> Neutro<br>
+                            <strong>Efecto:</strong> Fusión de energías, intensificación.</p>
+                        </div>
+                        <div class="aspect-card">
+                            <h4>Sextil (60°)</h4>
+                            <p><strong>Orbe:</strong> ±4°<br>
+                            <strong>Naturaleza:</strong> Armónico<br>
+                            <strong>Efecto:</strong> Oportunidades, talentos naturales.</p>
+                        </div>
+                        <div class="aspect-card">
+                            <h4>Cuadratura (90°)</h4>
+                            <p><strong>Orbe:</strong> ±6°<br>
+                            <strong>Naturaleza:</strong> Tensión<br>
+                            <strong>Efecto:</strong> Desafíos que requieren acción.</p>
+                        </div>
+                        <div class="aspect-card">
+                            <h4>Trígono (120°)</h4>
+                            <p><strong>Orbe:</strong> ±6°<br>
+                            <strong>Naturaleza:</strong> Armónico<br>
+                            <strong>Efecto:</strong> Facilidad, flujo natural.</p>
+                        </div>
+                        <div class="aspect-card">
+                            <h4>Oposición (180°)</h4>
+                            <p><strong>Orbe:</strong> ±8°<br>
+                            <strong>Naturaleza:</strong> Tensión<br>
+                            <strong>Efecto:</strong> Polaridades que buscan equilibrio.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="aspect-examples">
+                    <h3>Ejemplos de Aspectos</h3>
+                    <div class="example-grid">
+                        <div class="example-card">
+                            <h4>Sol trígono Luna</h4>
+                            <p>Armonía entre la identidad y las emociones. Facilidad para expresar sentimientos.</p>
+                        </div>
+                        <div class="example-card">
+                            <h4>Marte cuadratura Saturno</h4>
+                            <p>Dificultad para actuar debido a miedos o restricciones. Requiere disciplina.</p>
+                        </div>
+                        <div class="example-card">
+                            <h4>Venus sextil Júpiter</h4>
+                            <p>Atracción por la belleza y el placer. Optimismo en relaciones.</p>
+                        </div>
+                        <div class="example-card">
+                            <h4>Mercurio oposición Plutón</h4>
+                            <p>Pensamiento intenso, tendencia a debates profundos o manipulaciones.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="aspect-interpretation">
+                    <h3>Interpretación de Aspectos</h3>
+                    <ul>
+                        <li><strong>Armónicos (trígono, sextil):</strong> Talentos naturales, áreas de facilidad.</li>
+                        <li><strong>Tensos (cuadratura, oposición):</strong> Desafíos que llevan al crecimiento.</li>
+                        <li><strong>Conjunciones:</strong> Depende de los planetas involucrados.</li>
+                        <li>Considerar siempre los signos y casas involucradas.</li>
+                        <li>Los aspectos a los ángulos (ASC, MC) son especialmente importantes.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Carta Natal -->
+        <section id="carta-natal" class="section">
+            <div class="info-section glow-on-hover">
+                <h2 class="hover-underline">Carta Natal o Carta Astral</h2>
+                <p>La carta natal es un mapa del cielo en el momento exacto de tu nacimiento. Es la base para el análisis astrológico personal.</p>
+                
+                <div class="natal-chart-section">
+                    <div class="natal-chart-info">
+                        <h3>¿Qué necesitas para calcular tu carta natal?</h3>
+                        <ul>
+                            <li><strong>Fecha de nacimiento:</strong> Día, mes y año.</li>
+                            <li><strong>Hora de nacimiento:</strong> Lo más exacta posible (idealmente con minutos).</li>
+                            <li><strong>Lugar de nacimiento:</strong> Ciudad y país.</li>
+                        </ul>
+                        
+                        <h3>Componentes principales de una carta natal:</h3>
+                        <ol>
+                            <li><strong>Posición de los planetas:</strong> En qué signo y casa está cada planeta.</li>
+                            <li><strong>Signo ascendente:</strong> Determina tu Ascendente y la disposición de las casas.</li>
+                            <li><strong>Aspectos:</strong> Ángulos importantes entre planetas.</li>
+                            <li><strong>Casas:</strong> Las 12 áreas de vida con sus signos y planetas.</li>
+                            <li><strong>Luna:</strong> Signo lunar y aspectos, crucial para las emociones.</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="natal-chart-example">
+                        <img src="https://www.astrology-zodiac-signs.com/images/natal-chart-example.png" alt="Ejemplo de Carta Natal">
+                        <button onclick="calculateNatalChart()">Calcular Mi Carta Natal</button>
+                    </div>
+                </div>
+                
+                <div class="interpretation-guide">
+                    <h3>Guía Básica de Interpretación</h3>
+                    <div class="guide-steps">
+                        <div class="step">
+                            <h4>1. Identifica tu Sol, Luna y Ascendente</h4>
+                            <p>Estos tres son los pilares de tu personalidad. El Sol es tu esencia, la Luna tus emociones y el Ascendente tu máscara social.</p>
+                        </div>
+                        <div class="step">
+                            <h4>2. Observa los planetas en las casas</h4>
+                            <p>Cada planeta en una casa muestra cómo expresas esa energía en esa área de vida.</p>
+                        </div>
+                        <div class="step">
+                            <h4>3. Analiza los aspectos importantes</h4>
+                            <p>Busca conjunciones, cuadraturas, trígonos y oposiciones entre planetas personales.</p>
+                        </div>
+                        <div class="step">
+                            <h4>4. Considera los tránsitos actuales</h4>
+                            <p>Los planetas actuales en relación a tu carta natal muestran temas del momento.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="other-topics">
+                    <h3>Otros Temas Relevantes</h3>
+                    <div class="topics-grid">
+                        <div class="topic-card">
+                            <h4>Tránsitos y Progresiones</h4>
+                            <p>Métodos predictivos que muestran tu evolución personal y momentos clave.</p>
+                        </div>
+                        <div class="topic-card">
+                            <h4>Lunas Nuevas y Llenas</h4>
+                            <p>Ciclos emocionales y espirituales asociados a las fases lunares.</p>
+                        </div>
+                        <div class="topic-card">
+                            <h4>Eclipses</h4>
+                            <p>Eventos cósmicos que marcan cambios y finales/inicios importantes.</p>
+                        </div>
+                        <div class="topic-card">
+                            <h4>Sinastría</h4>
+                            <p>Análisis de compatibilidad entre dos cartas natales (parejas, socios).</p>
+                        </div>
+                        <div class="topic-card">
+                            <h4>Astrología Kármica</h4>
+                            <p>Estudio de patrones que sugieren lecciones de vidas pasadas.</p>
+                        </div>
+                        <div class="topic-card">
+                            <h4>Revolución Solar</h4>
+                            <p>Carta anual que predice temas para tu año personal.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal para signos zodiacales -->
+    <div id="signModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <div id="signModalContent"></div>
+        </div>
+    </div>
+
+    <!-- Modal para planetas -->
+    <div id="planetModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <div id="planetModalContent"></div>
+        </div>
+    </div>
+
+    <button class="theme-toggle" onclick="toggleDarkMode()">🌓</button>
+
+    <footer>
+        <p>&copy; 2023 Astrología - Todos los derechos reservados</p>
+        <p>Este sitio es para fines educativos y de entretenimiento.</p>
+    </footer>
+
+    <script>
+        // Funciones básicas para la interactividad
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+            
+            document.querySelectorAll('nav button').forEach(button => {
+                button.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function showPlanetCategory(category) {
+            document.querySelectorAll('.planet-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`${category}-planets`).classList.add('active');
+            
+            document.querySelectorAll('.planet-tabs button').forEach(button => {
+                button.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function showSignModal(signName) {
+            const modalContent = document.getElementById('signModalContent');
+            modalContent.innerHTML = `
+                <div class="modal-card">
+                    <div class="modal-card-image">
+                        <img src="https://www.astrology-zodiac-signs.com/images/${signName.toLowerCase()}.jpg" alt="${signName}">
+                    </div>
+                    <div class="modal-card-info">
+                        <h3>${signName}</h3>
+                        <div class="modal-card-section">
+                            <h4>Características Principales</h4>
+                            <p>Descripción detallada del signo, sus características, personalidad, fortalezas y debilidades.</p>
+                        </div>
+                        <div class="modal-card-section">
+                            <h4>Compatibilidad</h4>
+                            <p>Mejores matches y desafíos en relaciones con otros signos.</p>
+                        </div>
+                        <div class="modal-card-section">
+                            <h4>Planeta Regente</h4>
+                            <p>Información sobre cómo el planeta regente influye en este signo.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('signModal').style.display = 'block';
+        }
+
+        function showPlanetModal(planetName) {
+            const modalContent = document.getElementById('planetModalContent');
+            modalContent.innerHTML = `
+                <div class="modal-card">
+                    <div class="modal-card-image">
+                        <img src="https://www.astrology-zodiac-signs.com/images/${planetName.toLowerCase()}.png" alt="${planetName}">
+                    </div>
+                    <div class="modal-card-info">
+                        <h3>${planetName}</h3>
+                        <div class="modal-card-section">
+                            <h4>Significado Astrológico</h4>
+                            <p>Descripción detallada de lo que representa este planeta en astrología.</p>
+                        </div>
+                        <div class="modal-card-section">
+                            <h4>En la Carta Natal</h4>
+                            <p>Cómo interpretar la posición de este planeta en tu carta natal.</p>
+                        </div>
+                        <div class="modal-card-section">
+                            <h4>Tránsitos</h4>
+                            <p>Qué significa cuando este planeta transita por diferentes signos y casas.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('planetModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('signModal').style.display = 'none';
+            document.getElementById('planetModal').style.display = 'none';
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        function calculateNatalChart() {
+            alert('Para calcular tu carta natal exacta, necesitamos tu fecha, hora y lugar de nacimiento exactos. Esta funcionalidad estaría conectada a un servicio de cálculo de cartas natales.');
+        }
+
+        // Cerrar modal al hacer clic fuera del contenido
+        document.getElementById('signModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        document.getElementById('planetModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
